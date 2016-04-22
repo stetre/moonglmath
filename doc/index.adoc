@@ -1,0 +1,28 @@
+= MoonGLMATH Reference Manual
+Stefano Trettel
+v0.1, 2016-01-29
+:toc: left
+:toclevels: 4
+:stylesdir: ./
+:stylesheet: colony.css
+:source-highlighter: pygments
+:pygments-style: autumn
+:source-language: lua
+:exampledir: ../examples
+
+image::powered-by-lua.png[Lua logo, link=http://www.lua.org]
+
+include::preface.adoc[]
+
+include::introduction.adoc[]
+
+include::vectors.adoc[]
+
+include::matrices.adoc[]
+
+include::quaternions.adoc[]
+
+include::transforms.adoc[]
+
+include::viewing.adoc[]
+

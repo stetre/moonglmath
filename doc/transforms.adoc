@@ -1,0 +1,67 @@
+
+== Basic Transforms
+
+* *glmath.translate* (_v_) +
+*glmath.translate* (_x_ , _y_ , _z_) +
+-> _m_ +
+[small]#Returns the 4x4 translation matrix, given the vector _v_ or its components _x_, _y_, and _z_.#
+
+* *glmath.scale* (_v_) +
+*glmath.scale* (_x_ , _y_ , _z_) +
+-> _m_ +
+[small]#Returns the 4x4 scaling matrix, given the scaling factors _x_, _y_, and _z_, which may 
+also be passed as a vector.#
+
+
+* *glmath.rotate* (_angle_, _v_) +
+*glmath.rotate* (_angle_, _x_ , _y_ , _z_) +
+-> _m_ +
+[small]#Return the 4x4 rotation matrix given the _angle_ (in radians) and the direction vector
+_v_ = (_x_, _y_, _z_).#
+
+* *glmath.rotate_x* (_angle_) +
+*glmath.rotate_y* (_angle_) +
+*glmath.rotate_z* (_angle_) +
+-> _m_ +
+[small]#Return the 4x4 rotation matrix for a rotation by _angle_ radians around the x, y or z axis, respectively.#
+
+////
+.Elementary transforms
+[source,lua]
+----
+
+glmath.translate(x,y,z) = {{ 1, 0, 0, x },
+                           { 0, 1, 0, y },
+                           { 0, 0, 1, z },
+                           { 0, 0, 0, 1 }}
+
+glmath.scale(x,y,z) =     {{ x, 0, 0, 0 },
+                           { 0, y, 0, 0 },
+                           { 0, 0, z, 0 },
+                           { 0, 0, 0, 1 }}
+
+-- c = cos(phi), s = sin(phi)
+glmath.rotate_x(phi, x, y, z) = {{ c+(1-c)x^2,  (1-c)xy-sz, (1-c)xz+sy,  0 },
+                                 { (1-c)xy+sz,  c+(1-c)y^2, (1-c)yz-sx,  0 },
+                                 { (1-c)xz-sy,  (1-c)yz+sx, c+(1-c)z^2,  0 },
+                                 {      0    ,       0    ,      0    ,  1 }}
+
+glmath.rotate_x(phi) =    {{ 1, 0,  0, 0 },
+                           { 0, c, -s, 0 },
+                           { 0, s,  c, 0 },
+                           { 0, 0,  0, 1 }}
+
+glmath.rotate_y(phi) =    {{  c, 0, s, 0 },
+                           {  0, 1, 0, 0 },
+                           { -s, 0, c, 0 },
+                           {  0, 0, 0, 1 }}
+
+glmath.rotate_z(phi) =    {{ c, -s, 0, 0 },
+                           { s,  c, 0, 0 },
+                           { 0,  0, 1, 0 },
+                           { 0,  0, 0, 1 }}
+
+----
+////
+
+

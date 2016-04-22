@@ -1,0 +1,13 @@
+
+== Introduction
+
+MoonGLMATH is a basic Lua graphics math library, intended to be used with 
+https://github.com/stetre/moongl[*MoonGL*] (but it does not depend on it, and viceversa).
+
+By now it has only the minimal features needed for graphics programming: vectors and matrices
+up to 4 and 4x4 dimensions, quaternions, and a few functions to generate transformation matrices.
+
+Like MoonGL and the other <<see-also, companion libraries>>, it is not designed for
+performance but for ease of use (the main purpose of these libraries is to lighten the burden
+of programming while studying computer graphics).
+

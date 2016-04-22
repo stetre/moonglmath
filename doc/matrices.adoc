@@ -1,0 +1,119 @@
+
+== Matrices
+
+MoonGLMATH supports numeric matrices of size NxM, with N and M ranging from 2 to 4 inclusive.
+
+A matrix *m* is implemented as a table having its rows in the array part, 
+starting from index 1; each row is also a table having the elements in the array part.
+Additionally, the matrix also has the non-array fields *m.rows* and 
+*m.columns*, whose values are the number of rows and of columns, respectively.
+
+Matrix elements are Lua link:++http://www.lua.org/manual/5.3/manual.html#2.1++[number]s
+and can be accessed through standard indexing. That is, *m[i][j]* is the element in the
+i-th row and j-th column of the matrix *m*.
+
+Matrix elements can also be accessed using the *m._ij* syntactic sugar, with i and j
+ranging from 1 to 4 inclusive, which is an alias for *m[i][j]* (e.g. *m._23* is the
+same as *m[2][3]*).
+
+The following constructors can be used to create matrices.
+
+[[glmath.matN]]
+* *glmath.mat2* (_..._) +
+*glmath.mat3* (_..._) +
+*glmath.mat4* (_..._) +
+*glmath.mat2x3* (_..._) +
+*glmath.mat3x2* (_..._) +
+*glmath.mat2x4* (_..._) +
+*glmath.mat4x2* (_..._) +
+*glmath.mat3x4* (_..._) +
+*glmath.mat4x3* (_..._) +
+-> _m_ +
+[small]#Create a matrix. The *matN* function creates a square matrix vector size NxN, while 
+the *matNxM* creates a rectangular matrix of size NxM. 
+Values to initialize the matrix elements may be optionally passed as a list of numbers 
+(to fill the matrix in row-major order), as a list of row vectors (to fill the matrix rows), 
+as a list of column vectors (to fill the matrix columns), or as a matrix (to copy the elements
+from). In all cases, exceeding values are discarded, while missing values are replaced with zeros.
+As an exception, the *matN* function, when invoked without arguments, returns the NxN 
+identity matrix.#
+
+.examples
+[source,lua]
+----
+
+m = glmath.mat3()              --> m = {{ 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 }}
+m = glmath.mat2x3()            --> m = {{ 0, 0, 0 }, { 0, 0, 0 }}
+m = glmath.mat2x3(1, 2, 3, 4)  --> m = {{ 1, 2, 3 }, { 4, 0, 0 }}
+m = glmath.mat3x2(1, 2, 3, 4)  --> m = {{ 1, 2 }, { 3, 4 }, { 0, 0 }}
+m = glmath.mat3(m)             --> m = {{ 1, 2, 0 }, { 3, 4, 0 }, { 0, 0, 0 }}
+v1 = glmath.vec2(1, 2)
+v2 = glmath.vec2(3, 4)
+m = glmath.mat2(v1, v2)        --> m = {{ 1, 3 }, { 2, 4 }}
+m = glmath.mat3(v1, v2)        --> m = {{ 1, 3, 0 }, { 2, 4, 0 }, { 0, 0, 0 }}
+v1 = glmath.vec2r(1, 2)
+v2 = glmath.vec2r(3, 4)
+m = glmath.mat2(v1, v2)        --> m = {{ 1, 2 }, { 3, 4 }}
+m = glmath.mat3(v1, v2)        --> m = {{ 1, 2, 0 }, { 3, 4, 0 }, { 0, 0, 0 }}
+
+----
+
+'''
+[[glmath.ismatN]]
+* *glmath.ismat2* (_v_) +
+*glmath.ismat3* (_v_) +
+*glmath.ismat4* (_v_) +
+*glmath.ismat2x3* (_v_) +
+*glmath.ismat3x2* (_v_) +
+*glmath.ismat2x4* (_v_) +
+*glmath.ismat4x2* (_v_) +
+*glmath.ismat3x4* (_v_) +
+*glmath.ismat4x3* (_v_) +
+-> _boolean_ +
+[small]#Check if _m_ is a matrix of a given size (e.g. *ismat2* checks if _m_ is a 2x2 matrix).#
+
+Matrices have the following *methods*, also available as functions:
+
+* *m:adj* ( ) +
+*glmath.adj* (_m_) +
+-> _adj(m)_ +
+[small]#Returns the adjoint of the square matrix _m_.#
+
+* *m:det* ( ) +
+*glmath.det* (_m_) +
+-> _val_ +
+[small]#Returns the determinant of the square matrix _m_.#
+
+* *m:inv* ( ) +
+*glmath.inv* (_m_) +
+-> _m^-1^_ +
+[small]#Returns the inverse of the square matrix _m_, or _nil_ if _m_ is singular.#
+
+* *m:trace* ( ) +
+*glmath.trace* (_m_) +
+-> _val_ +
+[small]#Returns the trace of the square matrix _m_.#
+
+* *m:transpose* ( ) +
+*glmath.transpose* (_m_) +
+-> _m^T^_ +
+[small]#Returns the transpose of _m_.#
+
+* *m:quat* ( ) +
+[small]#Same as <<glmath.quat, glmath.quat>>(_m_).#
+
+'''
+The following *matrix operators* are supported:
+
+* *Unary minus*: _m = -m1_.
+* *Addition*: _m = m1 + m2_.
+* *Subtraction*: _m = m1 - m2_.
+* *Multiplication by a scalar*: _m = s * m1_, and _m = m1 * s_, where _s_ is a number.
+* *Division by a scalar*: _m = m1 / s_, where _s_ is a number.
+* *Integer power*: _m = m1 ^ n_, where _m1_ is a square matrix and _n_ is an integer.
+* *Matrix multiplication*: _m = m1 * m2_, where _m1_ is a NxK matrix and _m2_ a KxM matrix.
+The result _m_ is an NxM matrix.
+* *Matrix-vector multiplication*: _u_ = _m_ * _v_ where _m_ is an NxM matrix and _v_ is a size M column vector. The result _u_ is a size N column vector.
+* *Vector-matrix multiplication*: _u_ = _v_ * _m_ where _v_ is a size N row vector and _m_ is an NxM matrix. The result _u_ is a size M row vector.
+
+

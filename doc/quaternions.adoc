@@ -1,0 +1,95 @@
+
+== Quaternions
+
+A quaternion *q* = (_w_, *v*) = _w_ + i·_x_ + j·_y_ + k·_z_ is implemented as a table having 
+the quaternion elements in the array part, starting from index 1. 
+
+Quaternion elements are Lua link:++http://www.lua.org/manual/5.3/manual.html#2.1++[number]s
+and can be accessed through standard indexing (that is, *q[1]* is the scalar part _w_, 
+and *q[2]* to *q[4]* are the _x_, _y_ and _z_ components of the vector part, or imaginary part, *v*).
+
+Quaternion elements can also be accessed using the *wxyz* syntactic sugar:
+*q.w*, *q.x*, *q.y*, and *q.z* are aliases for *q[1]*, *q[2]*, *q[3]*, and *q[4]*, respectively.
+
+The following constructor can be used to create quaternions.
+
+[[glmath.quat]]
+* *glmath.quat* ([_w_ [,_x_ [, _y_ [, _z_]]]]) +
+*glmath.quat* (_w_, _v_) +
+*glmath.quat* (_q_) +
+*glmath.quat* (_m_) +
+-> _q_ +
+[small]#Create a quaternion. 
+Values to initialize the quaternion elements may be optionally passed as 
+a list of numbers, as a scalar _w_ and a vector _v_, or as a previously created quaternion _q_
+(exceeding values are discarded, while missing values are replaced with zeros).
+If a matrix _m_ is passed instead, the constructor assumes - without checking it - that _m_ is a
+rotation matrix and returns the equivalent quaternion 
+(_m_ may be either a 3x3 or a 4x4 matrix, in which case its upper-left 3x3 submatrix
+is regarded as the rotation matrix).#
+
+.examples
+[source,lua]
+----
+
+q = glmath.quat()            --> q = < 0, 0, 0 >
+q = glmath.quat(0, 1, 2, 3)  --> q = < 0, 1, 2, 3 >
+
+w = 0
+v = glmath.vec3(1, 2, 3)
+q = glmath.quat(w, v)        --> q = < 0, 1, 2, 3 >
+
+m = glmath.mat3(1, 0, 0, 0, 0, -1, 0, 1, 0)
+q = glmath.quat(m)           --> q = < 0.707107,  0.707107, 0, 0 >
+
+----
+
+[[glmath.isquat]]
+* *glmath.isquat* (_q_) +
+-> _boolean_ +
+[small]#Returns _true_ if _q_ is a quaternion, _false_ otherwise.#
+
+'''
+Quaternions have the following *methods*, most of them also available as functions in the *glmath* table:
+
+* *q:parts()* +
+-> _w_, _v_ +
+[small]#Returns the scalar and vector parts of _q_. 
+The vector part _v_ is returned as a size 3 column vector.#
+
+* *q:conj()* +
+*glmath.conj* (_q_) +
+-> _q^pass:[*]^_ +
+[small]#Returns the conjugate of _q_.#
+
+* *q:norm()* +
+*glmath.norm* (_q_) +
+-> _norm_ +
+[small]#Returns the norm of _q_.#
+
+* *q:normalize()* +
+*glmath.normalize* (_q_) +
+-> _q1_ +
+[small]#Returns the normalized version of _q_ (i.e. the unit quaternion _q/|q|_).#
+
+* *q:inv* ( ) +
+*glmath.inv* (_q_) +
+-> _q^-1^_ +
+[small]#Returns the inverse of _q_.#
+
+* *q:mat3* ( ) +
+*q:mat4* ( ) +
+-> _m_ +
+[small]#Convert the quaternion _q_ to a 3x3 or a 4x4 rotation matrix.#
+
+'''
+The following *quaternion operators* are supported:
+
+* *Unary minus*: _q = -q1_.
+* *Addition*: _q = q1 + q2_.
+* *Subtraction*: _q = q1 - q2_.
+* *Multiplication by a scalar*: _q = s * q1_, and _q = q1 * s_, where _s_ is a number.
+* *Division by a scalar*: _q = q1 / s_, where _s_ is a number.
+* *Integer power*: _q = q1 ^ n_, where _n_ is an integer.
+* *Quaternion multiplication*: _q = q1 * q2_.
+

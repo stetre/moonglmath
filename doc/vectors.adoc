@@ -1,0 +1,85 @@
+
+== Vectors
+
+MoonGLMATH supports row and column numeric vectors of size 2, 3, and 4. 
+
+A vector *v* is implemented as a table having the vector elements in the array part, 
+starting from index 1. 
+Additionally, it also has the non-array fields *v.size* (= _2_, _3_, or _4_) and
+*v.type* (= '_column_' or '_row_').
+
+Vector elements are Lua link:++http://www.lua.org/manual/5.3/manual.html#2.1++[number]s
+and can be accessed through standard indexing (that is, *v[1]* is the first element, *v[2]*
+is the second element and so on).
+
+Vector elements can also be accessed using the *xyzw*, *rgba* and *stpq* syntactic sugar
+for positions, colors and texture coordinates (*v.x*, *v.r* and *v.s* are aliases for *v[1]*, 
+*v.y*, *v.g* and *v.t* are aliases for *v[2]*, and so on).
+
+The following constructors can be used to create vectors.
+
+[[glmath.vecN]]
+* *glmath.vec2* (_..._) +
+*glmath.vec3* (_..._) +
+*glmath.vec4* (_..._) +
+*glmath.vec2r* (_..._) +
+*glmath.vec3r* (_..._) +
+*glmath.vec4r* (_..._) +
+-> _v_ +
+[small]#Create a vector. 
+The *vecN* function creates a column vector of size N (where N may be 2, 3 or 4), while the *vecNr* function creates a row vector of the same size. Values to initialize the vector elements may be optionally passed as a list of numbers, or as a previously created vector (exceeding values are discarded, while missing values are replaced with zeros).#
+
+.examples
+[source,lua]
+----
+
+v = glmath.vec3()            --> v = { 0, 0, 0 }'
+v = glmath.vec3(11, 22)      --> v = { 11, 22, 0 }'
+v = glmath.vec2(v)           --> v = { 11, 22 }'
+v = glmath.vec4(v)           --> v = { 11, 22, 0, 0 }'
+v = glmath.vec2(1, 2, 3, 4)  --> v = { 1, 2 }'
+
+----
+
+[[glmath.isvecN]]
+* *glmath.isvec2* (_v_) +
+*glmath.isvec3* (_v_) +
+*glmath.isvec4* (_v_) +
+*glmath.isvec2r* (_v_) +
+*glmath.isvec3r* (_v_) +
+*glmath.isvec4r* (_v_) +
+-> _boolean_ +
+[small]#Check if _v_ is a vector of a given type (e.g. *isvec2r* checks if _v_ is a row vector of size 2).#
+
+'''
+Vectors have the following *methods*, also available as functions in the *glmath* table:
+
+* *v:norm()* +
+*glmath.norm* (_v_) +
+-> _norm_ +
+[small]#Returns the L^2^-norm of _v_.#
+
+* *v:normalize()* +
+*glmath.normalize* (_v_) +
+-> _v1_ +
+[small]#Returns the normalized version of _v_.#
+
+* *v:transpose* ( ) +
+*glmath.transpose* (_v_) +
+-> _v^T^_ +
+[small]#Returns the transpose of _v_.#
+
+
+'''
+The following *vector operators* are supported:
+
+* *Unary minus*: _v = -v1_.
+* *Addition*: _v = v1 + v2_.
+* *Subtraction*: _v = v1 - v2_.
+* *Multiplication by a scalar*: _v = s * v1_, and _v = v1 * s_, where _s_ is a number.
+* *Division by a scalar*: _v = v1 / s_, where _s_ is a number.
+* *Dot product*: _s = v1 * v2_, where _v1_ and _v2_ are vectors of the same size (row*column, but row*row and column*column are accepted as well).
+* *Multiplication*: _m = v1 * v2_, where _v1_ is a column vector and _v2_ is a row vector of the same size. The result is a square matrix.
+* *Cross product*: _v = v1 % v2_, where _v1_ and _v3_ are size 3 vectors. Works also on operands of size 2 and 4, adapting them to size 3 (size 2 operands are extended to size 3 by adding a zero element, while size 4 operands are reduced to size 3 by ignoring the 4-th element). 
+The result is always a size 3 vector.
+
