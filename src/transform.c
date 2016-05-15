@@ -29,7 +29,7 @@
  | Elementary transforms                                                        |
  *------------------------------------------------------------------------------*/
 
-void translate(mat_t m, lua_Number x, lua_Number y, lua_Number z)
+void translate(mat_t m, double x, double y, double z)
 /* 1 0 0 x
  * 0 1 0 y
  * 0 0 1 z
@@ -45,7 +45,7 @@ void translate(mat_t m, lua_Number x, lua_Number y, lua_Number z)
     m[0][0] = m[1][1] = m[2][2] = m[3][3] = 1.0;
     }
 
-void scale(mat_t m, lua_Number x, lua_Number y, lua_Number z)
+void scale(mat_t m, double x, double y, double z)
 /* x 0 0 0
  * 0 y 0 0
  * 0 0 z 0
@@ -59,7 +59,7 @@ void scale(mat_t m, lua_Number x, lua_Number y, lua_Number z)
     m[3][3] = 1.0;
     }
 
-static void rotate(mat_t m, lua_Number x, lua_Number y, lua_Number z, lua_Number rad)
+static void rotate(mat_t m, double x, double y, double z, double rad)
 /* c+(1-c)x^2  (1-c)xy-sz (1-c)xz+sy  0
  * (1-c)xy+sz  c+(1-c)y^2 (1-c)yz-sx  0
  * (1-c)xz-sy  (1-c)yz+sx c+(1-c)z^2  0
@@ -68,7 +68,7 @@ static void rotate(mat_t m, lua_Number x, lua_Number y, lua_Number z, lua_Number
  * c=cos(rad) s=sin(rad)
  */
     {
-    lua_Number s, c, c1, a, b;
+    double s, c, c1, a, b;
     c = cos(rad);
     s = sin(rad);
     c1 = 1.0 - c;
@@ -89,15 +89,15 @@ static void rotate(mat_t m, lua_Number x, lua_Number y, lua_Number z, lua_Number
     }
 
 
-void rotate_x(mat_t m, lua_Number rad)
+void rotate_x(mat_t m, double rad)
 /*  1  0  0  0
  *  0  c -s  0
  *  0  s  c  0
  *  0  0  0  1
  */
     {
-    lua_Number c = cos(rad);
-    lua_Number s = sin(rad);
+    double c = cos(rad);
+    double s = sin(rad);
     mat_clear(m);
     m[0][0] = m[3][3] = 1;
     m[1][1] = m[2][2] = c;
@@ -105,15 +105,15 @@ void rotate_x(mat_t m, lua_Number rad)
     m[2][1] = s;
     }
 
-void rotate_y(mat_t m, lua_Number rad)
+void rotate_y(mat_t m, double rad)
 /*  c  0  s  0
  *  0  1  0  0
  * -s  0  c  0
  *  0  0  0  1
  */
     {
-    lua_Number c = cos(rad);
-    lua_Number s = sin(rad);
+    double c = cos(rad);
+    double s = sin(rad);
     mat_clear(m);
     m[1][1] = m[3][3] = 1;
     m[0][0] = m[2][2] = c;
@@ -121,15 +121,15 @@ void rotate_y(mat_t m, lua_Number rad)
     m[0][2] = s;
     }
 
-void rotate_z(mat_t m, lua_Number rad)
+void rotate_z(mat_t m, double rad)
 /*  c -s  0  0
  *  s  c  0  0
  *  0  0  1  0
  *  0  0  0  1
  */
     {
-    lua_Number c = cos(rad);
-    lua_Number s = sin(rad);
+    double c = cos(rad);
+    double s = sin(rad);
     mat_clear(m);
     m[0][0] = m[1][1] = c;
     m[2][2] = m[3][3] = 1;
@@ -171,7 +171,7 @@ static int Rotate(lua_State *L)
     {
     vec_t v;
     mat_t m;
-    lua_Number rad = luaL_checknumber(L, 1);
+    double rad = luaL_checknumber(L, 1);
     if(!testvec(L, 2, v, NULL, NULL)) 
         {
         v[0] = luaL_checknumber(L, 2);
@@ -186,7 +186,7 @@ static int Rotate(lua_State *L)
 static int RotateX(lua_State *L)
     {
     mat_t m;
-    lua_Number rad = luaL_checknumber(L, 1);
+    double rad = luaL_checknumber(L, 1);
     rotate_x(m, rad);
     return pushmat(L, m, 4, 4, 4, 4);
     }
@@ -194,7 +194,7 @@ static int RotateX(lua_State *L)
 static int RotateY(lua_State *L)
     {
     mat_t m;
-    lua_Number rad = luaL_checknumber(L, 1);
+    double rad = luaL_checknumber(L, 1);
     rotate_y(m, rad);
     return pushmat(L, m, 4, 4, 4, 4);
     }
@@ -202,7 +202,7 @@ static int RotateY(lua_State *L)
 static int RotateZ(lua_State *L)
     {
     mat_t m;
-    lua_Number rad = luaL_checknumber(L, 1);
+    double rad = luaL_checknumber(L, 1);
     rotate_z(m, rad);
     return pushmat(L, m, 4, 4, 4, 4);
     }

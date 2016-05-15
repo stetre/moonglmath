@@ -272,10 +272,10 @@ void vec_sub(vec_t dst, vec_t v1, vec_t v2, size_t n)
         dst[i] = v1[i] - v2[i];
     }
     
-lua_Number vec_norm(vec_t v, size_t n)
+double vec_norm(vec_t v, size_t n)
     {
     size_t i; 
-    lua_Number r = 0;
+    double r = 0;
     for(i=0; i < n; i++)    
         r += v[i]*v[i];
     return sqrt(r);
@@ -285,12 +285,12 @@ void vec_normalize(vec_t v, size_t n)
 /* in place */
     {
     size_t i;
-    lua_Number norm = vec_norm(v, n);
+    double norm = vec_norm(v, n);
     for(i=0; i < n; i++)    
         v[i] = v[i]/norm;
     }
     
-void vec_div(vec_t dst, vec_t v, lua_Number s, size_t n)
+void vec_div(vec_t dst, vec_t v, double s, size_t n)
     {
     size_t i; 
     vec_clear(dst);
@@ -298,17 +298,17 @@ void vec_div(vec_t dst, vec_t v, lua_Number s, size_t n)
         dst[i] = v[i] / s;
     }
 
-lua_Number vec_dot(vec_t v1, vec_t v2, size_t n)
+double vec_dot(vec_t v1, vec_t v2, size_t n)
 /* dot product */
     {
     size_t i;
-    lua_Number s = 0;
+    double s = 0;
     for(i=0; i < n; i++)    
         s += (v1[i]*v2[i]);
     return s;
     }
 
-void vec_vxs(vec_t dst, vec_t v, lua_Number s, size_t n)
+void vec_vxs(vec_t dst, vec_t v, double s, size_t n)
     {
     size_t i; 
     for(i=0; i < n; i++)    
@@ -386,7 +386,7 @@ static int Vxs(lua_State *L, int sarg, int varg)
     vec_t v; 
     size_t size, i; 
     unsigned int isrow;
-    lua_Number s = luaL_checknumber(L, sarg);
+    double s = luaL_checknumber(L, sarg);
     checkvec(L, varg, v, &size, &isrow);
     for(i=0; i < size; i++) 
         v[i] *= s;
@@ -410,7 +410,7 @@ static int Vxm(lua_State *L) /* 1xM * M*N = 1*N (row vector)*/
     size_t i, j, nr, nc, size;
     mat_t m;
     vec_t v, v1;
-    lua_Number s;
+    double s;
     checkvec(L, 1, v, &size, &isrow);
     checkmat(L, 2, m, &nr, &nc);
     if( (!isrow) || (size != nr))
@@ -430,7 +430,7 @@ static int Mul(lua_State *L)
     vec_t v, v1; 
     size_t size, size1, i; 
     unsigned int isrow, isrow1;
-    lua_Number r = 0;
+    double r = 0;
     if(lua_isnumber(L, 1))
         return Vxs(L, 1, 2);
     if(lua_isnumber(L, 2))
@@ -455,7 +455,7 @@ static int Div(lua_State *L)
     vec_t v; 
     size_t size, i; 
     unsigned int isrow;
-    lua_Number s;
+    double s;
     checkvec(L, 1, v, &size, &isrow);
     s = luaL_checknumber(L, 2);
     for(i=0; i < size; i++) 
@@ -484,7 +484,7 @@ int vec_Norm(lua_State *L)
     {
     vec_t v; 
     size_t size, i; 
-    lua_Number r = 0;
+    double r = 0;
     checkvec(L, 1, v, &size, NULL);
     for(i=0; i < size; i++) 
         r += v[i]*v[i];

@@ -311,13 +311,13 @@ static int Concat(lua_State *L)
                       (M)[2][0],(M)[2][1],(M)[2][2],(M)[2][3],  \
                       (M)[3][0],(M)[3][1],(M)[3][2],(M)[3][3])
 
-lua_Number mat_det2(mat_t m)
+double mat_det2(mat_t m)
     { return det2(m); }
 
-lua_Number mat_det3(mat_t m)
+double mat_det3(mat_t m)
     { return det3(m); }
 
-lua_Number mat_det4(mat_t m)
+double mat_det4(mat_t m)
     { return det4(m); }
 
 void mat_unm(mat_t dst, mat_t m, size_t nr, size_t nc)
@@ -352,7 +352,7 @@ void mat_sub(mat_t dst, mat_t m1, mat_t m2, size_t nr, size_t nc)
             dst[i][j] = m1[i][j] - m2[i][j];
     }
 
-void mat_div(mat_t dst, mat_t m, lua_Number s, size_t nr, size_t nc)
+void mat_div(mat_t dst, mat_t m, double s, size_t nr, size_t nc)
     {
     size_t i, j;
     for(i = 0; i < nr; i++)
@@ -360,7 +360,7 @@ void mat_div(mat_t dst, mat_t m, lua_Number s, size_t nr, size_t nc)
             dst[i][j] = m[i][j]/s;
     }
 
-void mat_mxs(mat_t dst, mat_t m, lua_Number s, size_t nr, size_t nc)
+void mat_mxs(mat_t dst, mat_t m, double s, size_t nr, size_t nc)
     {
     size_t i, j;
     for(i = 0; i < nr; i++)
@@ -375,7 +375,7 @@ void mat_mul(mat_t dst, mat_t m1, mat_t m2, size_t nr1, size_t nc1, size_t nc2) 
  */
     {
     size_t i, j, k;
-    lua_Number s;
+    double s;
     for(i=0; i < nr1; i++)
         for(j=0; j < nc2; j++)
             {
@@ -392,7 +392,7 @@ void mat_mulby(mat_t m1, mat_t m2, size_t nr1, size_t nc1, size_t nc2) /* nr1=nc
  */
     {
     size_t i, j, k;
-    lua_Number s;
+    double s;
     mat_t tmp;
     mat_copy(tmp, m1);
     for(i=0; i < nr1; i++)
@@ -413,7 +413,7 @@ void mat_mxv(vec_t dst, mat_t m, vec_t v, size_t nr, size_t nc)
  */
     {
     size_t i, j;
-    lua_Number s;
+    double s;
     for(i=0; i < nr; i++)
         {
         s = 0;
@@ -430,7 +430,7 @@ void mat_vxm(vec_t dst, vec_t v, mat_t m, size_t nr, size_t nc)
  */
     {
     size_t i, j;
-    lua_Number s;
+    double s;
     for(i=0; i < nc; i++)
         {
         s = 0;
@@ -548,7 +548,7 @@ static int Mxs(lua_State *L, int sarg, int marg)
     {
     size_t i, j, nr, nc;
     mat_t m;
-    lua_Number s = luaL_checknumber(L, sarg);
+    double s = luaL_checknumber(L, sarg);
     checkmat(L, marg, m, &nr, &nc);
     for(i = 0; i < nr; i++)
         for(j = 0; j < nc; j++)
@@ -562,7 +562,7 @@ static int Mxv(lua_State *L) /* MxN * Nx1 = N*1 (column vector)*/
     size_t i, j, nr, nc, size;
     mat_t m;
     vec_t v, v1;
-    lua_Number s;
+    double s;
     checkmat(L, 1, m, &nr, &nc);
     checkvec(L, 2, v, &size, &isrow);
     if( isrow || (size != nc))
@@ -582,7 +582,7 @@ static int Mul(lua_State *L)
     {
     size_t i, j, k, nr1, nc1, nr2, nc2;
     mat_t m, m1, m2;
-    lua_Number s;
+    double s;
     if(lua_isnumber(L, 1))
         return Mxs(L, 1, 2);
     if(lua_isnumber(L, 2))
@@ -610,7 +610,7 @@ static int Div(lua_State *L)
     {
     size_t i, j, nr, nc;
     mat_t m;
-    lua_Number s;
+    double s;
     checkmat(L, 1, m, &nr, &nc);
     s = luaL_checknumber(L, 2);
     for(i = 0; i < nr; i++)

@@ -198,10 +198,10 @@ void quat_sub(quat_t dst, quat_t q1, quat_t q2)
         dst[i] = q1[i] - q2[i];
     }
     
-lua_Number quat_norm(quat_t q)
+double quat_norm(quat_t q)
     {
     size_t i; 
-    lua_Number r = 0;
+    double r = 0;
     for(i=0; i < 4; i++)    
         r += q[i]*q[i];
     return sqrt(r);
@@ -211,7 +211,7 @@ void quat_normalize(quat_t q)
 /* in place */
     {
     size_t i;
-    lua_Number norm = quat_norm(q);
+    double norm = quat_norm(q);
     for(i=0; i < 4; i++)    
         q[i] = q[i]/norm;
     }
@@ -227,7 +227,7 @@ void quat_conj(quat_t dst, quat_t q)
 
 void quat_inv(quat_t dst, quat_t q) 
     {
-    lua_Number norm2 = quat_norm(q);
+    double norm2 = quat_norm(q);
     norm2 = norm2*norm2;
     dst[0] = q[0]/norm2;
     dst[1] = -q[1]/norm2;
@@ -235,7 +235,7 @@ void quat_inv(quat_t dst, quat_t q)
     dst[3] = -q[3]/norm2;
     }
 
-void quat_div(quat_t dst, quat_t q, lua_Number s)
+void quat_div(quat_t dst, quat_t q, double s)
     {
     size_t i; 
     for(i=0; i < 4; i++)    
@@ -261,7 +261,7 @@ static void quat_mulby(quat_t dst, quat_t p) /* in place, dst = dst * q */
     }
 
 
-void quat_qxs(quat_t dst, quat_t q, lua_Number s)
+void quat_qxs(quat_t dst, quat_t q, double s)
     {
     size_t i; 
     for(i=0; i < 4; i++)    
@@ -309,7 +309,7 @@ static int Qxs(lua_State *L, int sarg, int qarg)
     {
     quat_t q; 
     size_t i; 
-    lua_Number s = luaL_checknumber(L, sarg);
+    double s = luaL_checknumber(L, sarg);
     checkquat(L, qarg, q);
     for(i=0; i < 4; i++)    
         q[i] *= s;
@@ -363,7 +363,7 @@ static int Div(lua_State *L)
     {
     quat_t q; 
     size_t i; 
-    lua_Number s;
+    double s;
     checkquat(L, 1, q);
     s = luaL_checknumber(L, 2);
     for(i=0; i < 4; i++)    
@@ -375,7 +375,7 @@ int quat_Norm(lua_State *L)
     {
     quat_t q; 
     size_t i; 
-    lua_Number r = 0;
+    double r = 0;
     checkquat(L, 1, q);
     for(i=0; i < 4; i++)    
         r += q[i]*q[i];
@@ -437,7 +437,7 @@ static int quat_Mat(lua_State *L, size_t n)
 #define z q[3]
     quat_t q; 
     mat_t m;
-    lua_Number s, wx, wy, wz, xx, yy, zz, xy, xz, yz;
+    double s, wx, wy, wz, xx, yy, zz, xy, xz, yz;
     checkquat(L, 1, q);
     mat_clear(m);
     s = w*w + x*x + y*y +z*z;
@@ -484,7 +484,7 @@ static int quat_Mat4(lua_State *L)
 int quat_FromMat(lua_State *L)
     {
     size_t nr, nc;
-    lua_Number t, s, r;
+    double t, s, r;
     mat_t m;
     quat_t q;
     checkmat(L, 1, m, &nr, &nc);

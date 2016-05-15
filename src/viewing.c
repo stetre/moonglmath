@@ -29,7 +29,7 @@
  | Camera positioning (view matrix)                                             |
  *------------------------------------------------------------------------------*/
 
-static int LookAt(lua_State *L)
+int look_at(mat_t dst, vec_t eye, vec_t at, vec_t up)
 /* look_at(eye, at, up) 
  *
  * eye = camera position = (e1, e2, e3)
@@ -51,14 +51,11 @@ static int LookAt(lua_State *L)
  *          |           |
  *       orient     translate
  */
-    {
-    size_t i;
-    vec_t eye, at, up, z, x, y;
-    mat_t m, c, te;
+	{
 
-    checkvec(L, 1, eye, NULL, NULL);
-    checkvec(L, 2, at, NULL, NULL);
-    checkvec(L, 3, up, NULL, NULL);
+    size_t i;
+    vec_t z, x, y;
+    mat_t c, te;
 
     vec_sub(z, eye, at, 4); /* z = eye - at (normal vector = - direction vector) */
     vec_normalize(z, 4);
@@ -83,18 +80,30 @@ static int LookAt(lua_State *L)
         }
     c[3][3] = 1;
 
-    /* m = c * translate(-eye) */
+    /* dst = c * translate(-eye) */
     translate(te, -eye[0], -eye[1], -eye[2]);
-    mat_mul(m, c, te, 4, 4, 4);
-    pushmat(L, m, 4, 4, 4, 4);
+    mat_mul(dst, c, te, 4, 4, 4);
 
-    return 1;
+	return 0;
+	}
+
+static int LookAt(lua_State *L)
+    {
+	mat_t m;
+    vec_t eye, at, up;
+    checkvec(L, 1, eye, NULL, NULL);
+    checkvec(L, 2, at, NULL, NULL);
+    checkvec(L, 3, up, NULL, NULL);
+	look_at(m, eye, at, up);
+    return pushmat(L, m, 4, 4, 4, 4);
     }
+
+
 /*------------------------------------------------------------------------------*
  | Projections                                                                  |
  *------------------------------------------------------------------------------*/
 
-static int Ortho(lua_State *L)
+int ortho(mat_t dst, double l, double r, double b, double t, double n, double f)
 /* ortho(left, right, bottom, top, near,  far)
  * near=-1 and far=1 give a 2D projection
  *
@@ -113,66 +122,81 @@ static int Ortho(lua_State *L)
  *      |  0      0    0     0| |0 0 0     1   |   |  0     0      0         1      |
  *           scaling               translation
  */
+	{
+    mat_clear(dst);
+    dst[0][0] = 2.0/(r-l);
+    dst[0][3] = -(r+l)/(r-l);
+    dst[1][1] = 2.0/(t-b);
+    dst[1][3] = -(t+b)/(t-b);
+    dst[2][2] = -2.0/(f-n);
+    dst[2][3] = -(f+n)/(f-n);
+    dst[3][3] = 1.0;
+	return 0;
+	}
+
+int frustum(mat_t dst, double l, double r, double b, double t, double n, double f)
+	{
+    mat_clear(dst);
+    dst[0][0] = 2.0*n/(r-l);
+    dst[0][2] = (r+l)/(r-l);
+    dst[1][1] = 2.0*n/(t-b);
+    dst[1][2] = (t+b)/(t-b);
+    dst[2][2] = -(f+n)/(f-n);
+    dst[2][3] = -2.0*f*n/(n-f);
+    dst[3][2] = -1.0;
+	return 0;
+	}
+
+int perspective(mat_t dst, double fovy, double aspect, double n, double f)
+	{
+    double t = tan(fovy/2) * n; /* top */
+    double r = t * aspect; /* right */
+    mat_clear(dst);
+    dst[0][0] = n/r;
+    dst[1][1] = n/t;
+    dst[2][2] = -(f+n)/(f-n);
+    dst[2][3] = -2.0*f*n/(f-n);
+    dst[3][2] = -1.0;
+	return 0;
+	}
+
+
+static int Ortho(lua_State *L)
     {
     mat_t m;
-    lua_Number l = luaL_checknumber(L, 1); /* left */
-    lua_Number r = luaL_checknumber(L, 2); /* right */
-    lua_Number b = luaL_checknumber(L, 3); /* bottom */
-    lua_Number t = luaL_checknumber(L, 4); /* top */
-    lua_Number n = luaL_checknumber(L, 5); /* near */
-    lua_Number f = luaL_checknumber(L, 6); /* far */
-    mat_clear(m);
-    m[0][0] = 2.0/(r-l);
-    m[0][3] = -(r+l)/(r-l);
-    m[1][1] = 2.0/(t-b);
-    m[1][3] = -(t+b)/(t-b);
-    m[2][2] = -2.0/(f-n);
-    m[2][3] = -(f+n)/(f-n);
-    m[3][3] = 1.0;
+    double l = luaL_checknumber(L, 1); /* left */
+    double r = luaL_checknumber(L, 2); /* right */
+    double b = luaL_checknumber(L, 3); /* bottom */
+    double t = luaL_checknumber(L, 4); /* top */
+    double n = luaL_checknumber(L, 5); /* near */
+    double f = luaL_checknumber(L, 6); /* far */
+	ortho(m, l, r, b, t, n, f);
     return pushmat(L, m, 4, 4, 4, 4);
     }
-
 
 static int Frustum(lua_State *L)
-/* frustum(left, right, bottom, top, near, far)
- */
     {
     mat_t m;
-    lua_Number l = luaL_checknumber(L, 1); /* left */
-    lua_Number r = luaL_checknumber(L, 2); /* right */
-    lua_Number b = luaL_checknumber(L, 3); /* bottom */
-    lua_Number t = luaL_checknumber(L, 4); /* top */
-    lua_Number n = luaL_checknumber(L, 5); /* near */
-    lua_Number f = luaL_checknumber(L, 6); /* far */
-    mat_clear(m);
-    m[0][0] = 2.0*n/(r-l);
-    m[0][2] = (r+l)/(r-l);
-    m[1][1] = 2.0*n/(t-b);
-    m[1][2] = (t+b)/(t-b);
-    m[2][2] = -(f+n)/(f-n);
-    m[2][3] = -2.0*f*n/(n-f);
-    m[3][2] = -1.0;
+    double l = luaL_checknumber(L, 1); /* left */
+    double r = luaL_checknumber(L, 2); /* right */
+    double b = luaL_checknumber(L, 3); /* bottom */
+    double t = luaL_checknumber(L, 4); /* top */
+    double n = luaL_checknumber(L, 5); /* near */
+    double f = luaL_checknumber(L, 6); /* far */
+	frustum(m, l, r, b, t, n, f);
     return pushmat(L, m, 4, 4, 4, 4);
     }
-
 
 static int Perspective(lua_State *L)
 /* perspective(fovy, aspect, near, far)
  */
     {
     mat_t m;
-    lua_Number fovy = luaL_checknumber(L, 1); /* radians */
-    lua_Number aspect = luaL_checknumber(L, 2);
-    lua_Number n = luaL_checknumber(L, 3); /* near */
-    lua_Number f = luaL_checknumber(L, 4); /* far */
-    lua_Number t = tan(fovy/2) * n; /* top */
-    lua_Number r = t * aspect; /* right */
-    mat_clear(m);
-    m[0][0] = n/r;
-    m[1][1] = n/t;
-    m[2][2] = -(f+n)/(f-n);
-    m[2][3] = -2.0*f*n/(f-n);
-    m[3][2] = -1.0;
+    double fovy = luaL_checknumber(L, 1); /* radians */
+    double aspect = luaL_checknumber(L, 2);
+    double n = luaL_checknumber(L, 3); /* near */
+    double f = luaL_checknumber(L, 4); /* far */
+	perspective(m, fovy, aspect, n, f);
     return pushmat(L, m, 4, 4, 4, 4);
     }
 

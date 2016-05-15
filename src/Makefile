@@ -76,6 +76,7 @@ check:
 	@-echo $(Tgt)".so will be installed in "$(C_DIR)
 	@-echo $(Tgt)"/*.lua will be installed in "$(L_DIR)"/"$(Tgt)
 	@-echo $(Tgt)".h will be installed in "$(H_DIR)
+	@-echo $(Tgt)_local".h will be installed in "$(H_DIR)
 	@-echo lib$(Tgt)".so will be installed in "$(S_DIR)
 	@-echo
 
@@ -85,6 +86,7 @@ install:
 	@-mkdir -pv $(S_DIR)
 	@-mkdir -pv $(L_DIR)
 	@-cp -fpv $(Tgt).h $(H_DIR)
+	@-cp -fpv $(Tgt)_local.h $(H_DIR)
 	@-cp -fpv $(Tgt).so $(C_DIR)
 	@-ln -fsv $(C_DIR)/$(Tgt).so $(S_DIR)/lib$(Tgt).so
 	@-cp -fpvr ../$(Tgt) $(L_DIR)
