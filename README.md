@@ -55,3 +55,21 @@ The script can be executed at the shell prompt with the standard Lua interpreter
 ```shell
 $ lua hello.lua
 ```
+
+#### See also
+
+* Windowing and GUI:
+[MoonFLTK](https://github.com/stetre/moonfltk),
+[MoonGLFW](https://github.com/stetre/moonglfw),
+[MoonGLUT](https://github.com/stetre/moonglut).
+
+* Rendering:
+[MoonGL](https://github.com/stetre/moongl).
+
+* Image and model loading:
+[MoonAssimp](https://github.com/stetre/moonassimp),
+[MoonSOIL](https://github.com/stetre/moonsoil).
+
+* Audio:
+[LuaJACK](https://github.com/stetre/luajack).
+

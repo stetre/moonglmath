@@ -80,6 +80,13 @@ check:
 	@-echo lib$(Tgt)".so will be installed in "$(S_DIR)
 	@-echo
 
+uninstall:
+	@-rm -f $(H_DIR)/$(Tgt).h
+	@-rm -f $(H_DIR)/$(Tgt)_local.h
+	@-rm -f $(C_DIR)/$(Tgt).so
+	@-rm -f $(S_DIR)/lib$(Tgt).so
+	@-rm -fr $(L_DIR)/$(Tgt)
+
 install:
 	@-mkdir -pv $(H_DIR)
 	@-mkdir -pv $(C_DIR)
