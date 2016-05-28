@@ -19,6 +19,11 @@ http://www.lua.org/manual/5.3/manual.html[Lua Reference Manual].
 
 === Getting and installing
 
+For installation intructions, refer to the README file in the 
+https://github.com/stetre/moonglmath[*MoonGLMATH official repository*]
+on GitHub.
+
+////
 The *official repository* of MoonGLMATH is on GitHub at the following link:
 *https://github.com/stetre/moonglmath* .
 
@@ -51,6 +56,7 @@ in `/home/joe/local`:
 [moonglmath-0.1]$ make
 [moonglmath-0.1]$ make install PREFIX=/home/joe/local
 ----
+////
 
 === Module organization
 

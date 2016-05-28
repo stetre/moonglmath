@@ -2,7 +2,7 @@
 
 MoonGLMATH is a Lua math library for [MoonGL](https://github.com/stetre/moongl).
 
-It runs on GNU/Linux and requires [Lua](http://www.lua.org/) (>=5.3).
+It runs on GNU/Linux and on Windows (MSYS2/MinGW) and requires [Lua](http://www.lua.org/) (>=5.3).
 
 _Authored by:_ _[Stefano Trettel](https://www.linkedin.com/in/stetre)_
 
@@ -12,9 +12,13 @@ _Authored by:_ _[Stefano Trettel](https://www.linkedin.com/in/stetre)_
 
 MIT/X11 license (same as Lua). See [LICENSE](./LICENSE).
 
-#### Documentation, Getting and installing, etc.
+#### Documentation
 
 See the [Reference Manual](https://stetre.github.io/moonglmath/doc/index.html).
+
+#### Getting and installing
+
+See [INSTALL](./INSTALL.md).
 
 #### Example
 
