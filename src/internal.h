@@ -46,15 +46,6 @@
  * MoonGLMATH's string references on the Lua registry also start with 'moonglmath_'.
  */
 
-#if LUA_VERSION_NUM < 503 /* defined in lua.h */
-#error "MoonGLMATH requires Lua v5.3 or greater"
-#endif
-
-#if (LUAVER != LUA_VERSION_NUM)
-#pragma message ("lua.h version is "TOSTR(LUA_VERSION_NUM))
-#error "Lua version mismatch"
-#endif
-
 #include "enum.h"
 
 /* A VECTOR is implemented as a table, with the elements in the array part:
