@@ -1,4 +1,6 @@
 *.log
+*.dll
 *.so
+*.o
 core.*
 local/
