@@ -933,13 +933,12 @@ for positions, colors and texture coordinates (<strong>v.x</strong>, <strong>v.r
 <div id="glmath.vecN" class="ulist">
 <ul>
 <li>
-<p><strong>glmath.vec2</strong> (<em>&#8230;&#8203;</em>)<br>
-<strong>glmath.vec3</strong> (<em>&#8230;&#8203;</em>)<br>
-<strong>glmath.vec4</strong> (<em>&#8230;&#8203;</em>)<br>
-<strong>glmath.vec2r</strong> (<em>&#8230;&#8203;</em>)<br>
-<strong>glmath.vec3r</strong> (<em>&#8230;&#8203;</em>)<br>
-<strong>glmath.vec4r</strong> (<em>&#8230;&#8203;</em>)<br>
-&#8594; <em>v</em><br>
+<p><em>v</em> = <strong>vec2</strong>(<em>&#8230;&#8203;</em>)<br>
+<em>v</em> = <strong>vec3</strong>(<em>&#8230;&#8203;</em>)<br>
+<em>v</em> = <strong>vec4</strong>(<em>&#8230;&#8203;</em>)<br>
+<em>v</em> = <strong>vec2r</strong>(<em>&#8230;&#8203;</em>)<br>
+<em>v</em> = <strong>vec3r</strong>(<em>&#8230;&#8203;</em>)<br>
+<em>v</em> = <strong>vec4r</strong>(<em>&#8230;&#8203;</em>)<br>
 <span class="small">Create a vector.
 The <strong>vecN</strong> function creates a column vector of size N (where N may be 2, 3 or 4), while the <strong>vecNr</strong> function creates a row vector of the same size. Values to initialize the vector elements may be optionally passed as a list of numbers, or as a previously created vector (exceeding values are discarded, while missing values are replaced with zeros).</span></p>
 </li>
@@ -958,13 +957,12 @@ The <strong>vecN</strong> function creates a column vector of size N (where N ma
 <div id="glmath.isvecN" class="ulist">
 <ul>
 <li>
-<p><strong>glmath.isvec2</strong> (<em>v</em>)<br>
-<strong>glmath.isvec3</strong> (<em>v</em>)<br>
-<strong>glmath.isvec4</strong> (<em>v</em>)<br>
-<strong>glmath.isvec2r</strong> (<em>v</em>)<br>
-<strong>glmath.isvec3r</strong> (<em>v</em>)<br>
-<strong>glmath.isvec4r</strong> (<em>v</em>)<br>
-&#8594; <em>boolean</em><br>
+<p><em>boolean</em> = <strong>isvec2</strong>(<em>v</em>)<br>
+<em>boolean</em> = <strong>isvec3</strong>(<em>v</em>)<br>
+<em>boolean</em> = <strong>isvec4</strong>(<em>v</em>)<br>
+<em>boolean</em> = <strong>isvec2r</strong>(<em>v</em>)<br>
+<em>boolean</em> = <strong>isvec3r</strong>(<em>v</em>)<br>
+<em>boolean</em> = <strong>isvec4r</strong>(<em>v</em>)<br>
 <span class="small">Check if <em>v</em> is a vector of a given type (e.g. <strong>isvec2r</strong> checks if <em>v</em> is a row vector of size 2).</span></p>
 </li>
 </ul>
@@ -976,21 +974,18 @@ The <strong>vecN</strong> function creates a column vector of size N (where N ma
 <div class="ulist">
 <ul>
 <li>
-<p><strong>v:norm()</strong><br>
-<strong>glmath.norm</strong> (<em>v</em>)<br>
-&#8594; <em>norm</em><br>
+<p><em>num</em> = <strong>v:norm</strong>( )<br>
+<em>num</em> = <strong>norm</strong>(<em>v</em>)<br>
 <span class="small">Returns the L<sup>2</sup>-norm of <em>v</em>.</span></p>
 </li>
 <li>
-<p><strong>v:normalize()</strong><br>
-<strong>glmath.normalize</strong> (<em>v</em>)<br>
-&#8594; <em>v1</em><br>
+<p><em>v1</em> = <strong>v:normalize</strong>( )<br>
+<em>v1</em> = <strong>normalize</strong>(<em>v</em>)<br>
 <span class="small">Returns the normalized version of <em>v</em>.</span></p>
 </li>
 <li>
-<p><strong>v:transpose</strong> ( )<br>
-<strong>glmath.transpose</strong> (<em>v</em>)<br>
-&#8594; <em>v<sup>T</sup></em><br>
+<p><em>v<sup>T</sup></em> = <strong>v:transpose</strong>( )<br>
+<em>v<sup>T</sup></em> = <strong>transpose</strong>(<em>v</em>)<br>
 <span class="small">Returns the transpose of <em>v</em>.</span></p>
 </li>
 </ul>
@@ -1058,16 +1053,15 @@ same as <strong>m[2][3]</strong>).</p>
 <div id="glmath.matN" class="ulist">
 <ul>
 <li>
-<p><strong>glmath.mat2</strong> (<em>&#8230;&#8203;</em>)<br>
-<strong>glmath.mat3</strong> (<em>&#8230;&#8203;</em>)<br>
-<strong>glmath.mat4</strong> (<em>&#8230;&#8203;</em>)<br>
-<strong>glmath.mat2x3</strong> (<em>&#8230;&#8203;</em>)<br>
-<strong>glmath.mat3x2</strong> (<em>&#8230;&#8203;</em>)<br>
-<strong>glmath.mat2x4</strong> (<em>&#8230;&#8203;</em>)<br>
-<strong>glmath.mat4x2</strong> (<em>&#8230;&#8203;</em>)<br>
-<strong>glmath.mat3x4</strong> (<em>&#8230;&#8203;</em>)<br>
-<strong>glmath.mat4x3</strong> (<em>&#8230;&#8203;</em>)<br>
-&#8594; <em>m</em><br>
+<p><em>m</em> = <strong>mat2</strong>(<em>&#8230;&#8203;</em>)<br>
+<em>m</em> = <strong>mat3</strong>(<em>&#8230;&#8203;</em>)<br>
+<em>m</em> = <strong>mat4</strong>(<em>&#8230;&#8203;</em>)<br>
+<em>m</em> = <strong>mat2x3</strong>(<em>&#8230;&#8203;</em>)<br>
+<em>m</em> = <strong>mat3x2</strong>(<em>&#8230;&#8203;</em>)<br>
+<em>m</em> = <strong>mat2x4</strong>(<em>&#8230;&#8203;</em>)<br>
+<em>m</em> = <strong>mat4x2</strong>(<em>&#8230;&#8203;</em>)<br>
+<em>m</em> = <strong>mat3x4</strong>(<em>&#8230;&#8203;</em>)<br>
+<em>m</em> = <strong>mat4x3</strong>(<em>&#8230;&#8203;</em>)<br>
 <span class="small">Create a matrix. The <strong>matN</strong> function creates a square matrix vector size NxN, while
 the <strong>matNxM</strong> creates a rectangular matrix of size NxM.
 Values to initialize the matrix elements may be optionally passed as a list of numbers
@@ -1101,16 +1095,15 @@ identity matrix.</span></p>
 <div id="glmath.ismatN" class="ulist">
 <ul>
 <li>
-<p><strong>glmath.ismat2</strong> (<em>v</em>)<br>
-<strong>glmath.ismat3</strong> (<em>v</em>)<br>
-<strong>glmath.ismat4</strong> (<em>v</em>)<br>
-<strong>glmath.ismat2x3</strong> (<em>v</em>)<br>
-<strong>glmath.ismat3x2</strong> (<em>v</em>)<br>
-<strong>glmath.ismat2x4</strong> (<em>v</em>)<br>
-<strong>glmath.ismat4x2</strong> (<em>v</em>)<br>
-<strong>glmath.ismat3x4</strong> (<em>v</em>)<br>
-<strong>glmath.ismat4x3</strong> (<em>v</em>)<br>
-&#8594; <em>boolean</em><br>
+<p><em>boolean</em> = <strong>ismat2</strong>(<em>v</em>)<br>
+<em>boolean</em> = <strong>ismat3</strong>(<em>v</em>)<br>
+<em>boolean</em> = <strong>ismat4</strong>(<em>v</em>)<br>
+<em>boolean</em> = <strong>ismat2x3</strong>(<em>v</em>)<br>
+<em>boolean</em> = <strong>ismat3x2</strong>(<em>v</em>)<br>
+<em>boolean</em> = <strong>ismat2x4</strong>(<em>v</em>)<br>
+<em>boolean</em> = <strong>ismat4x2</strong>(<em>v</em>)<br>
+<em>boolean</em> = <strong>ismat3x4</strong>(<em>v</em>)<br>
+<em>boolean</em> = <strong>ismat4x3</strong>(<em>v</em>)<br>
 <span class="small">Check if <em>m</em> is a matrix of a given size (e.g. <strong>ismat2</strong> checks if <em>m</em> is a 2x2 matrix).</span></p>
 </li>
 </ul>
@@ -1121,37 +1114,32 @@ identity matrix.</span></p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>m:adj</strong> ( )<br>
-<strong>glmath.adj</strong> (<em>m</em>)<br>
-&#8594; <em>adj(m)</em><br>
+<p><em>adj(m)</em> = <strong>m:adj</strong>( )<br>
+<em>adj(m)</em> = <strong>adj</strong>(<em>m</em>)<br>
 <span class="small">Returns the adjoint of the square matrix <em>m</em>.</span></p>
 </li>
 <li>
-<p><strong>m:det</strong> ( )<br>
-<strong>glmath.det</strong> (<em>m</em>)<br>
-&#8594; <em>val</em><br>
+<p><em>val</em> = <strong>m:det</strong>( )<br>
+<em>val</em> = <strong>det</strong>(<em>m</em>)<br>
 <span class="small">Returns the determinant of the square matrix <em>m</em>.</span></p>
 </li>
 <li>
-<p><strong>m:inv</strong> ( )<br>
-<strong>glmath.inv</strong> (<em>m</em>)<br>
-&#8594; <em>m<sup>-1</sup></em><br>
+<p><em>m<sup>-1</sup></em> = <strong>m:inv</strong>( )<br>
+<em>m<sup>-1</sup></em> = <strong>inv</strong>(<em>m</em>)<br>
 <span class="small">Returns the inverse of the square matrix <em>m</em>, or <em>nil</em> if <em>m</em> is singular.</span></p>
 </li>
 <li>
-<p><strong>m:trace</strong> ( )<br>
-<strong>glmath.trace</strong> (<em>m</em>)<br>
-&#8594; <em>val</em><br>
+<p><em>val</em> = <strong>m:trace</strong>( )<br>
+<em>val</em> = <strong>trace</strong>(<em>m</em>)<br>
 <span class="small">Returns the trace of the square matrix <em>m</em>.</span></p>
 </li>
 <li>
-<p><strong>m:transpose</strong> ( )<br>
-<strong>glmath.transpose</strong> (<em>m</em>)<br>
-&#8594; <em>m<sup>T</sup></em><br>
+<p><em>m<sup>T</sup></em> = <strong>m:transpose</strong>( )<br>
+<em>m<sup>T</sup></em> = <strong>transpose</strong>(<em>m</em>)<br>
 <span class="small">Returns the transpose of <em>m</em>.</span></p>
 </li>
 <li>
-<p><strong>m:quat</strong> ( )<br>
+<p><strong>m:quat</strong>( )<br>
 <span class="small">Same as <a href="#glmath.quat">glmath.quat</a>(<em>m</em>).</span></p>
 </li>
 </ul>
@@ -1216,11 +1204,10 @@ and <strong>q[2]</strong> to <strong>q[4]</strong> are the <em>x</em>, <em>y</em
 <div id="glmath.quat" class="ulist">
 <ul>
 <li>
-<p><strong>glmath.quat</strong> ([<em>w</em> [,<em>x</em> [, <em>y</em> [, <em>z</em>]]]])<br>
-<strong>glmath.quat</strong> (<em>w</em>, <em>v</em>)<br>
-<strong>glmath.quat</strong> (<em>q</em>)<br>
-<strong>glmath.quat</strong> (<em>m</em>)<br>
-&#8594; <em>q</em><br>
+<p><em>q</em> = <strong>quat</strong>([<em>w</em> [,<em>x</em> [, <em>y</em> [, <em>z</em>]]]])<br>
+<em>q</em> = <strong>quat</strong>(<em>w</em>, <em>v</em>)<br>
+<em>q</em> = <strong>quat</strong>(<em>q</em>)<br>
+<em>q</em> = <strong>quat</strong>(<em>m</em>)<br>
 <span class="small">Create a quaternion.
 Values to initialize the quaternion elements may be optionally passed as
 a list of numbers, as a scalar <em>w</em> and a vector <em>v</em>, or as a previously created quaternion <em>q</em>
@@ -1249,8 +1236,7 @@ is regarded as the rotation matrix).</span></p>
 <div id="glmath.isquat" class="ulist">
 <ul>
 <li>
-<p><strong>glmath.isquat</strong> (<em>q</em>)<br>
-&#8594; <em>boolean</em><br>
+<p><em>boolean</em> = <strong>isquat</strong>(<em>q</em>)<br>
 <span class="small">Returns <em>true</em> if <em>q</em> is a quaternion, <em>false</em> otherwise.</span></p>
 </li>
 </ul>
@@ -1262,39 +1248,33 @@ is regarded as the rotation matrix).</span></p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>q:parts()</strong><br>
-&#8594; <em>w</em>, <em>v</em><br>
+<p><em>w</em>, <em>v</em> = <strong>q:parts</strong>( )<br>
 <span class="small">Returns the scalar and vector parts of <em>q</em>.
 The vector part <em>v</em> is returned as a size 3 column vector.</span></p>
 </li>
 <li>
-<p><strong>q:conj()</strong><br>
-<strong>glmath.conj</strong> (<em>q</em>)<br>
-&#8594; <em>q<sup>*</sup></em><br>
+<p><em>q<sup>*</sup></em> = <strong>q:conj</strong>( )<br>
+<em>q<sup>*</sup></em> = <strong>conj</strong>(<em>q</em>)<br>
 <span class="small">Returns the conjugate of <em>q</em>.</span></p>
 </li>
 <li>
-<p><strong>q:norm()</strong><br>
-<strong>glmath.norm</strong> (<em>q</em>)<br>
-&#8594; <em>norm</em><br>
+<p><em>num</em> = <strong>q:norm</strong>( )<br>
+<em>num</em> = <strong>norm</strong>(<em>q</em>)<br>
 <span class="small">Returns the norm of <em>q</em>.</span></p>
 </li>
 <li>
-<p><strong>q:normalize()</strong><br>
-<strong>glmath.normalize</strong> (<em>q</em>)<br>
-&#8594; <em>q1</em><br>
+<p><em>q1</em> = <strong>q:normalize</strong>( )<br>
+<em>q1</em> = <strong>normalize</strong>(<em>q</em>)<br>
 <span class="small">Returns the normalized version of <em>q</em> (i.e. the unit quaternion <em>q/|q|</em>).</span></p>
 </li>
 <li>
-<p><strong>q:inv</strong> ( )<br>
-<strong>glmath.inv</strong> (<em>q</em>)<br>
-&#8594; <em>q<sup>-1</sup></em><br>
+<p><em>q<sup>-1</sup></em> = <strong>q:inv</strong>( )<br>
+<em>q<sup>-1</sup></em> = <strong>inv</strong>(<em>q</em>)<br>
 <span class="small">Returns the inverse of <em>q</em>.</span></p>
 </li>
 <li>
-<p><strong>q:mat3</strong> ( )<br>
-<strong>q:mat4</strong> ( )<br>
-&#8594; <em>m</em><br>
+<p><em>m</em> = <strong>q:mat3</strong>( )<br>
+<em>m</em> = <strong>q:mat4</strong>( )<br>
 <span class="small">Convert the quaternion <em>q</em> to a 3x3 or a 4x4 rotation matrix.</span></p>
 </li>
 </ul>
@@ -1336,30 +1316,26 @@ The vector part <em>v</em> is returned as a size 3 column vector.</span></p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>glmath.translate</strong> (<em>v</em>)<br>
-<strong>glmath.translate</strong> (<em>x</em> , <em>y</em> , <em>z</em>)<br>
-&#8594; <em>m</em><br>
+<p><em>m</em> = <strong>translate</strong>(<em>v</em>)<br>
+<em>m</em> = <strong>translate</strong>(<em>x</em> , <em>y</em> , <em>z</em>)<br>
 <span class="small">Returns the 4x4 translation matrix, given the vector <em>v</em> or its components <em>x</em>, <em>y</em>, and <em>z</em>.</span></p>
 </li>
 <li>
-<p><strong>glmath.scale</strong> (<em>v</em>)<br>
-<strong>glmath.scale</strong> (<em>x</em> , <em>y</em> , <em>z</em>)<br>
-&#8594; <em>m</em><br>
+<p><em>m</em> = <strong>scale</strong>(<em>v</em>)<br>
+<em>m</em> = <strong>scale</strong>(<em>x</em> , <em>y</em> , <em>z</em>)<br>
 <span class="small">Returns the 4x4 scaling matrix, given the scaling factors <em>x</em>, <em>y</em>, and <em>z</em>, which may
 also be passed as a vector.</span></p>
 </li>
 <li>
-<p><strong>glmath.rotate</strong> (<em>angle</em>, <em>v</em>)<br>
-<strong>glmath.rotate</strong> (<em>angle</em>, <em>x</em> , <em>y</em> , <em>z</em>)<br>
-&#8594; <em>m</em><br>
+<p><em>m</em> = <strong>rotate</strong>(<em>angle</em>, <em>v</em>)<br>
+<em>m</em> = <strong>rotate</strong>(<em>angle</em>, <em>x</em> , <em>y</em> , <em>z</em>)<br>
 <span class="small">Return the 4x4 rotation matrix given the <em>angle</em> (in radians) and the direction vector
 <em>v</em> = (<em>x</em>, <em>y</em>, <em>z</em>).</span></p>
 </li>
 <li>
-<p><strong>glmath.rotate_x</strong> (<em>angle</em>)<br>
-<strong>glmath.rotate_y</strong> (<em>angle</em>)<br>
-<strong>glmath.rotate_z</strong> (<em>angle</em>)<br>
-&#8594; <em>m</em><br>
+<p><em>m</em> = <strong>rotate_x</strong>(<em>angle</em>)<br>
+<em>m</em> = <strong>rotate_y</strong>(<em>angle</em>)<br>
+<em>m</em> = <strong>rotate_z</strong>(<em>angle</em>)<br>
 <span class="small">Return the 4x4 rotation matrix for a rotation by <em>angle</em> radians around the x, y or z axis, respectively.</span></p>
 </li>
 </ul>
@@ -1377,16 +1353,14 @@ pointing to its right and the positive y-axis pointing up.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>glmath.look_at</strong> (<em>eye</em>, <em>at</em>, <em>up</em>)<br>
-&#8594; <em>m</em><br>
+<p><em>m</em> = <strong>look_at</strong>(<em>eye</em>, <em>at</em>, <em>up</em>)<br>
 <span class="small">Returns a 4x4 matrix to transform from world coordinates to camera coordinates,
 given the camera position and orientation in world coordinates:
 <em>eye</em> is the camera position, <em>at</em> is its target point, and <em>up</em> is the
 direction from the camera to a point on the vertical above the target.</span></p>
 </li>
 <li>
-<p><strong>glmath.ortho</strong> (<em>left</em>, <em>right</em>, <em>bottom</em>, <em>top</em>, <em>near</em>, <em>far</em>)<br>
-&#8594; <em>m</em><br>
+<p><em>m</em> = <strong>ortho</strong>(<em>left</em>, <em>right</em>, <em>bottom</em>, <em>top</em>, <em>near</em>, <em>far</em>)<br>
 <span class="small">Returns a 4x4 ortographic projection matrix. The view-volume is
 the parallelepiped bounded by the axis-aligned planes x=<em>left</em>, x=<em>right</em>,
 y=<em>bottom</em>, y=<em>top</em>, z=-<em>near</em>, and z=-<em>far</em>.</span></p>
@@ -1396,16 +1370,14 @@ y=<em>bottom</em>, y=<em>top</em>, z=-<em>near</em>, and z=-<em>far</em>.</span>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>glmath.frustum</strong> (<em>left</em>, <em>right</em>, <em>bottom</em>, <em>top</em>, <em>near</em>, <em>far</em>)<br>
-&#8594; <em>m</em><br>
+<p><em>m</em> = <strong>frustum</strong>(<em>left</em>, <em>right</em>, <em>bottom</em>, <em>top</em>, <em>near</em>, <em>far</em>)<br>
 <span class="small">Returns a 4x4 perspective projection matrix. The view volume is the frustum
 having the center of projection in the origin, whose near face is
 the rectangle (<em>left</em> &lt; x &lt; <em>right</em> , <em>bottom</em> &lt; y &lt; <em>top</em>) in the z=-<em>near</em> plane,
 and whose far face is in the z=-<em>far</em> plane.</span></p>
 </li>
 <li>
-<p><strong>glmath.perspective</strong> (<em>fovy</em>, <em>aspect</em>, <em>near</em>, <em>far</em>)<br>
-&#8594; <em>m</em><br>
+<p><em>m</em> = <strong>perspective</strong>(<em>fovy</em>, <em>aspect</em>, <em>near</em>, <em>far</em>)<br>
 <span class="small">Returns a 4x4 perspective projection matrix. The view volume is the frustum
 having the center of projection in the origin,
 the near and far faces in z=-near, and z=-<em>far</em>,

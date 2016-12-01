@@ -19,13 +19,12 @@ for positions, colors and texture coordinates (*v.x*, *v.r* and *v.s* are aliase
 The following constructors can be used to create vectors.
 
 [[glmath.vecN]]
-* *glmath.vec2* (_..._) +
-*glmath.vec3* (_..._) +
-*glmath.vec4* (_..._) +
-*glmath.vec2r* (_..._) +
-*glmath.vec3r* (_..._) +
-*glmath.vec4r* (_..._) +
--> _v_ +
+* _v_ = *vec2*(_..._) +
+_v_ = *vec3*(_..._) +
+_v_ = *vec4*(_..._) +
+_v_ = *vec2r*(_..._) +
+_v_ = *vec3r*(_..._) +
+_v_ = *vec4r*(_..._) +
 [small]#Create a vector. 
 The *vecN* function creates a column vector of size N (where N may be 2, 3 or 4), while the *vecNr* function creates a row vector of the same size. Values to initialize the vector elements may be optionally passed as a list of numbers, or as a previously created vector (exceeding values are discarded, while missing values are replaced with zeros).#
 
@@ -42,31 +41,27 @@ v = glmath.vec2(1, 2, 3, 4)  --> v = { 1, 2 }'
 ----
 
 [[glmath.isvecN]]
-* *glmath.isvec2* (_v_) +
-*glmath.isvec3* (_v_) +
-*glmath.isvec4* (_v_) +
-*glmath.isvec2r* (_v_) +
-*glmath.isvec3r* (_v_) +
-*glmath.isvec4r* (_v_) +
--> _boolean_ +
+* _boolean_ = *isvec2*(_v_) +
+_boolean_ = *isvec3*(_v_) +
+_boolean_ = *isvec4*(_v_) +
+_boolean_ = *isvec2r*(_v_) +
+_boolean_ = *isvec3r*(_v_) +
+_boolean_ = *isvec4r*(_v_) +
 [small]#Check if _v_ is a vector of a given type (e.g. *isvec2r* checks if _v_ is a row vector of size 2).#
 
 '''
 Vectors have the following *methods*, also available as functions in the *glmath* table:
 
-* *v:norm()* +
-*glmath.norm* (_v_) +
--> _norm_ +
+* _num_ = *v:norm*( ) +
+_num_ = *norm*(_v_) +
 [small]#Returns the L^2^-norm of _v_.#
 
-* *v:normalize()* +
-*glmath.normalize* (_v_) +
--> _v1_ +
+* _v1_ = *v:normalize*( ) +
+_v1_ = *normalize*(_v_) +
 [small]#Returns the normalized version of _v_.#
 
-* *v:transpose* ( ) +
-*glmath.transpose* (_v_) +
--> _v^T^_ +
+* _v^T^_ = *v:transpose*( ) +
+_v^T^_ = *transpose*(_v_) +
 [small]#Returns the transpose of _v_.#
 
 

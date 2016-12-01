@@ -14,11 +14,10 @@ Quaternion elements can also be accessed using the *wxyz* syntactic sugar:
 The following constructor can be used to create quaternions.
 
 [[glmath.quat]]
-* *glmath.quat* ([_w_ [,_x_ [, _y_ [, _z_]]]]) +
-*glmath.quat* (_w_, _v_) +
-*glmath.quat* (_q_) +
-*glmath.quat* (_m_) +
--> _q_ +
+* _q_ = *quat*([_w_ [,_x_ [, _y_ [, _z_]]]]) +
+_q_ = *quat*(_w_, _v_) +
+_q_ = *quat*(_q_) +
+_q_ = *quat*(_m_) +
 [small]#Create a quaternion. 
 Values to initialize the quaternion elements may be optionally passed as 
 a list of numbers, as a scalar _w_ and a vector _v_, or as a previously created quaternion _q_
@@ -45,41 +44,34 @@ q = glmath.quat(m)           --> q = < 0.707107,  0.707107, 0, 0 >
 ----
 
 [[glmath.isquat]]
-* *glmath.isquat* (_q_) +
--> _boolean_ +
+* _boolean_ = *isquat*(_q_) +
 [small]#Returns _true_ if _q_ is a quaternion, _false_ otherwise.#
 
 '''
 Quaternions have the following *methods*, most of them also available as functions in the *glmath* table:
 
-* *q:parts()* +
--> _w_, _v_ +
+* _w_, _v_ = *q:parts*( ) +
 [small]#Returns the scalar and vector parts of _q_. 
 The vector part _v_ is returned as a size 3 column vector.#
 
-* *q:conj()* +
-*glmath.conj* (_q_) +
--> _q^pass:[*]^_ +
+* _q^pass:[*]^_ = *q:conj*( ) +
+_q^pass:[*]^_ = *conj*(_q_) +
 [small]#Returns the conjugate of _q_.#
 
-* *q:norm()* +
-*glmath.norm* (_q_) +
--> _norm_ +
+* _num_ = *q:norm*( ) +
+_num_ = *norm*(_q_) +
 [small]#Returns the norm of _q_.#
 
-* *q:normalize()* +
-*glmath.normalize* (_q_) +
--> _q1_ +
+* _q1_ = *q:normalize*( ) +
+_q1_ = *normalize*(_q_) +
 [small]#Returns the normalized version of _q_ (i.e. the unit quaternion _q/|q|_).#
 
-* *q:inv* ( ) +
-*glmath.inv* (_q_) +
--> _q^-1^_ +
+* _q^-1^_ = *q:inv*( ) +
+_q^-1^_ = *inv*(_q_) +
 [small]#Returns the inverse of _q_.#
 
-* *q:mat3* ( ) +
-*q:mat4* ( ) +
--> _m_ +
+* _m_ = *q:mat3*( ) +
+_m_ = *q:mat4*( ) +
 [small]#Convert the quaternion _q_ to a 3x3 or a 4x4 rotation matrix.#
 
 '''

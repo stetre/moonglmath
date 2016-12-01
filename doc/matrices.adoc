@@ -19,16 +19,15 @@ same as *m[2][3]*).
 The following constructors can be used to create matrices.
 
 [[glmath.matN]]
-* *glmath.mat2* (_..._) +
-*glmath.mat3* (_..._) +
-*glmath.mat4* (_..._) +
-*glmath.mat2x3* (_..._) +
-*glmath.mat3x2* (_..._) +
-*glmath.mat2x4* (_..._) +
-*glmath.mat4x2* (_..._) +
-*glmath.mat3x4* (_..._) +
-*glmath.mat4x3* (_..._) +
--> _m_ +
+* _m_ = *mat2*(_..._) +
+_m_ = *mat3*(_..._) +
+_m_ = *mat4*(_..._) +
+_m_ = *mat2x3*(_..._) +
+_m_ = *mat3x2*(_..._) +
+_m_ = *mat2x4*(_..._) +
+_m_ = *mat4x2*(_..._) +
+_m_ = *mat3x4*(_..._) +
+_m_ = *mat4x3*(_..._) +
 [small]#Create a matrix. The *matN* function creates a square matrix vector size NxN, while 
 the *matNxM* creates a rectangular matrix of size NxM. 
 Values to initialize the matrix elements may be optionally passed as a list of numbers 
@@ -60,46 +59,40 @@ m = glmath.mat3(v1, v2)        --> m = {{ 1, 2, 0 }, { 3, 4, 0 }, { 0, 0, 0 }}
 
 '''
 [[glmath.ismatN]]
-* *glmath.ismat2* (_v_) +
-*glmath.ismat3* (_v_) +
-*glmath.ismat4* (_v_) +
-*glmath.ismat2x3* (_v_) +
-*glmath.ismat3x2* (_v_) +
-*glmath.ismat2x4* (_v_) +
-*glmath.ismat4x2* (_v_) +
-*glmath.ismat3x4* (_v_) +
-*glmath.ismat4x3* (_v_) +
--> _boolean_ +
+* _boolean_ = *ismat2*(_v_) +
+_boolean_ = *ismat3*(_v_) +
+_boolean_ = *ismat4*(_v_) +
+_boolean_ = *ismat2x3*(_v_) +
+_boolean_ = *ismat3x2*(_v_) +
+_boolean_ = *ismat2x4*(_v_) +
+_boolean_ = *ismat4x2*(_v_) +
+_boolean_ = *ismat3x4*(_v_) +
+_boolean_ = *ismat4x3*(_v_) +
 [small]#Check if _m_ is a matrix of a given size (e.g. *ismat2* checks if _m_ is a 2x2 matrix).#
 
 Matrices have the following *methods*, also available as functions:
 
-* *m:adj* ( ) +
-*glmath.adj* (_m_) +
--> _adj(m)_ +
+* _adj(m)_ = *m:adj*( ) +
+_adj(m)_ = *adj*(_m_) +
 [small]#Returns the adjoint of the square matrix _m_.#
 
-* *m:det* ( ) +
-*glmath.det* (_m_) +
--> _val_ +
+* _val_ = *m:det*( ) +
+_val_ = *det*(_m_) +
 [small]#Returns the determinant of the square matrix _m_.#
 
-* *m:inv* ( ) +
-*glmath.inv* (_m_) +
--> _m^-1^_ +
+* _m^-1^_ = *m:inv*( ) +
+_m^-1^_ = *inv*(_m_) +
 [small]#Returns the inverse of the square matrix _m_, or _nil_ if _m_ is singular.#
 
-* *m:trace* ( ) +
-*glmath.trace* (_m_) +
--> _val_ +
+* _val_ = *m:trace*( ) +
+_val_ = *trace*(_m_) +
 [small]#Returns the trace of the square matrix _m_.#
 
-* *m:transpose* ( ) +
-*glmath.transpose* (_m_) +
--> _m^T^_ +
+* _m^T^_ = *m:transpose*( ) +
+_m^T^_ = *transpose*(_m_) +
 [small]#Returns the transpose of _m_.#
 
-* *m:quat* ( ) +
+* *m:quat*( ) +
 [small]#Same as <<glmath.quat, glmath.quat>>(_m_).#
 
 '''
