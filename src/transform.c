@@ -159,8 +159,13 @@ static int Scale(lua_State *L)
     if(!testvec(L, 1, v, NULL, NULL)) 
         {
         v[0] = luaL_checknumber(L, 1);
-        v[1] = luaL_checknumber(L, 2);
-        v[2] = luaL_checknumber(L, 3);
+        if(lua_isnoneornil(L, 2) && lua_isnoneornil(L, 3))
+            v[1] = v[2] = v[0];
+        else
+            {
+            v[1] = luaL_checknumber(L, 2);
+            v[2] = luaL_checknumber(L, 3);
+            }
         }
     scale(m, v[0], v[1], v[2]);
     return pushmat(L, m, 4, 4, 4, 4);

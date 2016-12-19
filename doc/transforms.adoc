@@ -6,9 +6,10 @@ _m_ = *translate*(_x_ , _y_ , _z_) +
 [small]#Returns the 4x4 translation matrix, given the vector _v_ or its components _x_, _y_, and _z_.#
 
 * _m_ = *scale*(_v_) +
-_m_ = *scale*(_x_ , _y_ , _z_) +
+_m_ = *scale*(_x_ [, _y_ , _z_]) +
 [small]#Returns the 4x4 scaling matrix, given the scaling factors _x_, _y_, and _z_, which may 
-also be passed as a vector.#
+also be passed as a vector. +
+If _y_ and _z_ are not given, they are assumed equal to _x_ (i.e. uniform scaling by a factor _x_).#
 
 
 * _m_ = *rotate*(_angle_, _v_) +

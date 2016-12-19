@@ -1322,9 +1322,10 @@ The vector part <em>v</em> is returned as a size 3 column vector.</span></p>
 </li>
 <li>
 <p><em>m</em> = <strong>scale</strong>(<em>v</em>)<br>
-<em>m</em> = <strong>scale</strong>(<em>x</em> , <em>y</em> , <em>z</em>)<br>
+<em>m</em> = <strong>scale</strong>(<em>x</em> [, <em>y</em> , <em>z</em>])<br>
 <span class="small">Returns the 4x4 scaling matrix, given the scaling factors <em>x</em>, <em>y</em>, and <em>z</em>, which may
-also be passed as a vector.</span></p>
+also be passed as a vector.<br>
+If <em>y</em> and <em>z</em> are not given, they are assumed equal to <em>x</em> (i.e. uniform scaling by a factor <em>x</em>).</span></p>
 </li>
 <li>
 <p><em>m</em> = <strong>rotate</strong>(<em>angle</em>, <em>v</em>)<br>
