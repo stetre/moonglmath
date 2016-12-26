@@ -11,10 +11,11 @@ given the camera position and orientation in world coordinates:
 _eye_ is the camera position, _at_ is its target point, and _up_ is the
 direction from the camera to a point on the vertical above the target.#
 
-* _m_ = *ortho*(_left_, _right_, _bottom_, _top_, _near_, _far_) +
+* _m_ = *ortho*(_left_, _right_, _bottom_, _top_ [, _near_, _far_]) +
 [small]#Returns a 4x4 ortographic projection matrix. The view-volume is
 the parallelepiped bounded by the axis-aligned planes x=_left_, x=_right_, 
-y=_bottom_, y=_top_, z=-_near_, and z=-_far_.#
+y=_bottom_, y=_top_, z=-_near_, and z=-_far_ 
+(_near_ and _far_ default to -1.0 and 1.0, respectively).#
 
 ////
 [small]#Returns a 4x4 matrix that transforms the AABB (axis-aligned bounding box)

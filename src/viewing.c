@@ -168,8 +168,8 @@ static int Ortho(lua_State *L)
     double r = luaL_checknumber(L, 2); /* right */
     double b = luaL_checknumber(L, 3); /* bottom */
     double t = luaL_checknumber(L, 4); /* top */
-    double n = luaL_checknumber(L, 5); /* near */
-    double f = luaL_checknumber(L, 6); /* far */
+    double n = luaL_optnumber(L, 5, -1.0); /* near */
+    double f = luaL_optnumber(L, 6, 1.0); /* far */
 	ortho(m, l, r, b, t, n, f);
     return pushmat(L, m, 4, 4, 4, 4);
     }

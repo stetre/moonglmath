@@ -1361,10 +1361,11 @@ given the camera position and orientation in world coordinates:
 direction from the camera to a point on the vertical above the target.</span></p>
 </li>
 <li>
-<p><em>m</em> = <strong>ortho</strong>(<em>left</em>, <em>right</em>, <em>bottom</em>, <em>top</em>, <em>near</em>, <em>far</em>)<br>
+<p><em>m</em> = <strong>ortho</strong>(<em>left</em>, <em>right</em>, <em>bottom</em>, <em>top</em> [, <em>near</em>, <em>far</em>])<br>
 <span class="small">Returns a 4x4 ortographic projection matrix. The view-volume is
 the parallelepiped bounded by the axis-aligned planes x=<em>left</em>, x=<em>right</em>,
-y=<em>bottom</em>, y=<em>top</em>, z=-<em>near</em>, and z=-<em>far</em>.</span></p>
+y=<em>bottom</em>, y=<em>top</em>, z=-<em>near</em>, and z=-<em>far</em>
+(<em>near</em> and <em>far</em> default to -1.0 and 1.0, respectively).</span></p>
 </li>
 </ul>
 </div>
