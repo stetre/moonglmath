@@ -1,4 +1,4 @@
-##MoonGLMATH: Math library for MoonGL
+## MoonGLMATH: Math library for MoonGL
 
 MoonGLMATH is a Lua math library for [MoonGL](https://github.com/stetre/moongl).
 
