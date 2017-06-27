@@ -95,6 +95,12 @@ _m^T^_ = *transpose*(_m_) +
 * *m:quat*( ) +
 [small]#Same as <<glmath.quat, glmath.quat>>(_m_).#
 
+* _v_ = *m:row*(_i_) +
+[small]#Returns the _i-th_ row as a row <<glmath.vecN, vector>>.#
+
+* _v_ = *m:column*(_i_) +
+[small]#Returns the _i-th_ column as a column <<glmath.vecN, vector>>.#
+
 '''
 The following *matrix operators* are supported:
 

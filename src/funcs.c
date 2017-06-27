@@ -86,6 +86,19 @@ static int Transpose(lua_State *L)
     return badarg(L, 1);
     }
 
+static int Row(lua_State *L)
+    {
+    if(ismat(L,1)) return mat_Row(L);
+    return badarg(L, 1);
+    }
+
+static int Column(lua_State *L)
+    {
+    if(ismat(L,1)) return mat_Column(L);
+    return badarg(L, 1);
+    }
+
+
 /*------------------------------------------------------------------------------*
  | Registration                                                                 |
  *------------------------------------------------------------------------------*/
@@ -100,6 +113,8 @@ static const struct luaL_Reg Functions[] =
         { "normalize", Normalize },
         { "trace", Trace },
         { "transpose", Transpose },
+        { "row", Row },
+        { "column", Column },
         { NULL, NULL } /* sentinel */
     };
 

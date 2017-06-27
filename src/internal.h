@@ -135,6 +135,10 @@ int mat_Det(lua_State *L);
 int mat_Inv(lua_State *L);
 #define mat_Adj moonglmath_mat_Adj
 int mat_Adj(lua_State *L);
+#define mat_Column moonglmath_mat_Column
+int mat_Column(lua_State *L);
+#define mat_Row moonglmath_mat_Row
+int mat_Row(lua_State *L);
 
 /* quat.c ------------------------------------------------------------------------*/
 #define quat_Norm moonglmath_quat_Norm
