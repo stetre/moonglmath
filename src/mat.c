@@ -566,7 +566,17 @@ static int Mxv(lua_State *L) /* MxN * Nx1 = N*1 (column vector)*/
     checkmat(L, 1, m, &nr, &nc);
     checkvec(L, 2, v, &size, &isrow);
     if( isrow || (size != nc))
-        return luaL_error(L, OPERANDS_ERROR);
+        {
+#if 0
+        if((size == 3) && (nr == 4) && (nc == 4))
+            {
+            /* Keep only the upper left 3x3 matrix */
+            nr = nc = 3;
+            }
+        else
+#endif
+            return luaL_error(L, OPERANDS_ERROR);
+        }
     for(i=0; i < nr; i++)
         {
         s = 0;
@@ -724,34 +734,34 @@ static int mat_Quat(lua_State *L)
     }
 
 int mat_Column(lua_State *L)
-	{
+    {
     mat_t m;
     vec_t v;
     size_t i, j, nr, nc;
     checkmat(L, 1, m, &nr, &nc);
-	j = luaL_checkinteger(L, 2);
-	if(j < 1 || j > nc)
-		return luaL_argerror(L, 2, "invalid column index");
-	j--;
-	for(i = 0; i < nr; i++)
-		v[i] = m[i][j];
+    j = luaL_checkinteger(L, 2);
+    if(j < 1 || j > nc)
+        return luaL_argerror(L, 2, "invalid column index");
+    j--;
+    for(i = 0; i < nr; i++)
+        v[i] = m[i][j];
     return pushvec(L, v, nr, nr, 0);
-	}
+    }
 
 int mat_Row(lua_State *L)
-	{
+    {
     mat_t m;
     vec_t v;
     size_t i, j, nr, nc;
     checkmat(L, 1, m, &nr, &nc);
-	i = luaL_checkinteger(L, 2);
-	if(i < 1 || i > nr)
-		return luaL_argerror(L, 2, "invalid row index");
-	i--;
-	for(j = 0; j < nc; j++)
-		v[j] = m[i][j];
+    i = luaL_checkinteger(L, 2);
+    if(i < 1 || i > nr)
+        return luaL_argerror(L, 2, "invalid row index");
+    i--;
+    for(j = 0; j < nc; j++)
+        v[j] = m[i][j];
     return pushvec(L, v, nc, nc, 1);
-	}
+    }
 
 static const struct luaL_Reg Metamethods[] = 
     {
