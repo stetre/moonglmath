@@ -103,9 +103,11 @@ static int LookAt(lua_State *L)
  | Projections                                                                  |
  *------------------------------------------------------------------------------*/
 
-int ortho(mat_t dst, double l, double r, double b, double t, double n, double f)
+int ortho(mat_t dst, double l, double r, double b, double t, double near, double far)
 /* ortho(left, right, bottom, top, near,  far)
  * near=-1 and far=1 give a 2D projection
+ *
+ * Rfr. RTR3/4.6.1
  *
  * The viewing parallelepiped is: 
  * x: left .. right
@@ -119,10 +121,13 @@ int ortho(mat_t dst, double l, double r, double b, double t, double n, double f)
  * M =  |2/(r-l)  0    0     0| |1 0 0 -(l+r)/2| = |2/(r-l)  0     0    -(r+l)/(r-l)|
  *      |  0   2/(t-b) 0     0|*|0 1 0 -(t+b)/2|   |  0   2/(t-b)  0    -(t+b)/(t-b)|
  *      |  0      0  2/(f-n) 0| |0 0 1 -(f+n)/2|   |  0     0   2/(f-n) -(f+n)/(f-n)|
- *      |  0      0    0     0| |0 0 0     1   |   |  0     0      0         1      |
+ *      |  0      0    0     1| |0 0 0     1   |   |  0     0      0         1      |
  *           scaling               translation
  */
     {
+    double n, f;
+    n = -near;
+    f = -far;
     mat_clear(dst);
     dst[0][0] = 2.0/(r-l);
     dst[0][3] = -(r+l)/(r-l);
@@ -142,7 +147,7 @@ int frustum(mat_t dst, double l, double r, double b, double t, double n, double 
     dst[1][1] = 2.0*n/(t-b);
     dst[1][2] = (t+b)/(t-b);
     dst[2][2] = -(f+n)/(f-n);
-    dst[2][3] = -2.0*f*n/(n-f);
+    dst[2][3] = -2.0*f*n/(f-n);
     dst[3][2] = -1.0;
     return 0;
     }

@@ -1,9 +1,11 @@
 
 == Camera and Projections
 
-The functions below follow the convention of a camera frame where the camera 
-is in the origin, pointing towards the negative z-axis, with the positive x-axis
-pointing to its right and the positive y-axis pointing up.
+The functions below follow the traditional OpenGL conventions, where the camera (or viewer)
+is in the origin, looking towards the negative z-axis, with the positive x-axis pointing to
+its right and the positive y-axis pointing up, and the _near_ and _far_ parameters represent
+the distance of the near and far planes from the origin along the viewing direction
+(i.e. they are the negated z-coordinates of the two planes).
 
 * _m_ = *look_at*(_eye_, _at_, _up_) +
 [small]#Returns a 4x4 matrix to transform from world coordinates to camera coordinates,
@@ -11,30 +13,23 @@ given the camera position and orientation in world coordinates:
 _eye_ is the camera position, _at_ is its target point, and _up_ is the
 direction from the camera to a point on the vertical above the target.#
 
-* _m_ = *ortho*(_left_, _right_, _bottom_, _top_ [, _near_, _far_]) +
-[small]#Returns a 4x4 ortographic projection matrix. The view-volume is
-the parallelepiped bounded by the axis-aligned planes x=_left_, x=_right_, 
-y=_bottom_, y=_top_, z=-_near_, and z=-_far_ 
-(_near_ and _far_ default to -1.0 and 1.0, respectively).#
-
-////
-[small]#Returns a 4x4 matrix that transforms the AABB (axis-aligned bounding box)
-bounded by the planes x=_left_, x=_right_, y=_bottom_, y=_top_, z=-_near_, and z=-_far_, 
-into the canonical view volume (axis-aligned cube of side 2, centered at the origin).#
-////
+* _m_ = *ortho*(_left_, _right_, _bottom_, _top_, [_near_], [_far_]) +
+[small]#Returns a 4x4 ortographic projection matrix that transforms an axis-aligned box
+into the axis-aligned cube of side 2 centered at the origin. +
+The box is bounded by the planes _x=left_, _x=right_, _y=bottom_, _y=top_, _z=-near_, and _z=-far_. +
+The _near_ and _far_ values default to -1.0 and 1.0 respectively (2D projection).#
 
 * _m_ = *frustum*(_left_, _right_, _bottom_, _top_, _near_, _far_) +
-[small]#Returns a 4x4 perspective projection matrix. The view volume is the frustum
-having the center of projection in the origin, whose near face is
-the rectangle (_left_ < x < _right_ , _bottom_ < y < _top_) in the z=-_near_ plane,
-and whose far face is in the z=-_far_ plane.#
+[small]#Returns a 4x4 perspective projection matrix.
+The view frustum has the center of projection in the origin, its near face is
+the rectangle (_left<x<right_, _bottom<y<top_) in the _z=-near_ plane, and its
+far face is in the _z=-far_ plane.#
 
 * _m_ = *perspective*(_fovy_, _aspect_, _near_, _far_) +
-[small]#Returns a 4x4 perspective projection matrix. The view volume is the frustum
-having the center of projection in the origin, 
-the near and far faces in z=-near, and z=-_far_, 
-with the given _aspect_ ratio (width/height), and a vertical field of view given
-by _fovy_ (in radians).#
+[small]#Returns a 4x4 perspective projection matrix.
+The view frustum has the center of projection in the origin, a vertical field of view given
+by _fovy_ (radians), and its near and far faces have the given _aspect_ ratio (width/height),
+and are at _z=-near_ and _z=-far_, respectively.#
 
 ////
 Frustum specification with frustum():

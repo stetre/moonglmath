@@ -1220,7 +1220,7 @@ and <strong>q[2]</strong> to <strong>q[4]</strong> are the <em>x</em>, <em>y</em
 <div id="glmath.quat" class="ulist">
 <ul>
 <li>
-<p><em>q</em> = <strong>quat</strong>([<em>w</em> [,<em>x</em> [, <em>y</em> [, <em>z</em>]]]])<br>
+<p><em>q</em> = <strong>quat</strong>([<em>w</em>], [<em>x</em>], [<em>y</em>], [<em>z</em>])<br>
 <em>q</em> = <strong>quat</strong>(<em>w</em>, <em>v</em>)<br>
 <em>q</em> = <strong>quat</strong>(<em>q</em>)<br>
 <em>q</em> = <strong>quat</strong>(<em>m</em>)<br>
@@ -1339,7 +1339,7 @@ The vector part <em>v</em> is returned as a size 3 column vector.</span></p>
 </li>
 <li>
 <p><em>m</em> = <strong>scale</strong>(<em>v</em>)<br>
-<em>m</em> = <strong>scale</strong>(<em>x</em> [, <em>y</em> , <em>z</em>])<br>
+<em>m</em> = <strong>scale</strong>(<em>x</em>, [<em>y</em>] , [<em>z</em>])<br>
 <span class="small">Returns the 4x4 scaling matrix, given the scaling factors <em>x</em>, <em>y</em>, and <em>z</em>, which may
 also be passed as a vector.<br>
 If <em>y</em> and <em>z</em> are not given, they are assumed equal to <em>x</em> (i.e. uniform scaling by a factor <em>x</em>).</span></p>
@@ -1364,9 +1364,11 @@ If <em>y</em> and <em>z</em> are not given, they are assumed equal to <em>x</em>
 <h2 id="_camera_and_projections">Camera and Projections</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The functions below follow the convention of a camera frame where the camera
-is in the origin, pointing towards the negative z-axis, with the positive x-axis
-pointing to its right and the positive y-axis pointing up.</p>
+<p>The functions below follow the traditional OpenGL conventions, where the camera (or viewer)
+is in the origin, looking towards the negative z-axis, with the positive x-axis pointing to
+its right and the positive y-axis pointing up, and the <em>near</em> and <em>far</em> parameters represent
+the distance of the near and far planes from the origin along the viewing direction
+(i.e. they are the negated z-coordinates of the two planes).</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1378,30 +1380,25 @@ given the camera position and orientation in world coordinates:
 direction from the camera to a point on the vertical above the target.</span></p>
 </li>
 <li>
-<p><em>m</em> = <strong>ortho</strong>(<em>left</em>, <em>right</em>, <em>bottom</em>, <em>top</em> [, <em>near</em>, <em>far</em>])<br>
-<span class="small">Returns a 4x4 ortographic projection matrix. The view-volume is
-the parallelepiped bounded by the axis-aligned planes x=<em>left</em>, x=<em>right</em>,
-y=<em>bottom</em>, y=<em>top</em>, z=-<em>near</em>, and z=-<em>far</em>
-(<em>near</em> and <em>far</em> default to -1.0 and 1.0, respectively).</span></p>
+<p><em>m</em> = <strong>ortho</strong>(<em>left</em>, <em>right</em>, <em>bottom</em>, <em>top</em>, [<em>near</em>], [<em>far</em>])<br>
+<span class="small">Returns a 4x4 ortographic projection matrix that transforms an axis-aligned box
+into the axis-aligned cube of side 2 centered at the origin.<br>
+The box is bounded by the planes <em>x=left</em>, <em>x=right</em>, <em>y=bottom</em>, <em>y=top</em>, <em>z=-near</em>, and <em>z=-far</em>.<br>
+The <em>near</em> and <em>far</em> values default to -1.0 and 1.0 respectively (2D projection).</span></p>
 </li>
-</ul>
-</div>
-<div class="ulist">
-<ul>
 <li>
 <p><em>m</em> = <strong>frustum</strong>(<em>left</em>, <em>right</em>, <em>bottom</em>, <em>top</em>, <em>near</em>, <em>far</em>)<br>
-<span class="small">Returns a 4x4 perspective projection matrix. The view volume is the frustum
-having the center of projection in the origin, whose near face is
-the rectangle (<em>left</em> &lt; x &lt; <em>right</em> , <em>bottom</em> &lt; y &lt; <em>top</em>) in the z=-<em>near</em> plane,
-and whose far face is in the z=-<em>far</em> plane.</span></p>
+<span class="small">Returns a 4x4 perspective projection matrix.
+The view frustum has the center of projection in the origin, its near face is
+the rectangle (<em>left&lt;x&lt;right</em>, <em>bottom&lt;y&lt;top</em>) in the <em>z=-near</em> plane, and its
+far face is in the <em>z=-far</em> plane.</span></p>
 </li>
 <li>
 <p><em>m</em> = <strong>perspective</strong>(<em>fovy</em>, <em>aspect</em>, <em>near</em>, <em>far</em>)<br>
-<span class="small">Returns a 4x4 perspective projection matrix. The view volume is the frustum
-having the center of projection in the origin,
-the near and far faces in z=-near, and z=-<em>far</em>,
-with the given <em>aspect</em> ratio (width/height), and a vertical field of view given
-by <em>fovy</em> (in radians).</span></p>
+<span class="small">Returns a 4x4 perspective projection matrix.
+The view frustum has the center of projection in the origin, a vertical field of view given
+by <em>fovy</em> (radians), and its near and far faces have the given <em>aspect</em> ratio (width/height),
+and are at <em>z=-near</em> and <em>z=-far</em>, respectively.</span></p>
 </li>
 </ul>
 </div>
