@@ -88,24 +88,6 @@ of the https://github.com/stetre/moonglmath[official repository] on GitHub.
 [[see-also]]
 === See also
 
-* Rendering:
-https://github.com/stetre/moongl[MoonGL].
+MoonVulkan is part of https://github.com/stetre/moonlibs[MoonLibs], a collection of 
+Lua libraries for graphics and audio programming.
 
-* Windowing and GUI: 
-https://github.com/stetre/moonfltk[MoonFLTK],
-https://github.com/stetre/moonglfw[MoonGLFW],
-https://github.com/stetre/moonglut[MoonGLUT].
-
-////
-* Math:
-https://github.com/stetre/moonglmath[MoonGLMATH].
-////
-
-* Image and model loading:
-https://github.com/stetre/moonassimp[MoonAssimp],
-https://github.com/stetre/moonsoil[MoonSOIL].
-
-* Audio:
-https://github.com/stetre/luajack[LuaJACK].
-
-<<<
