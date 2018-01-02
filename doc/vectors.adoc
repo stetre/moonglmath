@@ -68,6 +68,10 @@ _v^T^_ = *transpose*(_v_) +
 _v~clamped~_ = *clamp*(_v_, _v~min~_, _v~max~_) +
 [small]#Component-wise clamp.#
 
+* _v~mix~_ = *v:mix*(_v~1~_, _k_) +
+_v~mix~_ = *mix*(_v_, _v~1~_, _k_) +
+[small]#Component-wise blend _v~mix~ = (1-k)*v +k*v~1~_, where _k_ is a number.#
+
 '''
 The following *vector operators* are supported:
 

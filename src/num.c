@@ -45,3 +45,17 @@ int num_Clamp(lua_State *L)
     return 1;
     }
 
+double mix(double x, double y, double k)
+    {
+    return x*(1.0-k) + y*k;
+    }
+
+int num_Mix(lua_State *L)
+    {
+    double x = luaL_checknumber(L, 1);
+    double y = luaL_checknumber(L, 2);
+    double k = luaL_checknumber(L, 3);
+    lua_pushnumber(L, mix(x, y, k));
+    return 1;
+    }
+

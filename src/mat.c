@@ -510,6 +510,15 @@ int mat_clamp(mat_t dst, mat_t m, mat_t minm, mat_t maxm, size_t nr, size_t nc)
     return 1;
     }
 
+int mat_mix(mat_t dst, mat_t m1, mat_t m2, size_t nr, size_t nc, double k)
+    {
+    size_t i, j;
+    for(i = 0; i < nr; i++)
+        for(j = 0; j < nc; j++)
+            dst[i][j] = mix(m1[i][j], m2[i][j], k);
+    return 1;
+    }
+
 /*------------------------------------------------------------------------------*
  | Metamethods                                                                  |
  *------------------------------------------------------------------------------*/
@@ -786,7 +795,21 @@ int mat_Clamp(lua_State *L)
     if(nr1 != nr || nc1 != nc)
         return luaL_error(L, OPERANDS_ERROR);
     mat_clamp(dst, m, minm, maxm, nr, nc);
-    return pushmat(L, dst, nc, nr, nc, nr);
+    return pushmat(L, dst, nr, nc, nr, nc);
+    }
+
+int mat_Mix(lua_State *L)
+    {
+    mat_t dst, m1, m2;
+    double k;
+    size_t nr, nc, nr1, nc1;
+    checkmat(L, 1, m1, &nr, &nc);
+    checkmat(L, 2, m2, &nr1, &nc1);
+    if(nr1 != nr || nc1 != nc)
+        return luaL_error(L, OPERANDS_ERROR);
+    k = luaL_checknumber(L, 3);
+    mat_mix(dst, m1, m2, nr, nc, k);
+    return pushmat(L, dst, nr, nc, nr, nc);
     }
 
 
@@ -815,6 +838,7 @@ static const struct luaL_Reg Methods[] =
         { "column", mat_Column },
         { "row", mat_Row },
         { "clamp", mat_Clamp },
+        { "mix", mat_Mix },
         { NULL, NULL } /* sentinel */
     };
 

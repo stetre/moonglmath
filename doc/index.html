@@ -976,6 +976,11 @@ The <strong>vecN</strong> function creates a column vector of size N (where N ma
 <em>v<sub>clamped</sub></em> = <strong>clamp</strong>(<em>v</em>, <em>v<sub>min</sub></em>, <em>v<sub>max</sub></em>)<br>
 <span class="small">Component-wise clamp.</span></p>
 </li>
+<li>
+<p><em>v<sub>mix</sub></em> = <strong>v:mix</strong>(<em>v<sub>1</sub></em>, <em>k</em>)<br>
+<em>v<sub>mix</sub></em> = <strong>mix</strong>(<em>v</em>, <em>v<sub>1</sub></em>, <em>k</em>)<br>
+<span class="small">Component-wise blend <em>v<sub>mix</sub> = (1-k)*v +k*v<sub>1</sub></em>, where <em>k</em> is a number.</span></p>
+</li>
 </ul>
 </div>
 <hr>
@@ -1143,6 +1148,11 @@ identity matrix.</span></p>
 <p><em>m<sub>clamped</sub></em> = <strong>v:clamp</strong>(<em>m<sub>min</sub></em>, <em>m<sub>max</sub></em>)<br>
 <em>m<sub>clamped</sub></em> = <strong>clamp</strong>(<em>m</em>, <em>m<sub>min</sub></em>, <em>m<sub>max</sub></em>)<br>
 <span class="small">Component-wise clamp.</span></p>
+</li>
+<li>
+<p><em>m<sub>mix</sub></em> = <strong>m:mix</strong>(<em>m<sub>1</sub></em>, <em>k</em>)<br>
+<em>m<sub>mix</sub></em> = <strong>mix</strong>(<em>m</em>, <em>m<sub>1</sub></em>, <em>k</em>)<br>
+<span class="small">Component-wise blend <em>m<sub>mix</sub> = (1-k)*m +k*m<sub>1</sub></em>, where <em>k</em> is a number.</span></p>
 </li>
 </ul>
 </div>

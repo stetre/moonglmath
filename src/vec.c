@@ -343,6 +343,14 @@ void vec_clamp(vec_t dst, vec_t v, vec_t minv, vec_t maxv, size_t n)
         dst[i] = clamp(v[i], minv[i], maxv[i]);
     }
 
+void vec_mix(vec_t dst, vec_t v1, vec_t v2, size_t n, double k)
+    {
+    size_t i;
+    for(i=0; i<n; i++)
+        dst[i] = mix(v1[i], v2[i], k);
+    }
+
+
 /*------------------------------------------------------------------------------*
  | Metamethods                                                                  |
  *------------------------------------------------------------------------------*/
@@ -532,6 +540,22 @@ int vec_Clamp(lua_State *L)
     return pushvec(L, dst, size, size, isrow);
     }
 
+
+int vec_Mix(lua_State *L)
+    {
+    vec_t dst, v1, v2;
+    double k;
+    size_t size, size1;
+    unsigned int isrow, isrow1;
+    checkvec(L, 1, v1, &size, &isrow);
+    checkvec(L, 2, v2, &size1, &isrow1);
+    if(size1 != size || isrow1 != isrow)
+        return luaL_error(L, OPERANDS_ERROR);
+    k = luaL_checknumber(L, 3);
+    vec_mix(dst, v1, v2, size, k);
+    return pushvec(L, dst, size, size, isrow);
+    }
+
 static const struct luaL_Reg Metamethods[] = 
     {
         { "__tostring", ToString },
@@ -551,6 +575,7 @@ static const struct luaL_Reg Methods[] =
         { "normalize", vec_Normalize },
         { "transpose", vec_Transpose },
         { "clamp", vec_Clamp },
+        { "mix", vec_Mix },
         { NULL, NULL } /* sentinel */
     };
 

@@ -105,6 +105,9 @@ _m^T^_ = *transpose*(_m_) +
 _m~clamped~_ = *clamp*(_m_, _m~min~_, _m~max~_) +
 [small]#Component-wise clamp.#
 
+* _m~mix~_ = *m:mix*(_m~1~_, _k_) +
+_m~mix~_ = *mix*(_m_, _m~1~_, _k_) +
+[small]#Component-wise blend _m~mix~ = (1-k)*m +k*m~1~_, where _k_ is a number.#
 
 '''
 The following *matrix operators* are supported:

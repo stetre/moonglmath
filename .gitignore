@@ -2,5 +2,6 @@
 *.dll
 *.so
 *.o
+*.symbols
 core.*
 local/
