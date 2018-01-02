@@ -25,41 +25,23 @@
 
 #include "internal.h"
 
-static int AddVersions(lua_State *L)
-/* Add version strings to the gl table */
+/*------------------------------------------------------------------------------*
+ | Functions acting on plain numbers (double)                                   |
+ *------------------------------------------------------------------------------*/
+
+double clamp(double x, double minval, double maxval)
     {
-    lua_pushstring(L, "_VERSION");
-    lua_pushstring(L, "MoonGLMATH "MOONGLMATH_VERSION);
-    lua_settable(L, -3);
-    return 0;
+    if(x < minval) return minval;
+    if(x > maxval) return maxval;
+    return x;
     }
 
-static int GetTime(lua_State *L)
+int num_Clamp(lua_State *L)
     {
-    lua_pushnumber(L, moonglmath_now());
-    return 1;
-    }
-
-static const struct luaL_Reg Functions[] = 
-    {
-        { "get_time", GetTime },
-        { NULL, NULL } /* sentinel */
-    };
-
-int luaopen_moonglmath(lua_State *L)
-/* Lua calls this function to load the module */
-    {
-    lua_newtable(L); /* the gl table */
-    AddVersions(L);
-    luaL_setfuncs(L, Functions, 0);
-
-    /* add glmath functions: */
-    moonglmath_open_vec(L);
-    moonglmath_open_mat(L);
-    moonglmath_open_quat(L);
-    moonglmath_open_funcs(L);
-    moonglmath_open_transform(L);
-    moonglmath_open_viewing(L);
+    double x = luaL_checknumber(L, 1);
+    double minval = luaL_checknumber(L, 2);
+    double maxval = luaL_checknumber(L, 3);
+    lua_pushnumber(L, clamp(x, minval, maxval));
     return 1;
     }
 

@@ -336,6 +336,12 @@ void vec_cross(vec_t dst, vec_t v1, vec_t v2)
     dst[3] = 0;
     }
 
+void vec_clamp(vec_t dst, vec_t v, vec_t minv, vec_t maxv, size_t n)
+    {
+    size_t i;
+    for(i=0; i<n; i++)
+        dst[i] = clamp(v[i], minv[i], maxv[i]);
+    }
 
 /*------------------------------------------------------------------------------*
  | Metamethods                                                                  |
@@ -510,6 +516,22 @@ int vec_Transpose(lua_State *L)
     return pushvec(L, v, size, size, !isrow);
     }
 
+int vec_Clamp(lua_State *L)
+    {
+    vec_t dst, v, minv, maxv;
+    size_t size, size1;
+    unsigned int isrow, isrow1;
+    checkvec(L, 1, v, &size, &isrow);
+    checkvec(L, 2, minv, &size1, &isrow1);
+    if(size1 != size || isrow1 != isrow)
+        return luaL_error(L, OPERANDS_ERROR);
+    checkvec(L, 3, maxv, &size1, &isrow1);
+    if(size1 != size || isrow1 != isrow)
+        return luaL_error(L, OPERANDS_ERROR);
+    vec_clamp(dst, v, minv, maxv, size);
+    return pushvec(L, dst, size, size, isrow);
+    }
+
 static const struct luaL_Reg Metamethods[] = 
     {
         { "__tostring", ToString },
@@ -528,6 +550,7 @@ static const struct luaL_Reg Methods[] =
         { "norm", vec_Norm},
         { "normalize", vec_Normalize },
         { "transpose", vec_Transpose },
+        { "clamp", vec_Clamp },
         { NULL, NULL } /* sentinel */
     };
 

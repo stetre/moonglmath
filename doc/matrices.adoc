@@ -101,6 +101,11 @@ _m^T^_ = *transpose*(_m_) +
 * _v_ = *m:column*(_i_) +
 [small]#Returns the _i-th_ column as a column <<glmath.vecN, vector>>.#
 
+* _m~clamped~_ = *v:clamp*(_m~min~_, _m~max~_) +
+_m~clamped~_ = *clamp*(_m_, _m~min~_, _m~max~_) +
+[small]#Component-wise clamp.#
+
+
 '''
 The following *matrix operators* are supported:
 

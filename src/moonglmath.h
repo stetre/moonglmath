@@ -85,6 +85,7 @@ double moonglmath_vec_dot(moonglmath_vec_t v1, moonglmath_vec_t v2, size_t n);
 void moonglmath_vec_vxs(moonglmath_vec_t dst, moonglmath_vec_t v, double s, size_t n);
 void moonglmath_vec_vxv(moonglmath_mat_t dst, moonglmath_vec_t v1, moonglmath_vec_t v2, size_t n);
 void moonglmath_vec_cross(moonglmath_vec_t dst, moonglmath_vec_t v1, moonglmath_vec_t v2);
+void moonglmath_vec_clamp(moonglmath_vec_t dst, moonglmath_vec_t v, moonglmath_vec_t minv, moonglmath_vec_t maxv, size_t n);
 
 /*---------------------------------------------------------------------------*
  | Matrix                                                                    |
@@ -107,6 +108,7 @@ double moonglmath_mat_det3(moonglmath_mat_t m);
 double moonglmath_mat_det4(moonglmath_mat_t m);
 void moonglmath_mat_adj(moonglmath_mat_t dst, moonglmath_mat_t m, size_t n);
 int moonglmath_mat_inv(moonglmath_mat_t dst, moonglmath_mat_t m, size_t n);
+int moonglmath_mat_clamp(moonglmath_mat_t dst, moonglmath_mat_t m, moonglmath_mat_t minm, moonglmath_mat_t maxm, size_t nr, size_t nc);
 
 /*---------------------------------------------------------------------------*
  | Quaternion                                                                |
@@ -124,6 +126,12 @@ void moonglmath_quat_inv(moonglmath_quat_t dst, moonglmath_quat_t q);
 void moonglmath_quat_div(moonglmath_quat_t dst, moonglmath_quat_t q, double s);
 void moonglmath_quat_mul(moonglmath_quat_t dst, moonglmath_quat_t q, moonglmath_quat_t p);
 void moonglmath_quat_qxs(moonglmath_quat_t dst, moonglmath_quat_t q, double s);
+
+/*---------------------------------------------------------------------------*
+ | Numbers                                                                   |
+ *---------------------------------------------------------------------------*/
+
+double moonglmath_clamp(double x, double minval, double maxval);
 
 /*---------------------------------------------------------------------------*
  | Other                                                                     |

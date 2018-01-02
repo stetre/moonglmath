@@ -122,6 +122,8 @@ int vec_Norm(lua_State *L);
 int vec_Normalize(lua_State *L);
 #define vec_Transpose moonglmath_vec_Transpose
 int vec_Transpose(lua_State *L);
+#define vec_Clamp moonglmath_vec_Clamp
+int vec_Clamp(lua_State *L);
 
 /* mat.c ------------------------------------------------------------------------*/
 
@@ -139,6 +141,8 @@ int mat_Adj(lua_State *L);
 int mat_Column(lua_State *L);
 #define mat_Row moonglmath_mat_Row
 int mat_Row(lua_State *L);
+#define mat_Clamp moonglmath_mat_Clamp
+int mat_Clamp(lua_State *L);
 
 /* quat.c ------------------------------------------------------------------------*/
 #define quat_Norm moonglmath_quat_Norm
@@ -151,6 +155,11 @@ int quat_Inv(lua_State *L);
 int quat_Conj(lua_State *L);
 #define quat_FromMat moonglmath_quat_FromMat
 int quat_FromMat(lua_State *L);
+
+/* num.c -------------------------------------------------------------------------*/
+
+#define num_Clamp moonglmath_num_Clamp
+int num_Clamp(lua_State *L);
 
 /* main.c */
 int luaopen_moonglmath(lua_State *L);

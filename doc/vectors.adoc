@@ -64,6 +64,9 @@ _v1_ = *normalize*(_v_) +
 _v^T^_ = *transpose*(_v_) +
 [small]#Returns the transpose of _v_.#
 
+* _v~clamped~_ = *v:clamp*(_v~min~_, _v~max~_) +
+_v~clamped~_ = *clamp*(_v_, _v~min~_, _v~max~_) +
+[small]#Component-wise clamp.#
 
 '''
 The following *vector operators* are supported:

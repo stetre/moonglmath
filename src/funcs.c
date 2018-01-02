@@ -98,6 +98,13 @@ static int Column(lua_State *L)
     return badarg(L, 1);
     }
 
+static int Clamp(lua_State *L)
+    {
+    if(lua_isnumber(L,1)) return num_Clamp(L);
+    if(isvec(L,1)) return vec_Clamp(L);
+    if(ismat(L,1)) return mat_Clamp(L);
+    return badarg(L, 1);
+    }
 
 /*------------------------------------------------------------------------------*
  | Registration                                                                 |
@@ -115,6 +122,7 @@ static const struct luaL_Reg Functions[] =
         { "transpose", Transpose },
         { "row", Row },
         { "column", Column },
+        { "clamp", Clamp },
         { NULL, NULL } /* sentinel */
     };
 

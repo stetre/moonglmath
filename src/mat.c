@@ -501,6 +501,15 @@ int mat_inv(mat_t dst, mat_t m, size_t n)
     return 1;
     }
 
+int mat_clamp(mat_t dst, mat_t m, mat_t minm, mat_t maxm, size_t nr, size_t nc)
+    {
+    size_t i, j;
+    for(i = 0; i < nr; i++)
+        for(j = 0; j < nc; j++)
+            dst[i][j] = clamp(m[i][j], minm[i][j], maxm[i][j]);
+    return 1;
+    }
+
 /*------------------------------------------------------------------------------*
  | Metamethods                                                                  |
  *------------------------------------------------------------------------------*/
@@ -763,6 +772,24 @@ int mat_Row(lua_State *L)
     return pushvec(L, v, nc, nc, 1);
     }
 
+
+int mat_Clamp(lua_State *L)
+    {
+    mat_t dst;
+    mat_t m, minm, maxm;
+    size_t nr, nc, nr1, nc1;
+    checkmat(L, 1, m, &nr, &nc);
+    checkmat(L, 2, minm, &nr1, &nc1);
+    if(nr1 != nr || nc1 != nc)
+        return luaL_error(L, OPERANDS_ERROR);
+    checkmat(L, 3, maxm, &nr1, &nc1);
+    if(nr1 != nr || nc1 != nc)
+        return luaL_error(L, OPERANDS_ERROR);
+    mat_clamp(dst, m, minm, maxm, nr, nc);
+    return pushmat(L, dst, nc, nr, nc, nr);
+    }
+
+
 static const struct luaL_Reg Metamethods[] = 
     {
         { "__tostring", ToString },
@@ -787,6 +814,7 @@ static const struct luaL_Reg Methods[] =
         { "quat", mat_Quat },
         { "column", mat_Column },
         { "row", mat_Row },
+        { "clamp", mat_Clamp },
         { NULL, NULL } /* sentinel */
     };
 
