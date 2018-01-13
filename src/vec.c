@@ -274,11 +274,20 @@ void vec_sub(vec_t dst, vec_t v1, vec_t v2, size_t n)
     
 double vec_norm(vec_t v, size_t n)
     {
-    size_t i; 
+    size_t i;
     double r = 0;
-    for(i=0; i < n; i++)    
+    for(i=0; i < n; i++)
         r += v[i]*v[i];
     return sqrt(r);
+    }
+
+double vec_norm2(vec_t v, size_t n)
+    {
+    size_t i;
+    double r = 0;
+    for(i=0; i < n; i++)
+        r += v[i]*v[i];
+    return r;
     }
 
 void vec_normalize(vec_t v, size_t n) 
@@ -496,13 +505,25 @@ static int Cross(lua_State *L)
 
 int vec_Norm(lua_State *L)
     {
-    vec_t v; 
-    size_t size, i; 
+    vec_t v;
+    size_t size, i;
     double r = 0;
     checkvec(L, 1, v, &size, NULL);
     for(i=0; i < size; i++) 
         r += v[i]*v[i];
     lua_pushnumber(L, sqrt(r));
+    return 1;
+    }
+
+int vec_Norm2(lua_State *L)
+    {
+    vec_t v;
+    size_t size, i;
+    double r = 0;
+    checkvec(L, 1, v, &size, NULL);
+    for(i=0; i < size; i++)
+        r += v[i]*v[i];
+    lua_pushnumber(L, r);
     return 1;
     }
 
@@ -571,7 +592,8 @@ static const struct luaL_Reg Metamethods[] =
 
 static const struct luaL_Reg Methods[] = 
     {
-        { "norm", vec_Norm},
+        { "norm", vec_Norm },
+        { "norm2", vec_Norm2 },
         { "normalize", vec_Normalize },
         { "transpose", vec_Transpose },
         { "clamp", vec_Clamp },

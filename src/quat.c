@@ -197,14 +197,23 @@ void quat_sub(quat_t dst, quat_t q1, quat_t q2)
     for(i=0; i < 4; i++)    
         dst[i] = q1[i] - q2[i];
     }
-    
+
 double quat_norm(quat_t q)
     {
-    size_t i; 
+    size_t i;
     double r = 0;
-    for(i=0; i < 4; i++)    
+    for(i=0; i < 4; i++)
         r += q[i]*q[i];
     return sqrt(r);
+    }
+
+double quat_norm2(quat_t q)
+    {
+    size_t i;
+    double r = 0;
+    for(i=0; i < 4; i++)
+        r += q[i]*q[i];
+    return r;
     }
 
 void quat_normalize(quat_t q) 
@@ -373,13 +382,25 @@ static int Div(lua_State *L)
 
 int quat_Norm(lua_State *L)
     {
-    quat_t q; 
-    size_t i; 
+    quat_t q;
+    size_t i;
     double r = 0;
     checkquat(L, 1, q);
-    for(i=0; i < 4; i++)    
+    for(i=0; i < 4; i++)
         r += q[i]*q[i];
     lua_pushnumber(L, sqrt(r));
+    return 1;
+    }
+
+int quat_Norm2(lua_State *L)
+    {
+    quat_t q;
+    size_t i;
+    double r = 0;
+    checkquat(L, 1, q);
+    for(i=0; i < 4; i++)
+        r += q[i]*q[i];
+    lua_pushnumber(L, r);
     return 1;
     }
 
@@ -536,6 +557,7 @@ static const struct luaL_Reg Methods[] =
         { "parts", quat_Parts },
         { "conj", quat_Conj },
         { "norm", quat_Norm },
+        { "norm2", quat_Norm2 },
         { "normalize", quat_Normalize },
         { "inv", quat_Inv },
         { "mat3", quat_Mat3 },

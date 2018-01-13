@@ -67,6 +67,7 @@
 #define vec_add moonglmath_vec_add
 #define vec_sub moonglmath_vec_sub
 #define vec_norm moonglmath_vec_norm
+#define vec_norm2 moonglmath_vec_norm2
 #define vec_normalize moonglmath_vec_normalize
 #define vec_div moonglmath_vec_div
 #define vec_dot moonglmath_vec_dot
@@ -102,6 +103,7 @@
 #define quat_add moonglmath_quat_add
 #define quat_sub moonglmath_quat_sub
 #define quat_norm moonglmath_quat_norm
+#define quat_norm2 moonglmath_quat_norm2
 #define quat_normalize moonglmath_quat_normalize
 #define quat_conj moonglmath_quat_conj
 #define quat_inv moonglmath_quat_inv

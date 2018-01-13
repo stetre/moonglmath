@@ -54,7 +54,11 @@ Vectors have the following *methods*, also available as functions in the *glmath
 
 * _num_ = *v:norm*( ) +
 _num_ = *norm*(_v_) +
-[small]#Returns the L^2^-norm of _v_.#
+[small]#Returns the L^2^-norm (length) of _v_.#
+
+* _num_ = *v:norm2*( ) +
+_num_ = *norm2*(_v_) +
+[small]#Returns the squared L^2^-norm (length) of _v_.#
 
 * _v1_ = *v:normalize*( ) +
 _v1_ = *normalize*(_v_) +

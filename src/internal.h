@@ -118,6 +118,8 @@ int metatable_setfuncs(lua_State *L, const char *metatable, const luaL_Reg *meta
 
 #define vec_Norm moonglmath_vec_Norm
 int vec_Norm(lua_State *L);
+#define vec_Norm2 moonglmath_vec_Norm2
+int vec_Norm2(lua_State *L);
 #define vec_Normalize moonglmath_vec_Normalize
 int vec_Normalize(lua_State *L);
 #define vec_Transpose moonglmath_vec_Transpose
@@ -151,6 +153,8 @@ int mat_Mix(lua_State *L);
 /* quat.c ------------------------------------------------------------------------*/
 #define quat_Norm moonglmath_quat_Norm
 int quat_Norm(lua_State *L);
+#define quat_Norm2 moonglmath_quat_Norm2
+int quat_Norm2(lua_State *L);
 #define quat_Normalize moonglmath_quat_Normalize
 int quat_Normalize(lua_State *L);
 #define quat_Inv moonglmath_quat_Inv

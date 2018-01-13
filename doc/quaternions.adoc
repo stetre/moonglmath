@@ -62,6 +62,10 @@ _q^pass:[*]^_ = *conj*(_q_) +
 _num_ = *norm*(_q_) +
 [small]#Returns the norm of _q_.#
 
+* _num_ = *q:norm2*( ) +
+_num_ = *norm2*(_q_) +
+[small]#Returns the squared norm of _q_.#
+
 * _q1_ = *q:normalize*( ) +
 _q1_ = *normalize*(_q_) +
 [small]#Returns the normalized version of _q_ (i.e. the unit quaternion _q/|q|_).#
