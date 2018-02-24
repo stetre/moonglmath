@@ -88,6 +88,7 @@ of the https://github.com/stetre/moonglmath[official repository] on GitHub.
 [[see-also]]
 === See also
 
-MoonGLMATH is part of https://github.com/stetre/moonlibs[MoonLibs], a collection of 
+
+MoonGLMATH is part of https://github.com/stetre/moonlibs[MoonLibs], a collection of
 Lua libraries for graphics and audio programming.
 
