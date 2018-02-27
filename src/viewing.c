@@ -133,7 +133,7 @@ int ortho(mat_t dst, double l, double r, double b, double t, double near, double
     dst[0][3] = -(r+l)/(r-l);
     dst[1][1] = 2.0/(t-b);
     dst[1][3] = -(t+b)/(t-b);
-    dst[2][2] = -2.0/(f-n);
+    dst[2][2] = 2.0/(f-n);
     dst[2][3] = -(f+n)/(f-n);
     dst[3][3] = 1.0;
     return 0;
