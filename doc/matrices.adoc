@@ -40,7 +40,6 @@ identity matrix.#
 .examples
 [source,lua]
 ----
-
 m = glmath.mat3()              --> m = {{ 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 }}
 m = glmath.mat2x3()            --> m = {{ 0, 0, 0 }, { 0, 0, 0 }}
 m = glmath.mat2x3(1, 2, 3, 4)  --> m = {{ 1, 2, 3 }, { 4, 0, 0 }}
@@ -54,10 +53,8 @@ v1 = glmath.vec2r(1, 2)
 v2 = glmath.vec2r(3, 4)
 m = glmath.mat2(v1, v2)        --> m = {{ 1, 2 }, { 3, 4 }}
 m = glmath.mat3(v1, v2)        --> m = {{ 1, 2, 0 }, { 3, 4, 0 }, { 0, 0, 0 }}
-
 ----
 
-'''
 [[glmath.ismatN]]
 * _boolean_ = *ismat2*(_v_) +
 _boolean_ = *ismat3*(_v_) +
@@ -70,55 +67,42 @@ _boolean_ = *ismat3x4*(_v_) +
 _boolean_ = *ismat4x3*(_v_) +
 [small]#Check if _m_ is a matrix of a given size (e.g. *ismat2* checks if _m_ is a 2x2 matrix).#
 
-Matrices have the following *methods*, also available as functions:
+'''
 
-* _adj(m)_ = *m:adj*( ) +
-_adj(m)_ = *adj*(_m_) +
-[small]#Returns the adjoint of the square matrix _m_.#
+Matrices have the following *functions and methods* (functions are also available as methods of their first argument):
 
-* _val_ = *m:det*( ) +
-_val_ = *det*(_m_) +
-[small]#Returns the determinant of the square matrix _m_.#
-
-* _m^-1^_ = *m:inv*( ) +
+* _determinant_ = *det*(_m_) +
+_trace_ = *trace*(_m_) +
+_adjoint_ = *adj*(_m_) +
 _m^-1^_ = *inv*(_m_) +
-[small]#Returns the inverse of the square matrix _m_, or _nil_ if _m_ is singular.#
+[small]#Apply only to square matrices. If _m_ is singular, _inv(m)_ returns _nil_.#
 
-* _val_ = *m:trace*( ) +
-_val_ = *trace*(_m_) +
-[small]#Returns the trace of the square matrix _m_.#
+* _m^T^_ = *transpose*(_m_) +
 
-* _m^T^_ = *m:transpose*( ) +
-_m^T^_ = *transpose*(_m_) +
-[small]#Returns the transpose of _m_.#
-
-* *m:quat*( ) +
-[small]#Same as <<glmath.quat, glmath.quat>>(_m_).#
+* _q_ = <<glmath.quat, *quat*>>(_m_) +
 
 * _v_ = *m:row*(_i_) +
-[small]#Returns the _i-th_ row as a row <<glmath.vecN, vector>>.#
+[small]#Returns the _i-th_ row as a row vector (<<glmath.vecN, vecNr>>).#
 
 * _v_ = *m:column*(_i_) +
-[small]#Returns the _i-th_ column as a column <<glmath.vecN, vector>>.#
+[small]#Returns the _i-th_ column as a column vector (<<glmath.vecN, vecN>>).#
 
-* _m~clamped~_ = *v:clamp*(_m~min~_, _m~max~_) +
-_m~clamped~_ = *clamp*(_m_, _m~min~_, _m~max~_) +
+* _m~clamped~_ = *clamp*(_m_, _m~min~_, _m~max~_) +
 [small]#Component-wise clamp.#
 
-* _m~mix~_ = *m:mix*(_m~1~_, _k_) +
-_m~mix~_ = *mix*(_m_, _m~1~_, _k_) +
+* _m~mix~_ = *mix*(_m_, _m~1~_, _k_) +
 [small]#Component-wise blend _m~mix~ = (1-k)*m +k*m~1~_, where _k_ is a number.#
 
 '''
 The following *matrix operators* are supported:
 
-* *Unary minus*: _m = -m1_.
-* *Addition*: _m = m1 + m2_.
-* *Subtraction*: _m = m1 - m2_.
-* *Multiplication by a scalar*: _m = s * m1_, and _m = m1 * s_, where _s_ is a number.
-* *Division by a scalar*: _m = m1 / s_, where _s_ is a number.
-* *Integer power*: _m = m1 ^ n_, where _m1_ is a square matrix and _n_ is an integer.
-* *Matrix multiplication*: _m = m1 * m2_, where _m1_ is a NxK matrix and _m2_ a KxM matrix.
+* *Unary minus*: _m = -m~1~_.
+* *Addition*: _m = m~1~ + m~2~_.
+* *Subtraction*: _m = m~1~ - m~2~_.
+* *Multiplication by a scalar*: _m = s * m~1~_, and _m = m~1~ * s_, where _s_ is a number.
+* *Division by a scalar*: _m = m~1~ / s_, where _s_ is a number.
+* *Integer power*: _m = m~1~ ^ n_, where _m~1~_ is a square matrix and _n_ is an integer.
+* *Matrix multiplication*: _m = m~1~ * m~2~_, where _m~1~_ is a NxK matrix and _m~2~_ a KxM matrix.
 The result _m_ is an NxM matrix.
 * *Matrix-vector multiplication*: _u_ = _m_ * _v_ where _m_ is an NxM matrix and _v_ is a size M column vector. The result _u_ is a size N column vector.
 * *Vector-matrix multiplication*: _u_ = _v_ * _m_ where _v_ is a size N row vector and _m_ is an NxM matrix. The result _u_ is a size M row vector.

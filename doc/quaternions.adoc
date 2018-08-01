@@ -30,7 +30,6 @@ is regarded as the rotation matrix).#
 .examples
 [source,lua]
 ----
-
 q = glmath.quat()            --> q = < 0, 0, 0 >
 q = glmath.quat(0, 1, 2, 3)  --> q = < 0, 1, 2, 3 >
 
@@ -40,7 +39,6 @@ q = glmath.quat(w, v)        --> q = < 0, 1, 2, 3 >
 
 m = glmath.mat3(1, 0, 0, 0, 0, -1, 0, 1, 0)
 q = glmath.quat(m)           --> q = < 0.707107,  0.707107, 0, 0 >
-
 ----
 
 [[glmath.isquat]]
@@ -48,31 +46,17 @@ q = glmath.quat(m)           --> q = < 0.707107,  0.707107, 0, 0 >
 [small]#Returns _true_ if _q_ is a quaternion, _false_ otherwise.#
 
 '''
-Quaternions have the following *methods*, most of them also available as functions in the *glmath* table:
 
-* _w_, _v_ = *q:parts*( ) +
-[small]#Returns the scalar and vector parts of _q_. 
-The vector part _v_ is returned as a size 3 column vector.#
+Quaternions have the following *functions and methods* (functions are also available as methods of their first argument):
 
-* _q^pass:[*]^_ = *q:conj*( ) +
-_q^pass:[*]^_ = *conj*(_q_) +
-[small]#Returns the conjugate of _q_.#
+* _w_, _v_ = *parts*(_q_) +
+[small]#Returns the scalar and vector parts of _q_ (_w_ is a number and _v_ is a <<glmath.vecN, vec3>>).#
 
-* _num_ = *q:norm*( ) +
-_num_ = *norm*(_q_) +
-[small]#Returns the norm of _q_.#
-
-* _num_ = *q:norm2*( ) +
-_num_ = *norm2*(_q_) +
-[small]#Returns the squared norm of _q_.#
-
-* _q1_ = *q:normalize*( ) +
-_q1_ = *normalize*(_q_) +
-[small]#Returns the normalized version of _q_ (i.e. the unit quaternion _q/|q|_).#
-
-* _q^-1^_ = *q:inv*( ) +
+* _q^pass:[*]^_ = *conj*(_q_) +
+_|q|_ = *norm*(_q_) +
+_|q|^2^_ = *norm2*(_q_) +
+_q/|q|_ = *normalize*(_q_) +
 _q^-1^_ = *inv*(_q_) +
-[small]#Returns the inverse of _q_.#
 
 * _m_ = *q:mat3*( ) +
 _m_ = *q:mat4*( ) +
@@ -81,11 +65,11 @@ _m_ = *q:mat4*( ) +
 '''
 The following *quaternion operators* are supported:
 
-* *Unary minus*: _q = -q1_.
-* *Addition*: _q = q1 + q2_.
-* *Subtraction*: _q = q1 - q2_.
-* *Multiplication by a scalar*: _q = s * q1_, and _q = q1 * s_, where _s_ is a number.
-* *Division by a scalar*: _q = q1 / s_, where _s_ is a number.
-* *Integer power*: _q = q1 ^ n_, where _n_ is an integer.
-* *Quaternion multiplication*: _q = q1 * q2_.
+* *Unary minus*: _q = -q~1~_.
+* *Addition*: _q = q~1~ + q~2~_.
+* *Subtraction*: _q = q~1~ - q~2~_.
+* *Multiplication by a scalar*: _q = s * q~1~_, and _q = q~1~ * s_, where _s_ is a number.
+* *Division by a scalar*: _q = q~1~ / s_, where _s_ is a number.
+* *Integer power*: _q = q~1~ ^ n_, where _n_ is an integer.
+* *Quaternion multiplication*: _q = q~1~ * q~2~_.
 

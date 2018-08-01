@@ -26,18 +26,16 @@ _v_ = *vec2r*(_..._) +
 _v_ = *vec3r*(_..._) +
 _v_ = *vec4r*(_..._) +
 [small]#Create a vector. 
-The *vecN* function creates a column vector of size N (where N may be 2, 3 or 4), while the *vecNr* function creates a row vector of the same size. Values to initialize the vector elements may be optionally passed as a list of numbers, or as a previously created vector (exceeding values are discarded, while missing values are replaced with zeros).#
+The *vecN* function creates a column vector of size N (where N may be 2, 3 or 4), whereas the *vecNr* function creates a row vector of the same size. Values to initialize the vector elements may be optionally passed as a list of numbers, or as a previously created vector (exceeding values are discarded, while missing values are replaced with zeros).#
 
 .examples
 [source,lua]
 ----
-
 v = glmath.vec3()            --> v = { 0, 0, 0 }'
 v = glmath.vec3(11, 22)      --> v = { 11, 22, 0 }'
 v = glmath.vec2(v)           --> v = { 11, 22 }'
 v = glmath.vec4(v)           --> v = { 11, 22, 0, 0 }'
 v = glmath.vec2(1, 2, 3, 4)  --> v = { 1, 2 }'
-
 ----
 
 [[glmath.isvecN]]
@@ -50,42 +48,29 @@ _boolean_ = *isvec4r*(_v_) +
 [small]#Check if _v_ is a vector of a given type (e.g. *isvec2r* checks if _v_ is a row vector of size 2).#
 
 '''
-Vectors have the following *methods*, also available as functions in the *glmath* table:
+Vectors have the following functions, also available as methods of their first argument:
 
-* _num_ = *v:norm*( ) +
-_num_ = *norm*(_v_) +
-[small]#Returns the L^2^-norm (length) of _v_.#
-
-* _num_ = *v:norm2*( ) +
-_num_ = *norm2*(_v_) +
-[small]#Returns the squared L^2^-norm (length) of _v_.#
-
-* _v1_ = *v:normalize*( ) +
-_v1_ = *normalize*(_v_) +
-[small]#Returns the normalized version of _v_.#
-
-* _v^T^_ = *v:transpose*( ) +
+* _|v|_ = *norm*(_v_) +
+_|v|^2^_ = *norm2*(_v_) +
+_v/|v|_ = *normalize*(_v_) +
 _v^T^_ = *transpose*(_v_) +
-[small]#Returns the transpose of _v_.#
 
-* _v~clamped~_ = *v:clamp*(_v~min~_, _v~max~_) +
-_v~clamped~_ = *clamp*(_v_, _v~min~_, _v~max~_) +
+* _v~clamped~_ = *clamp*(_v_, _v~min~_, _v~max~_) +
 [small]#Component-wise clamp.#
 
-* _v~mix~_ = *v:mix*(_v~1~_, _k_) +
-_v~mix~_ = *mix*(_v_, _v~1~_, _k_) +
+* _v~mix~_ = *mix*(_v_, _v~1~_, _k_) +
 [small]#Component-wise blend _v~mix~ = (1-k)*v +k*v~1~_, where _k_ is a number.#
 
 '''
 The following *vector operators* are supported:
 
-* *Unary minus*: _v = -v1_.
-* *Addition*: _v = v1 + v2_.
-* *Subtraction*: _v = v1 - v2_.
-* *Multiplication by a scalar*: _v = s * v1_, and _v = v1 * s_, where _s_ is a number.
-* *Division by a scalar*: _v = v1 / s_, where _s_ is a number.
-* *Dot product*: _s = v1 * v2_, where _v1_ and _v2_ are vectors of the same size (row*column, but row*row and column*column are accepted as well).
-* *Multiplication*: _m = v1 * v2_, where _v1_ is a column vector and _v2_ is a row vector of the same size. The result is a square matrix.
-* *Cross product*: _v = v1 % v2_, where _v1_ and _v3_ are size 3 vectors. Works also on operands of size 2 and 4, adapting them to size 3 (size 2 operands are extended to size 3 by adding a zero element, while size 4 operands are reduced to size 3 by ignoring the 4-th element). 
+* *Unary minus*: _v = -v~1~_.
+* *Addition*: _v = v~1~ + v~2~_.
+* *Subtraction*: _v = v~1~ - v~2~_.
+* *Multiplication by a scalar*: _v = s * v1_, and _v = v~1~ * s_, where _s_ is a number.
+* *Division by a scalar*: _v = v~1~ / s_, where _s_ is a number.
+* *Dot product*: _s = v~1~ * v~2~_, where _v~1~_ and _v~2~_ are vectors of the same size (row*column, but row*row and column*column are accepted as well).
+* *Multiplication*: _m = v~1~ * v~2~_, where _v~1~_ is a column vector and _v~2~_ is a row vector of the same size. The result is a square matrix.
+* *Cross product*: _v = v~1~ % v~2~_, where _v~1~_ and _v~3~_ are size 3 vectors. Works also on operands of size 2 and 4, adapting them to size 3 (size 2 operands are extended to size 3 by adding a zero element, while size 4 operands are reduced to size 3 by ignoring the 4-th element). 
 The result is always a size 3 vector.
 

@@ -874,12 +874,13 @@ Lua libraries for graphics and audio programming.</p>
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>MoonGLMATH is a basic Lua graphics math library, intended to be used with
-<a href="https://github.com/stetre/moongl"><strong>MoonGL</strong></a> (but it does not depend on it, and viceversa).</p>
+<p>MoonGLMATH is a basic graphics math library in Lua, intended to be used with
+<a href="https://github.com/stetre/moongl">MoonGL</a> and the other libraries of the
+<a href="https://github.com/stetre/moonlibs">MoonLibs collection</a> (but it does not depend on them, and viceversa).</p>
 </div>
 <div class="paragraph">
-<p>By now it has only the minimal features needed for graphics programming: vectors and matrices
-up to 4 and 4x4 dimensions, quaternions, and a few functions to generate transformation matrices.</p>
+<p>By now it has only the minimal features needed for graphics programming: real vectors and real matrices
+up to 4 and 4x4 dimensions, quaternions, complex numbers, and a few functions to generate transformation matrices.</p>
 </div>
 <div class="paragraph">
 <p>Like MoonGL and the other <a href="#see-also">companion libraries</a>, it is not designed for
@@ -923,15 +924,14 @@ for positions, colors and texture coordinates (<strong>v.x</strong>, <strong>v.r
 <em>v</em> = <strong>vec3r</strong>(<em>&#8230;&#8203;</em>)<br>
 <em>v</em> = <strong>vec4r</strong>(<em>&#8230;&#8203;</em>)<br>
 <span class="small">Create a vector.
-The <strong>vecN</strong> function creates a column vector of size N (where N may be 2, 3 or 4), while the <strong>vecNr</strong> function creates a row vector of the same size. Values to initialize the vector elements may be optionally passed as a list of numbers, or as a previously created vector (exceeding values are discarded, while missing values are replaced with zeros).</span></p>
+The <strong>vecN</strong> function creates a column vector of size N (where N may be 2, 3 or 4), whereas the <strong>vecNr</strong> function creates a row vector of the same size. Values to initialize the vector elements may be optionally passed as a list of numbers, or as a previously created vector (exceeding values are discarded, while missing values are replaced with zeros).</span></p>
 </li>
 </ul>
 </div>
 <div class="listingblock">
 <div class="title">examples</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span></span>
-<span class="tok-n">v</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">vec3</span><span class="tok-p">()</span>            <span class="tok-c1">--&gt; v = { 0, 0, 0 }&#39;</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-n">v</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">vec3</span><span class="tok-p">()</span>            <span class="tok-c1">--&gt; v = { 0, 0, 0 }&#39;</span>
 <span class="tok-n">v</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">vec3</span><span class="tok-p">(</span><span class="tok-mi">11</span><span class="tok-p">,</span> <span class="tok-mi">22</span><span class="tok-p">)</span>      <span class="tok-c1">--&gt; v = { 11, 22, 0 }&#39;</span>
 <span class="tok-n">v</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">vec2</span><span class="tok-p">(</span><span class="tok-n">v</span><span class="tok-p">)</span>           <span class="tok-c1">--&gt; v = { 11, 22 }&#39;</span>
 <span class="tok-n">v</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">vec4</span><span class="tok-p">(</span><span class="tok-n">v</span><span class="tok-p">)</span>           <span class="tok-c1">--&gt; v = { 11, 22, 0, 0 }&#39;</span>
@@ -953,38 +953,22 @@ The <strong>vecN</strong> function creates a column vector of size N (where N ma
 </div>
 <hr>
 <div class="paragraph">
-<p>Vectors have the following <strong>methods</strong>, also available as functions in the <strong>glmath</strong> table:</p>
+<p>Vectors have the following functions, also available as methods of their first argument:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><em>num</em> = <strong>v:norm</strong>( )<br>
-<em>num</em> = <strong>norm</strong>(<em>v</em>)<br>
-<span class="small">Returns the L<sup>2</sup>-norm (length) of <em>v</em>.</span></p>
+<p><em>|v|</em> = <strong>norm</strong>(<em>v</em>)<br>
+<em>|v|<sup>2</sup></em> = <strong>norm2</strong>(<em>v</em>)<br>
+<em>v/|v|</em> = <strong>normalize</strong>(<em>v</em>)<br>
+<em>v<sup>T</sup></em> = <strong>transpose</strong>(<em>v</em>)<br></p>
 </li>
 <li>
-<p><em>num</em> = <strong>v:norm2</strong>( )<br>
-<em>num</em> = <strong>norm2</strong>(<em>v</em>)<br>
-<span class="small">Returns the squared L<sup>2</sup>-norm (length) of <em>v</em>.</span></p>
-</li>
-<li>
-<p><em>v1</em> = <strong>v:normalize</strong>( )<br>
-<em>v1</em> = <strong>normalize</strong>(<em>v</em>)<br>
-<span class="small">Returns the normalized version of <em>v</em>.</span></p>
-</li>
-<li>
-<p><em>v<sup>T</sup></em> = <strong>v:transpose</strong>( )<br>
-<em>v<sup>T</sup></em> = <strong>transpose</strong>(<em>v</em>)<br>
-<span class="small">Returns the transpose of <em>v</em>.</span></p>
-</li>
-<li>
-<p><em>v<sub>clamped</sub></em> = <strong>v:clamp</strong>(<em>v<sub>min</sub></em>, <em>v<sub>max</sub></em>)<br>
-<em>v<sub>clamped</sub></em> = <strong>clamp</strong>(<em>v</em>, <em>v<sub>min</sub></em>, <em>v<sub>max</sub></em>)<br>
+<p><em>v<sub>clamped</sub></em> = <strong>clamp</strong>(<em>v</em>, <em>v<sub>min</sub></em>, <em>v<sub>max</sub></em>)<br>
 <span class="small">Component-wise clamp.</span></p>
 </li>
 <li>
-<p><em>v<sub>mix</sub></em> = <strong>v:mix</strong>(<em>v<sub>1</sub></em>, <em>k</em>)<br>
-<em>v<sub>mix</sub></em> = <strong>mix</strong>(<em>v</em>, <em>v<sub>1</sub></em>, <em>k</em>)<br>
+<p><em>v<sub>mix</sub></em> = <strong>mix</strong>(<em>v</em>, <em>v<sub>1</sub></em>, <em>k</em>)<br>
 <span class="small">Component-wise blend <em>v<sub>mix</sub> = (1-k)*v +k*v<sub>1</sub></em>, where <em>k</em> is a number.</span></p>
 </li>
 </ul>
@@ -996,28 +980,28 @@ The <strong>vecN</strong> function creates a column vector of size N (where N ma
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Unary minus</strong>: <em>v = -v1</em>.</p>
+<p><strong>Unary minus</strong>: <em>v = -v<sub>1</sub></em>.</p>
 </li>
 <li>
-<p><strong>Addition</strong>: <em>v = v1 + v2</em>.</p>
+<p><strong>Addition</strong>: <em>v = v<sub>1</sub> + v<sub>2</sub></em>.</p>
 </li>
 <li>
-<p><strong>Subtraction</strong>: <em>v = v1 - v2</em>.</p>
+<p><strong>Subtraction</strong>: <em>v = v<sub>1</sub> - v<sub>2</sub></em>.</p>
 </li>
 <li>
-<p><strong>Multiplication by a scalar</strong>: <em>v = s * v1</em>, and <em>v = v1 * s</em>, where <em>s</em> is a number.</p>
+<p><strong>Multiplication by a scalar</strong>: <em>v = s * v1</em>, and <em>v = v<sub>1</sub> * s</em>, where <em>s</em> is a number.</p>
 </li>
 <li>
-<p><strong>Division by a scalar</strong>: <em>v = v1 / s</em>, where <em>s</em> is a number.</p>
+<p><strong>Division by a scalar</strong>: <em>v = v<sub>1</sub> / s</em>, where <em>s</em> is a number.</p>
 </li>
 <li>
-<p><strong>Dot product</strong>: <em>s = v1 * v2</em>, where <em>v1</em> and <em>v2</em> are vectors of the same size (row*column, but row*row and column*column are accepted as well).</p>
+<p><strong>Dot product</strong>: <em>s = v<sub>1</sub> * v<sub>2</sub></em>, where <em>v<sub>1</sub></em> and <em>v<sub>2</sub></em> are vectors of the same size (row*column, but row*row and column*column are accepted as well).</p>
 </li>
 <li>
-<p><strong>Multiplication</strong>: <em>m = v1 * v2</em>, where <em>v1</em> is a column vector and <em>v2</em> is a row vector of the same size. The result is a square matrix.</p>
+<p><strong>Multiplication</strong>: <em>m = v<sub>1</sub> * v<sub>2</sub></em>, where <em>v<sub>1</sub></em> is a column vector and <em>v<sub>2</sub></em> is a row vector of the same size. The result is a square matrix.</p>
 </li>
 <li>
-<p><strong>Cross product</strong>: <em>v = v1 % v2</em>, where <em>v1</em> and <em>v3</em> are size 3 vectors. Works also on operands of size 2 and 4, adapting them to size 3 (size 2 operands are extended to size 3 by adding a zero element, while size 4 operands are reduced to size 3 by ignoring the 4-th element).
+<p><strong>Cross product</strong>: <em>v = v<sub>1</sub> % v<sub>2</sub></em>, where <em>v<sub>1</sub></em> and <em>v<sub>3</sub></em> are size 3 vectors. Works also on operands of size 2 and 4, adapting them to size 3 (size 2 operands are extended to size 3 by adding a zero element, while size 4 operands are reduced to size 3 by ignoring the 4-th element).
 The result is always a size 3 vector.</p>
 </li>
 </ul>
@@ -1075,8 +1059,7 @@ identity matrix.</span></p>
 <div class="listingblock">
 <div class="title">examples</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span></span>
-<span class="tok-n">m</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">mat3</span><span class="tok-p">()</span>              <span class="tok-c1">--&gt; m = {{ 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 }}</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-n">m</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">mat3</span><span class="tok-p">()</span>              <span class="tok-c1">--&gt; m = {{ 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 }}</span>
 <span class="tok-n">m</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">mat2x3</span><span class="tok-p">()</span>            <span class="tok-c1">--&gt; m = {{ 0, 0, 0 }, { 0, 0, 0 }}</span>
 <span class="tok-n">m</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">mat2x3</span><span class="tok-p">(</span><span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-mi">4</span><span class="tok-p">)</span>  <span class="tok-c1">--&gt; m = {{ 1, 2, 3 }, { 4, 0, 0 }}</span>
 <span class="tok-n">m</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">mat3x2</span><span class="tok-p">(</span><span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-mi">4</span><span class="tok-p">)</span>  <span class="tok-c1">--&gt; m = {{ 1, 2 }, { 3, 4 }, { 0, 0 }}</span>
@@ -1091,7 +1074,6 @@ identity matrix.</span></p>
 <span class="tok-n">m</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">mat3</span><span class="tok-p">(</span><span class="tok-n">v1</span><span class="tok-p">,</span> <span class="tok-n">v2</span><span class="tok-p">)</span>        <span class="tok-c1">--&gt; m = {{ 1, 2, 0 }, { 3, 4, 0 }, { 0, 0, 0 }}</span></code></pre>
 </div>
 </div>
-<hr>
 <div id="glmath.ismatN" class="ulist">
 <ul>
 <li>
@@ -1108,56 +1090,39 @@ identity matrix.</span></p>
 </li>
 </ul>
 </div>
+<hr>
 <div class="paragraph">
-<p>Matrices have the following <strong>methods</strong>, also available as functions:</p>
+<p>Matrices have the following <strong>functions and methods</strong> (functions are also available as methods of their first argument):</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><em>adj(m)</em> = <strong>m:adj</strong>( )<br>
-<em>adj(m)</em> = <strong>adj</strong>(<em>m</em>)<br>
-<span class="small">Returns the adjoint of the square matrix <em>m</em>.</span></p>
-</li>
-<li>
-<p><em>val</em> = <strong>m:det</strong>( )<br>
-<em>val</em> = <strong>det</strong>(<em>m</em>)<br>
-<span class="small">Returns the determinant of the square matrix <em>m</em>.</span></p>
-</li>
-<li>
-<p><em>m<sup>-1</sup></em> = <strong>m:inv</strong>( )<br>
+<p><em>determinant</em> = <strong>det</strong>(<em>m</em>)<br>
+<em>trace</em> = <strong>trace</strong>(<em>m</em>)<br>
+<em>adjoint</em> = <strong>adj</strong>(<em>m</em>)<br>
 <em>m<sup>-1</sup></em> = <strong>inv</strong>(<em>m</em>)<br>
-<span class="small">Returns the inverse of the square matrix <em>m</em>, or <em>nil</em> if <em>m</em> is singular.</span></p>
+<span class="small">Apply only to square matrices. If <em>m</em> is singular, <em>inv(m)</em> returns <em>nil</em>.</span></p>
 </li>
 <li>
-<p><em>val</em> = <strong>m:trace</strong>( )<br>
-<em>val</em> = <strong>trace</strong>(<em>m</em>)<br>
-<span class="small">Returns the trace of the square matrix <em>m</em>.</span></p>
+<p><em>m<sup>T</sup></em> = <strong>transpose</strong>(<em>m</em>)<br></p>
 </li>
 <li>
-<p><em>m<sup>T</sup></em> = <strong>m:transpose</strong>( )<br>
-<em>m<sup>T</sup></em> = <strong>transpose</strong>(<em>m</em>)<br>
-<span class="small">Returns the transpose of <em>m</em>.</span></p>
-</li>
-<li>
-<p><strong>m:quat</strong>( )<br>
-<span class="small">Same as <a href="#glmath.quat">glmath.quat</a>(<em>m</em>).</span></p>
+<p><em>q</em> = <a href="#glmath.quat"><strong>quat</strong></a>(<em>m</em>)<br></p>
 </li>
 <li>
 <p><em>v</em> = <strong>m:row</strong>(<em>i</em>)<br>
-<span class="small">Returns the <em>i-th</em> row as a row <a href="#glmath.vecN">vector</a>.</span></p>
+<span class="small">Returns the <em>i-th</em> row as a row vector (<a href="#glmath.vecN">vecNr</a>).</span></p>
 </li>
 <li>
 <p><em>v</em> = <strong>m:column</strong>(<em>i</em>)<br>
-<span class="small">Returns the <em>i-th</em> column as a column <a href="#glmath.vecN">vector</a>.</span></p>
+<span class="small">Returns the <em>i-th</em> column as a column vector (<a href="#glmath.vecN">vecN</a>).</span></p>
 </li>
 <li>
-<p><em>m<sub>clamped</sub></em> = <strong>v:clamp</strong>(<em>m<sub>min</sub></em>, <em>m<sub>max</sub></em>)<br>
-<em>m<sub>clamped</sub></em> = <strong>clamp</strong>(<em>m</em>, <em>m<sub>min</sub></em>, <em>m<sub>max</sub></em>)<br>
+<p><em>m<sub>clamped</sub></em> = <strong>clamp</strong>(<em>m</em>, <em>m<sub>min</sub></em>, <em>m<sub>max</sub></em>)<br>
 <span class="small">Component-wise clamp.</span></p>
 </li>
 <li>
-<p><em>m<sub>mix</sub></em> = <strong>m:mix</strong>(<em>m<sub>1</sub></em>, <em>k</em>)<br>
-<em>m<sub>mix</sub></em> = <strong>mix</strong>(<em>m</em>, <em>m<sub>1</sub></em>, <em>k</em>)<br>
+<p><em>m<sub>mix</sub></em> = <strong>mix</strong>(<em>m</em>, <em>m<sub>1</sub></em>, <em>k</em>)<br>
 <span class="small">Component-wise blend <em>m<sub>mix</sub> = (1-k)*m +k*m<sub>1</sub></em>, where <em>k</em> is a number.</span></p>
 </li>
 </ul>
@@ -1169,25 +1134,25 @@ identity matrix.</span></p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Unary minus</strong>: <em>m = -m1</em>.</p>
+<p><strong>Unary minus</strong>: <em>m = -m<sub>1</sub></em>.</p>
 </li>
 <li>
-<p><strong>Addition</strong>: <em>m = m1 + m2</em>.</p>
+<p><strong>Addition</strong>: <em>m = m<sub>1</sub> + m<sub>2</sub></em>.</p>
 </li>
 <li>
-<p><strong>Subtraction</strong>: <em>m = m1 - m2</em>.</p>
+<p><strong>Subtraction</strong>: <em>m = m<sub>1</sub> - m<sub>2</sub></em>.</p>
 </li>
 <li>
-<p><strong>Multiplication by a scalar</strong>: <em>m = s * m1</em>, and <em>m = m1 * s</em>, where <em>s</em> is a number.</p>
+<p><strong>Multiplication by a scalar</strong>: <em>m = s * m<sub>1</sub></em>, and <em>m = m<sub>1</sub> * s</em>, where <em>s</em> is a number.</p>
 </li>
 <li>
-<p><strong>Division by a scalar</strong>: <em>m = m1 / s</em>, where <em>s</em> is a number.</p>
+<p><strong>Division by a scalar</strong>: <em>m = m<sub>1</sub> / s</em>, where <em>s</em> is a number.</p>
 </li>
 <li>
-<p><strong>Integer power</strong>: <em>m = m1 ^ n</em>, where <em>m1</em> is a square matrix and <em>n</em> is an integer.</p>
+<p><strong>Integer power</strong>: <em>m = m<sub>1</sub> ^ n</em>, where <em>m<sub>1</sub></em> is a square matrix and <em>n</em> is an integer.</p>
 </li>
 <li>
-<p><strong>Matrix multiplication</strong>: <em>m = m1 * m2</em>, where <em>m1</em> is a NxK matrix and <em>m2</em> a KxM matrix.
+<p><strong>Matrix multiplication</strong>: <em>m = m<sub>1</sub> * m<sub>2</sub></em>, where <em>m<sub>1</sub></em> is a NxK matrix and <em>m<sub>2</sub></em> a KxM matrix.
 The result <em>m</em> is an NxM matrix.</p>
 </li>
 <li>
@@ -1240,8 +1205,7 @@ is regarded as the rotation matrix).</span></p>
 <div class="listingblock">
 <div class="title">examples</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span></span>
-<span class="tok-n">q</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">quat</span><span class="tok-p">()</span>            <span class="tok-c1">--&gt; q = &lt; 0, 0, 0 &gt;</span>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-n">q</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">quat</span><span class="tok-p">()</span>            <span class="tok-c1">--&gt; q = &lt; 0, 0, 0 &gt;</span>
 <span class="tok-n">q</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">quat</span><span class="tok-p">(</span><span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">)</span>  <span class="tok-c1">--&gt; q = &lt; 0, 1, 2, 3 &gt;</span>
 
 <span class="tok-n">w</span> <span class="tok-o">=</span> <span class="tok-mi">0</span>
@@ -1262,39 +1226,20 @@ is regarded as the rotation matrix).</span></p>
 </div>
 <hr>
 <div class="paragraph">
-<p>Quaternions have the following <strong>methods</strong>, most of them also available as functions in the <strong>glmath</strong> table:</p>
+<p>Quaternions have the following <strong>functions and methods</strong> (functions are also available as methods of their first argument):</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><em>w</em>, <em>v</em> = <strong>q:parts</strong>( )<br>
-<span class="small">Returns the scalar and vector parts of <em>q</em>.
-The vector part <em>v</em> is returned as a size 3 column vector.</span></p>
+<p><em>w</em>, <em>v</em> = <strong>parts</strong>(<em>q</em>)<br>
+<span class="small">Returns the scalar and vector parts of <em>q</em> (<em>w</em> is a number and <em>v</em> is a <a href="#glmath.vecN">vec3</a>).</span></p>
 </li>
 <li>
-<p><em>q<sup>*</sup></em> = <strong>q:conj</strong>( )<br>
-<em>q<sup>*</sup></em> = <strong>conj</strong>(<em>q</em>)<br>
-<span class="small">Returns the conjugate of <em>q</em>.</span></p>
-</li>
-<li>
-<p><em>num</em> = <strong>q:norm</strong>( )<br>
-<em>num</em> = <strong>norm</strong>(<em>q</em>)<br>
-<span class="small">Returns the norm of <em>q</em>.</span></p>
-</li>
-<li>
-<p><em>num</em> = <strong>q:norm2</strong>( )<br>
-<em>num</em> = <strong>norm2</strong>(<em>q</em>)<br>
-<span class="small">Returns the squared norm of <em>q</em>.</span></p>
-</li>
-<li>
-<p><em>q1</em> = <strong>q:normalize</strong>( )<br>
-<em>q1</em> = <strong>normalize</strong>(<em>q</em>)<br>
-<span class="small">Returns the normalized version of <em>q</em> (i.e. the unit quaternion <em>q/|q|</em>).</span></p>
-</li>
-<li>
-<p><em>q<sup>-1</sup></em> = <strong>q:inv</strong>( )<br>
-<em>q<sup>-1</sup></em> = <strong>inv</strong>(<em>q</em>)<br>
-<span class="small">Returns the inverse of <em>q</em>.</span></p>
+<p><em>q<sup>*</sup></em> = <strong>conj</strong>(<em>q</em>)<br>
+<em>|q|</em> = <strong>norm</strong>(<em>q</em>)<br>
+<em>|q|<sup>2</sup></em> = <strong>norm2</strong>(<em>q</em>)<br>
+<em>q/|q|</em> = <strong>normalize</strong>(<em>q</em>)<br>
+<em>q<sup>-1</sup></em> = <strong>inv</strong>(<em>q</em>)<br></p>
 </li>
 <li>
 <p><em>m</em> = <strong>q:mat3</strong>( )<br>
@@ -1310,25 +1255,25 @@ The vector part <em>v</em> is returned as a size 3 column vector.</span></p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Unary minus</strong>: <em>q = -q1</em>.</p>
+<p><strong>Unary minus</strong>: <em>q = -q<sub>1</sub></em>.</p>
 </li>
 <li>
-<p><strong>Addition</strong>: <em>q = q1 + q2</em>.</p>
+<p><strong>Addition</strong>: <em>q = q<sub>1</sub> + q<sub>2</sub></em>.</p>
 </li>
 <li>
-<p><strong>Subtraction</strong>: <em>q = q1 - q2</em>.</p>
+<p><strong>Subtraction</strong>: <em>q = q<sub>1</sub> - q<sub>2</sub></em>.</p>
 </li>
 <li>
-<p><strong>Multiplication by a scalar</strong>: <em>q = s * q1</em>, and <em>q = q1 * s</em>, where <em>s</em> is a number.</p>
+<p><strong>Multiplication by a scalar</strong>: <em>q = s * q<sub>1</sub></em>, and <em>q = q<sub>1</sub> * s</em>, where <em>s</em> is a number.</p>
 </li>
 <li>
-<p><strong>Division by a scalar</strong>: <em>q = q1 / s</em>, where <em>s</em> is a number.</p>
+<p><strong>Division by a scalar</strong>: <em>q = q<sub>1</sub> / s</em>, where <em>s</em> is a number.</p>
 </li>
 <li>
-<p><strong>Integer power</strong>: <em>q = q1 ^ n</em>, where <em>n</em> is an integer.</p>
+<p><strong>Integer power</strong>: <em>q = q<sub>1</sub> ^ n</em>, where <em>n</em> is an integer.</p>
 </li>
 <li>
-<p><strong>Quaternion multiplication</strong>: <em>q = q1 * q2</em>.</p>
+<p><strong>Quaternion multiplication</strong>: <em>q = q<sub>1</sub> * q<sub>2</sub></em>.</p>
 </li>
 </ul>
 </div>
