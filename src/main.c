@@ -57,6 +57,7 @@ int luaopen_moonglmath(lua_State *L)
     moonglmath_open_vec(L);
     moonglmath_open_mat(L);
     moonglmath_open_quat(L);
+    moonglmath_open_complex(L);
     moonglmath_open_funcs(L);
     moonglmath_open_transform(L);
     moonglmath_open_viewing(L);

@@ -430,7 +430,7 @@ int quat_Inv(lua_State *L)
     return pushquat(L, inv);
     }
 
-static int quat_Parts(lua_State *L)
+int quat_Parts(lua_State *L)
     {
     quat_t q; 
     vec_t v;

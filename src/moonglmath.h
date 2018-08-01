@@ -30,6 +30,7 @@
 #ifndef moonglmathDEFINED
 #define moonglmathDEFINED
 
+#include <complex.h>
 #include <lua.h>
 #include "lualib.h"
 #include "lauxlib.h"
@@ -44,11 +45,13 @@
 typedef double moonglmath_vec_t[4];
 typedef double moonglmath_mat_t[4][4];
 typedef double moonglmath_quat_t[4];
+typedef double complex moonglmath_complex_t;
 
 /* Metatables names (keys in the Lua registry) */
 #define MOONGLMATH_VEC_MT "moonglmath_vec" 
 #define MOONGLMATH_MAT_MT "moonglmath_mat" 
 #define MOONGLMATH_QUAT_MT "moonglmath_quat" 
+#define MOONGLMATH_COMPLEX_MT "moonglmath_complex"
 
 int moonglmath_testmetatable(lua_State *L, int arg, const char *metatable);
 int moonglmath_checkmetatable(lua_State *L, int arg, const char *metatable);
@@ -56,6 +59,7 @@ int moonglmath_checkmetatable(lua_State *L, int arg, const char *metatable);
 #define moonglmath_isvec(L, arg) moonglmath_testmetatable((L), arg, MOONGLMATH_VEC_MT)
 #define moonglmath_ismat(L, arg) moonglmath_testmetatable((L), arg, MOONGLMATH_MAT_MT)
 #define moonglmath_isquat(L, arg) moonglmath_testmetatable((L), arg, MOONGLMATH_QUAT_MT)
+#define moonglmath_iscomplex(L, arg) moonglmath_testmetatable((L), arg, MOONGLMATH_COMPLEX_MT)
 
 int moonglmath_testvec(lua_State *L, int arg, moonglmath_vec_t v, size_t *size, unsigned int *isrow);
 int moonglmath_checkvec(lua_State *L, int arg, moonglmath_vec_t v, size_t *size, unsigned int *isrow);
@@ -68,6 +72,10 @@ int moonglmath_pushmat(lua_State *L, moonglmath_mat_t m, size_t mr, size_t mc, s
 int moonglmath_testquat(lua_State *L, int arg, moonglmath_quat_t q);
 int moonglmath_checkquat(lua_State *L, int arg, moonglmath_quat_t q);
 int moonglmath_pushquat(lua_State *L, moonglmath_quat_t q);
+
+int moonglmath_testcomplex(lua_State *L, int arg, moonglmath_complex_t *z);
+int moonglmath_checkcomplex(lua_State *L, int arg, moonglmath_complex_t *z);
+int moonglmath_pushcomplex(lua_State *L, moonglmath_complex_t z);
 
 /*---------------------------------------------------------------------------*
  | Vector                                                                    |

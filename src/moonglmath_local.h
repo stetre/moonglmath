@@ -38,10 +38,12 @@
 #define vec_t moonglmath_vec_t
 #define mat_t moonglmath_mat_t
 #define quat_t moonglmath_quat_t
+#define complex_t moonglmath_complex_t
 
 #define VEC_MT MOONGLMATH_VEC_MT
 #define MAT_MT MOONGLMATH_MAT_MT
 #define QUAT_MT MOONGLMATH_QUAT_MT
+#define COMPLEX_MT MOONGLMATH_COMPLEX_MT
 
 #define testmetatable moonglmath_testmetatable
 #define checkmetatable moonglmath_checkmetatable
@@ -60,6 +62,11 @@
 #define testquat moonglmath_testquat
 #define checkquat moonglmath_checkquat
 #define pushquat moonglmath_pushquat
+
+#define iscomplex moonglmath_iscomplex
+#define testcomplex moonglmath_testcomplex
+#define checkcomplex moonglmath_checkcomplex
+#define pushcomplex moonglmath_pushcomplex
 
 #define vec_clear moonglmath_vec_clear
 #define vec_copy moonglmath_vec_copy

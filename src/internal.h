@@ -159,10 +159,26 @@ int quat_Norm2(lua_State *L);
 int quat_Normalize(lua_State *L);
 #define quat_Inv moonglmath_quat_Inv
 int quat_Inv(lua_State *L);
+#define quat_Parts moonglmath_quat_Parts
+int quat_Parts(lua_State *L);
 #define quat_Conj moonglmath_quat_Conj
 int quat_Conj(lua_State *L);
 #define quat_FromMat moonglmath_quat_FromMat
 int quat_FromMat(lua_State *L);
+
+/* complex.c ------------------------------------------------------------------------*/
+#define complex_Norm moonglmath_complex_Norm
+int complex_Norm(lua_State *L);
+#define complex_Norm2 moonglmath_complex_Norm2
+int complex_Norm2(lua_State *L);
+#define complex_Normalize moonglmath_complex_Normalize
+int complex_Normalize(lua_State *L);
+#define complex_Inv moonglmath_complex_Inv
+int complex_Inv(lua_State *L);
+#define complex_Parts moonglmath_complex_Parts
+int complex_Parts(lua_State *L);
+#define complex_Conj moonglmath_complex_Conj
+int complex_Conj(lua_State *L);
 
 /* num.c -------------------------------------------------------------------------*/
 
@@ -176,6 +192,7 @@ int luaopen_moonglmath(lua_State *L);
 void moonglmath_open_mat(lua_State *L);
 void moonglmath_open_vec(lua_State *L);
 void moonglmath_open_quat(lua_State *L);
+void moonglmath_open_complex(lua_State *L);
 void moonglmath_open_transform(lua_State *L);
 void moonglmath_open_viewing(lua_State *L);
 void moonglmath_open_funcs(lua_State *L);

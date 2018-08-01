@@ -1,0 +1,90 @@
+
+== Complex numbers
+
+A complex number *z* = _re_ + i·_im_ (where _i_ is the square root of _-1_) is implemented
+as a table holding _re_ and _im_ in its array part (i.e. _{ re, im }_).
+
+The real and imaginary parts are Lua link:++http://www.lua.org/manual/5.3/manual.html#2.1++[number]s
+and can be accessed through standard indexing (that is, *z[1]* is the real part _re_, and *z[2]* is
+the imaginary part _im_), or using the *re-im* syntactic sugar (*z.re* and *z.im* are aliases for *z[1]* and *z[2]*, respectively).
+
+The following constructor can be used to create complex numbers:
+
+[[glmath.complex]]
+* _z_ = *complex*([_re_], [_im_]) +
+_z_ = *complex*(_z_) +
+[small]#Create a complex number from its real and imaginary parts (which default to _0_) or from a
+previously created complex number _z_.#
+
+.examples
+[source,lua]
+----
+z = glmath.complex()         --> z = 0 + 0i
+z = glmath.complex(2)        --> z = 2 + 0i
+z = glmath.complex(nil, 5)   --> z = 0 + 5i
+z = glmath.complex(3, 4)     --> z = 3 + 4i
+w = glmath.complex(z)        --> w = 3 + 4i
+----
+
+[[glmath.iscomplex]]
+* _boolean_ = *iscomplex*(_z_) +
+[small]#Returns _true_ if _z_ is a complex number or a Lua number, _false_ otherwise.#
+
+'''
+
+The complex functions and operators listed below are based on the C99 functions
+for the complex type 
+(see link:++https://en.wikipedia.org/wiki/C_mathematical_functions#complex.h++[<complex.h>] or _man complex(7)_ for more details).
+
+Complex functions accept also real numbers (i.e. plain Lua numbers) as arguments, which they understand
+as complex numbers with _im=0_. The same holds for binary complex operators,
+where one of the two operands can be a real number (if both are, the standard Lua operators for
+numbers are obviously used).
+
+
+Complex *functions*, also available as methods for their first argument:
+
+* _re_ = *creal*(_z_) +
+_im_ = *cimag*(_z_) +
+_re_, _im_ = *parts*(_z_) +
+_|z|_ = *cabs*(_z_) +
+_|z|_ = *norm*(_z_) +
+_rad_ = *carg*(_z_) +
+_|z|^2^_ = *norm2*(_z_) +
+_z/|z|_ = *normalize*(_z_) +
+_z^pass:[*]^_ = *conj*(_z_) +
+_z~1~_ = *cproj*(_z_) +
+_z^-1^_ = *inv*(_z_) +
+
+* _e^z^_ = *cexp*(_z_) +
+_ln(z)_ = *clog*(_z_) +
+_z^1/2^_ = *csqrt*(_z_) +
+_z^w^_ = *cpow*(_z_, _w_) +
+
+* _z~1~_ = *csin*(_z_) +
+_z~1~_ = *ccos*(_z_) +
+_z~1~_ = *ctan*(_z_) +
+_z~1~_ = *casin*(_z_) +
+_z~1~_ = *cacos*(_z_) +
+_z~1~_ = *catan*(_z_) +
+
+* _z~1~_ = *csinh*(_z_) +
+_z~1~_ = *ccosh*(_z_) +
+_z~1~_ = *ctanh*(_z_) +
+_z~1~_ = *casinh*(_z_) +
+_z~1~_ = *cacosh*(_z_) +
+_z~1~_ = *catanh*(_z_) +
+
+'''
+
+Complex *operators*:
+
+* *Unary minus*: _z = -z~1~_.
+* *Addition*: _z = z~1~ + z~2~_.
+* *Subtraction*: _z = z~1~ - z~2~_.
+* *Multiplication*: _z = z~1~ * z~2~_.
+* *Division*: _z = z~1~ / z~2~_.
+* *Power*: _z = z~1~ ^ z~2~_.
+
+
+

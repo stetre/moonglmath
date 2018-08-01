@@ -787,6 +787,7 @@ p.tableblock.header { color: #6d6e71; }
 <li><a href="#_vectors">Vectors</a></li>
 <li><a href="#_matrices">Matrices</a></li>
 <li><a href="#_quaternions">Quaternions</a></li>
+<li><a href="#_complex_numbers">Complex numbers</a></li>
 <li><a href="#_basic_transforms">Basic Transforms</a></li>
 <li><a href="#_camera_and_projections">Camera and Projections</a></li>
 </ul>
@@ -1334,6 +1335,131 @@ The vector part <em>v</em> is returned as a size 3 column vector.</span></p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_complex_numbers">Complex numbers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A complex number <strong>z</strong> = <em>re</em> + i·<em>im</em> (where <em>i</em> is the square root of <em>-1</em>) is implemented
+as a table holding <em>re</em> and <em>im</em> in its array part (i.e. <em>{ re, im }</em>).</p>
+</div>
+<div class="paragraph">
+<p>The real and imaginary parts are Lua <a href="http://www.lua.org/manual/5.3/manual.html#2.1">number</a>s
+and can be accessed through standard indexing (that is, <strong>z[1]</strong> is the real part <em>re</em>, and <strong>z[2]</strong> is
+the imaginary part <em>im</em>), or using the <strong>re-im</strong> syntactic sugar (<strong>z.re</strong> and <strong>z.im</strong> are aliases for <strong>z[1]</strong> and <strong>z[2]</strong>, respectively).</p>
+</div>
+<div class="paragraph">
+<p>The following constructor can be used to create complex numbers:</p>
+</div>
+<div id="glmath.complex" class="ulist">
+<ul>
+<li>
+<p><em>z</em> = <strong>complex</strong>([<em>re</em>], [<em>im</em>])<br>
+<em>z</em> = <strong>complex</strong>(<em>z</em>)<br>
+<span class="small">Create a complex number from its real and imaginary parts (which default to <em>0</em>) or from a
+previously created complex number <em>z</em>.</span></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">examples</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-n">z</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">complex</span><span class="tok-p">()</span>         <span class="tok-c1">--&gt; z = 0 + 0i</span>
+<span class="tok-n">z</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">complex</span><span class="tok-p">(</span><span class="tok-mi">2</span><span class="tok-p">)</span>        <span class="tok-c1">--&gt; z = 2 + 0i</span>
+<span class="tok-n">z</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">complex</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span> <span class="tok-mi">5</span><span class="tok-p">)</span>   <span class="tok-c1">--&gt; z = 0 + 5i</span>
+<span class="tok-n">z</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">complex</span><span class="tok-p">(</span><span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-mi">4</span><span class="tok-p">)</span>     <span class="tok-c1">--&gt; z = 3 + 4i</span>
+<span class="tok-n">w</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">complex</span><span class="tok-p">(</span><span class="tok-n">z</span><span class="tok-p">)</span>        <span class="tok-c1">--&gt; w = 3 + 4i</span></code></pre>
+</div>
+</div>
+<div id="glmath.iscomplex" class="ulist">
+<ul>
+<li>
+<p><em>boolean</em> = <strong>iscomplex</strong>(<em>z</em>)<br>
+<span class="small">Returns <em>true</em> if <em>z</em> is a complex number or a Lua number, <em>false</em> otherwise.</span></p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="paragraph">
+<p>The complex functions and operators listed below are based on the C99 functions
+for the complex type
+(see <a href="https://en.wikipedia.org/wiki/C_mathematical_functions#complex.h">&lt;complex.h&gt;</a> or <em>man complex(7)</em> for more details).</p>
+</div>
+<div class="paragraph">
+<p>Complex functions accept also real numbers (i.e. plain Lua numbers) as arguments, which they understand
+as complex numbers with <em>im=0</em>. The same holds for binary complex operators,
+where one of the two operands can be a real number (if both are, the standard Lua operators for
+numbers are obviously used).</p>
+</div>
+<div class="paragraph">
+<p>Complex <strong>functions</strong>, also available as methods for their first argument:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>re</em> = <strong>creal</strong>(<em>z</em>)<br>
+<em>im</em> = <strong>cimag</strong>(<em>z</em>)<br>
+<em>re</em>, <em>im</em> = <strong>parts</strong>(<em>z</em>)<br>
+<em>|z|</em> = <strong>cabs</strong>(<em>z</em>)<br>
+<em>|z|</em> = <strong>norm</strong>(<em>z</em>)<br>
+<em>rad</em> = <strong>carg</strong>(<em>z</em>)<br>
+<em>|z|<sup>2</sup></em> = <strong>norm2</strong>(<em>z</em>)<br>
+<em>z/|z|</em> = <strong>normalize</strong>(<em>z</em>)<br>
+<em>z<sup>*</sup></em> = <strong>conj</strong>(<em>z</em>)<br>
+<em>z<sub>1</sub></em> = <strong>cproj</strong>(<em>z</em>)<br>
+<em>z<sup>-1</sup></em> = <strong>inv</strong>(<em>z</em>)<br></p>
+</li>
+<li>
+<p><em>e<sup>z</sup></em> = <strong>cexp</strong>(<em>z</em>)<br>
+<em>ln(z)</em> = <strong>clog</strong>(<em>z</em>)<br>
+<em>z<sup>1/2</sup></em> = <strong>csqrt</strong>(<em>z</em>)<br>
+<em>z<sup>w</sup></em> = <strong>cpow</strong>(<em>z</em>, <em>w</em>)<br></p>
+</li>
+<li>
+<p><em>z<sub>1</sub></em> = <strong>csin</strong>(<em>z</em>)<br>
+<em>z<sub>1</sub></em> = <strong>ccos</strong>(<em>z</em>)<br>
+<em>z<sub>1</sub></em> = <strong>ctan</strong>(<em>z</em>)<br>
+<em>z<sub>1</sub></em> = <strong>casin</strong>(<em>z</em>)<br>
+<em>z<sub>1</sub></em> = <strong>cacos</strong>(<em>z</em>)<br>
+<em>z<sub>1</sub></em> = <strong>catan</strong>(<em>z</em>)<br></p>
+</li>
+<li>
+<p><em>z<sub>1</sub></em> = <strong>csinh</strong>(<em>z</em>)<br>
+<em>z<sub>1</sub></em> = <strong>ccosh</strong>(<em>z</em>)<br>
+<em>z<sub>1</sub></em> = <strong>ctanh</strong>(<em>z</em>)<br>
+<em>z<sub>1</sub></em> = <strong>casinh</strong>(<em>z</em>)<br>
+<em>z<sub>1</sub></em> = <strong>cacosh</strong>(<em>z</em>)<br>
+<em>z<sub>1</sub></em> = <strong>catanh</strong>(<em>z</em>)<br></p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="paragraph">
+<p>Complex <strong>operators</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Unary minus</strong>: <em>z = -z<sub>1</sub></em>.</p>
+</li>
+<li>
+<p><strong>Addition</strong>: <em>z = z<sub>1</sub> + z<sub>2</sub></em>.</p>
+</li>
+<li>
+<p><strong>Subtraction</strong>: <em>z = z<sub>1</sub> - z<sub>2</sub></em>.</p>
+</li>
+<li>
+<p><strong>Multiplication</strong>: <em>z = z<sub>1</sub> * z<sub>2</sub></em>.</p>
+</li>
+<li>
+<p><strong>Division</strong>: <em>z = z<sub>1</sub> / z<sub>2</sub></em>.</p>
+</li>
+<li>
+<p><strong>Power</strong>: <em>z = z<sub>1</sub> ^ z<sub>2</sub></em>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_basic_transforms">Basic Transforms</h2>
 <div class="sectionbody">
 <div class="ulist">
@@ -1420,7 +1546,7 @@ and are at <em>z=-near</em> and <em>z=-far</em>, respectively.</span></p>
 <div id="footer">
 <div id="footer-text">
 Version 0.4<br>
-Last updated 2017-08-09 20:11:15 CEST
+Last updated 2018-07-31 19:21:54 CEST
 </div>
 </div>
 </body>

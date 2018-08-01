@@ -22,6 +22,8 @@ include::matrices.adoc[]
 
 include::quaternions.adoc[]
 
+include::complex.adoc[]
+
 include::transforms.adoc[]
 
 include::viewing.adoc[]
