@@ -13,17 +13,19 @@ The following constructor can be used to create complex numbers:
 [[glmath.complex]]
 * _z_ = *complex*([_re_], [_im_]) +
 _z_ = *complex*(_z_) +
+_{z~1~, z~2~, ...}_ = *complex*(_{re~1~, im~1~, re~2~, im~2~, ...}_) +
 [small]#Create a complex number from its real and imaginary parts (which default to _0_) or from a
 previously created complex number _z_.#
 
 .examples
 [source,lua]
 ----
-z = glmath.complex()         --> z = 0 + 0i
-z = glmath.complex(2)        --> z = 2 + 0i
-z = glmath.complex(nil, 5)   --> z = 0 + 5i
-z = glmath.complex(3, 4)     --> z = 3 + 4i
-w = glmath.complex(z)        --> w = 3 + 4i
+z = glmath.complex()             --> z = 0 + 0i
+z = glmath.complex(2)            --> z = 2 + 0i
+z = glmath.complex(nil, 5)       --> z = 0 + 5i
+z = glmath.complex(3, 4)         --> z = 3 + 4i
+w = glmath.complex(z)            --> w = 3 + 4i
+t = glmath.complex({1, 2, 3, 4}) --> t[1] = 1 + 2i, t[2] = 3 + 4i
 ----
 
 [[glmath.iscomplex]]

@@ -1299,6 +1299,7 @@ the imaginary part <em>im</em>), or using the <strong>re-im</strong> syntactic s
 <li>
 <p><em>z</em> = <strong>complex</strong>([<em>re</em>], [<em>im</em>])<br>
 <em>z</em> = <strong>complex</strong>(<em>z</em>)<br>
+<em>{z<sub>1</sub>, z<sub>2</sub>, &#8230;&#8203;}</em> = <strong>complex</strong>(<em>{re<sub>1</sub>, im<sub>1</sub>, re<sub>2</sub>, im<sub>2</sub>, &#8230;&#8203;}</em>)<br>
 <span class="small">Create a complex number from its real and imaginary parts (which default to <em>0</em>) or from a
 previously created complex number <em>z</em>.</span></p>
 </li>
@@ -1307,11 +1308,12 @@ previously created complex number <em>z</em>.</span></p>
 <div class="listingblock">
 <div class="title">examples</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-n">z</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">complex</span><span class="tok-p">()</span>         <span class="tok-c1">--&gt; z = 0 + 0i</span>
-<span class="tok-n">z</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">complex</span><span class="tok-p">(</span><span class="tok-mi">2</span><span class="tok-p">)</span>        <span class="tok-c1">--&gt; z = 2 + 0i</span>
-<span class="tok-n">z</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">complex</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span> <span class="tok-mi">5</span><span class="tok-p">)</span>   <span class="tok-c1">--&gt; z = 0 + 5i</span>
-<span class="tok-n">z</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">complex</span><span class="tok-p">(</span><span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-mi">4</span><span class="tok-p">)</span>     <span class="tok-c1">--&gt; z = 3 + 4i</span>
-<span class="tok-n">w</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">complex</span><span class="tok-p">(</span><span class="tok-n">z</span><span class="tok-p">)</span>        <span class="tok-c1">--&gt; w = 3 + 4i</span></code></pre>
+<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-n">z</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">complex</span><span class="tok-p">()</span>             <span class="tok-c1">--&gt; z = 0 + 0i</span>
+<span class="tok-n">z</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">complex</span><span class="tok-p">(</span><span class="tok-mi">2</span><span class="tok-p">)</span>            <span class="tok-c1">--&gt; z = 2 + 0i</span>
+<span class="tok-n">z</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">complex</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span> <span class="tok-mi">5</span><span class="tok-p">)</span>       <span class="tok-c1">--&gt; z = 0 + 5i</span>
+<span class="tok-n">z</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">complex</span><span class="tok-p">(</span><span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-mi">4</span><span class="tok-p">)</span>         <span class="tok-c1">--&gt; z = 3 + 4i</span>
+<span class="tok-n">w</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">complex</span><span class="tok-p">(</span><span class="tok-n">z</span><span class="tok-p">)</span>            <span class="tok-c1">--&gt; w = 3 + 4i</span>
+<span class="tok-n">t</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">complex</span><span class="tok-p">({</span><span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-mi">4</span><span class="tok-p">})</span> <span class="tok-c1">--&gt; t[1] = 1 + 2i, t[2] = 3 + 4i</span></code></pre>
 </div>
 </div>
 <div id="glmath.iscomplex" class="ulist">

@@ -38,8 +38,8 @@ int testcomplex(lua_State *L, int arg, complex_t *z)
     double x, y;
     if(lua_isnumber(L, arg))
         {
-    	if(z != NULL)
-        	*z = lua_tonumber(L, arg);
+        if(z != NULL)
+            *z = lua_tonumber(L, arg);
         return 1;
         }
 
@@ -83,11 +83,33 @@ int pushcomplex(lua_State *L, complex_t z)
  |                                                                              |
  *------------------------------------------------------------------------------*/
 
+static int ComplexArray(lua_State *L)
+    {
+    double x, y;
+    int i, j, tbl;
+    int n = luaL_len(L, 1);
+    lua_newtable(L);
+    tbl = lua_gettop(L);
+    j = 0;
+    for(i=0; i < n; )
+        {
+        lua_rawgeti(L, 1, ++i);
+        x = luaL_optnumber(L, -1, 0);
+        lua_rawgeti(L, 1, ++i);
+        y = luaL_optnumber(L, -1, 0);
+        lua_pop(L, 2);
+        pushcomplex(L, x + I*y);
+        lua_rawseti(L, tbl, ++j);
+        }
+    return 1;
+    }
+
 static int Complex(lua_State *L)
 /* creates a complex number from another on or from its real and imag parts
  * complex()      --> 0+0i
  * complex(x, y)  --> x+yi
  * complex(z)     --> z
+ * complex({x1, y1, x2, y2, ...}) --> {z1, z2, ...}
  */
     {
     complex_t z;
@@ -100,6 +122,8 @@ static int Complex(lua_State *L)
         y = luaL_optnumber(L, 2, 0);
         z = x + I*y;
         }
+    else if(t == LUA_TTABLE && !testmetatable(L, 1, COMPLEX_MT))
+        return ComplexArray(L);
     else
         checkcomplex(L, 1, &z);
     return pushcomplex(L, z);
