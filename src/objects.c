@@ -25,8 +25,6 @@
 
 #include "internal.h"
 
-#define trace_objects 0 //@@
-
 ud_t *newuserdata(lua_State *L, void *handle, const char *mt, const char *tracename)
     {
     ud_t *ud;

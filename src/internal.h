@@ -86,10 +86,6 @@
 #endif
 
 /* utils.c */
-#define tstosec moonglmath_tstosec
-double tstosec(const struct timespec *ts);
-#define sectots moonglmath_sectots
-void sectots(struct timespec *ts, double seconds);
 #define Malloc moonglmath_Malloc
 void *Malloc(lua_State *L, size_t size);
 #define MallocNoErr moonglmath_MallocNoErr
@@ -98,6 +94,11 @@ void *MallocNoErr(lua_State *L, size_t size);
 char *Strdup(lua_State *L, const char *s);
 #define Free moonglmath_Free
 void Free(lua_State *L, void *ptr);
+#define now moonglmath_now
+double now(void);
+#define sleeep moonglmath_sleeep
+void sleeep(double seconds);
+#define since(t) (now() - (t))
 #define checkoption_hint moonglmath_checkoption_hint
 int checkoption_hint(lua_State *L, int arg, const char *def, const char *const lst[]);
 #define isoption moonglmath_isoption
@@ -223,6 +224,7 @@ int pushdata(lua_State *L, int type, void *src, size_t srcsize);
 int luaopen_moonglmath(lua_State *L);
 void moonglmath_utils_init(lua_State *L);
 void moonglmath_open_datahandling(lua_State *L);
+void moonglmath_open_tracing(lua_State *L);
 void moonglmath_open_enums(lua_State *L);
 void moonglmath_open_mat(lua_State *L);
 void moonglmath_open_vec(lua_State *L);
@@ -252,6 +254,10 @@ void moonglmath_open_funcs(lua_State *L);
 #define ERR_UNKNOWN         -11
 #define errstring moonglmath_errstring
 const char* errstring(int err);
+
+/* tracing.c */
+#define trace_objects moonglmath_trace_objects
+extern int trace_objects;
 
 #define badvalue(L,s)   lua_pushfstring((L), "invalid value '%s'", (s))
 
@@ -283,11 +289,6 @@ static int func(lua_State *L)               \
 /*-----------------------------------------------------------------------*/
 #if defined(DEBUG)
 
-#define since(t) (now() - (t))
-#define tstosec moonglmath_tstosec
-double tstosec(const struct timespec *ts);
-#define sectots moonglmath_sectots
-void sectots(struct timespec *ts, double seconds);
 #define TSTART double ts = now();
 #define TSTOP do {                                          \
     ts = since(ts); ts = ts*1e6;                            \

@@ -1,6 +1,6 @@
 /* The MIT License (MIT)
  *
- * Copyright (c) 2016 Stefano Trettel
+ * Copyright (c) 2018 Stefano Trettel
  *
  * Software repository: MoonGLMATH, https://github.com/stetre/moonglmath
  *
@@ -24,49 +24,50 @@
  */
 
 #include "internal.h"
-
-static lua_State *moonglmath_L = NULL;
-
-static void AtExit(void)
+    
+static int Type(lua_State *L)
     {
-    if(moonglmath_L)
-        {
-        enums_free_all(moonglmath_L);
-        moonglmath_L = NULL;
-        }
+#define TRY(xxx) do { if(test##xxx(L, 1, NULL) != 0) { lua_pushstring(L, ""#xxx); return 1; } } while(0)
+    TRY(hostmem);
+    return 0;
+#undef TRY
     }
 
-static int AddVersions(lua_State *L)
-/* Add version strings to the gl table */
+int trace_objects = 0;
+
+static int TraceObjects(lua_State *L)
     {
-    lua_pushstring(L, "_VERSION");
-    lua_pushstring(L, "MoonGLMATH "MOONGLMATH_VERSION);
-    lua_settable(L, -3);
+    trace_objects = checkboolean(L, 1);
     return 0;
     }
 
-int luaopen_moonglmath(lua_State *L)
-/* Lua calls this function to load the module */
+static int Now(lua_State *L)
     {
-    moonglmath_L = L;
-    moonglmath_utils_init(L);
-    atexit(AtExit);
-
-    lua_newtable(L); /* the gl table */
-    AddVersions(L);
-
-    /* add glmath functions: */
-    moonglmath_open_enums(L);
-    moonglmath_open_datahandling(L);
-    moonglmath_open_tracing(L);
-    moonglmath_open_vec(L);
-    moonglmath_open_mat(L);
-    moonglmath_open_quat(L);
-    moonglmath_open_complex(L);
-    moonglmath_open_funcs(L);
-    moonglmath_open_transform(L);
-    moonglmath_open_viewing(L);
-    moonglmath_open_hostmem(L);
+    lua_pushnumber(L, now());
     return 1;
     }
+
+static int Since(lua_State *L)
+    {
+    double t = luaL_checknumber(L, 1);
+    lua_pushnumber(L, since(t));
+    return 1;
+    }
+
+/* ----------------------------------------------------------------------- */
+
+static const struct luaL_Reg Functions[] = 
+    {
+        { "type", Type },
+        { "trace_objects", TraceObjects },
+        { "now", Now },
+        { "since", Since },
+        { NULL, NULL } /* sentinel */
+    };
+
+void moonglmath_open_tracing(lua_State *L)
+    {
+    luaL_setfuncs(L, Functions, 0);
+    }
+
 
