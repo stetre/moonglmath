@@ -790,6 +790,9 @@ p.tableblock.header { color: #6d6e71; }
 <li><a href="#_complex_numbers">Complex numbers</a></li>
 <li><a href="#_basic_transforms">Basic Transforms</a></li>
 <li><a href="#_camera_and_projections">Camera and Projections</a></li>
+<li><a href="#datahandling">Data handling</a></li>
+<li><a href="#hostmem">Host memory objects</a></li>
+<li><a href="#tracing">Tracing utilities</a></li>
 </ul>
 </div>
 </div>
@@ -1483,17 +1486,256 @@ and are at <em>z=-near</em> and <em>z=-far</em>, respectively.</span></p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="datahandling">Data handling</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes additional utilities that can be used to encode data from Lua
+variables to binary strings and viceversa.</p>
+</div>
+<div id="datahandling_flatten" class="ulist">
+<ul>
+<li>
+<p><em>val<sub>1</sub></em>, <em>&#8230;&#8203;</em>, <em>val<sub>N</sub></em> = <strong>flatten</strong>(<em>table</em>)<br>
+<span class="small">Flattens out the given <em>table</em> and returns the terminal elements in the order they are found.<br>
+Similar to Lua&#8217;s
+<a href="http://www.lua.org/manual/5.3/manual.html#pdf-table.unpack">table.unpack</a>(&nbsp;), but it also unpacks
+any nested table. Only the array part of the table and of nested tables is considered.</span></p>
+</li>
+</ul>
+</div>
+<div id="datahandling_flatten_table" class="ulist">
+<ul>
+<li>
+<p>{<em>val<sub>1</sub></em>, <em>&#8230;&#8203;</em>, <em>val<sub>N</sub></em>} = <strong>flatten_table</strong>(<em>table</em>)<br>
+<span class="small">Same as <a href="#datahandling_flatten">flatten</a>(&nbsp;), but returns the values in a flat table.
+Unlike <a href="#datahandling_flatten">flatten</a>(&nbsp;), this function can be used also with very large tables.</span></p>
+</li>
+</ul>
+</div>
+<div id="datahandling_sizeof" class="ulist">
+<ul>
+<li>
+<p><em>size</em> = <strong>sizeof</strong>(<a href="#type"><em>type</em></a>)<br>
+<span class="small">Returns the size in bytes of the given <em>type</em>.</span></p>
+</li>
+</ul>
+</div>
+<div id="datahandling_pack" class="ulist">
+<ul>
+<li>
+<p><em>data</em> = <strong>pack</strong>(<a href="#type"><em>type</em></a>, <em>val<sub>1</sub></em>, <em>&#8230;&#8203;</em>, <em>val<sub>N</sub></em>)<br>
+<em>data</em> = <strong>pack</strong>(<a href="#type"><em>type</em></a>, <em>table</em>)<br>
+<span class="small">Packs the numbers <em>val<sub>1</sub></em>, <em>&#8230;&#8203;</em>, <em>val<sub>N</sub></em>, encoding  them according to the given <em>type</em>, and returns the resulting binary string.<br>
+The values may also be passed in a (possibly nested) table. Only the array part of the table (and of nested tables) is considered.</span></p>
+</li>
+</ul>
+</div>
+<div id="datahandling_unpack" class="ulist">
+<ul>
+<li>
+<p>{<em>val<sub>1</sub></em>, <em>&#8230;&#8203;</em>, <em>val<sub>N</sub></em>} = <strong>unpack</strong>(<a href="#type"><em>type</em></a>, <em>data</em>)<br>
+<span class="small">Unpacks the binary string <em>data</em>, interpreting it as a sequence of values of the given <em>type</em>,
+and returns the extracted values in a flat table.<br>
+The length of <em>data</em> must be a multiple of <a href="#datahandling_sizeof">sizeof</a>(<em>type</em>).</span></p>
+</li>
+</ul>
+</div>
+<div id="type" class="paragraph">
+<p><span class="small"><strong>type</strong>: data types (and their corresponding C99 types)<br>
+Values: '<em>char</em>' (int8_t), '<em>uchar</em>' (uint8_t), '<em>short</em>' (int16_t), '<em>ushort</em>' (uint16_t), '<em>int</em>' (int32_t), '<em>uint</em>' (uint32_t), '<em>long</em>' (int64_t), '<em>ulong</em>' (uint64_t), '<em>float</em>' (float), '<em>double</em>' (double).</span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="hostmem">Host memory objects</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An <strong>hostmem</strong> object encapsulates a pointer to host accessible memory
+<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</sup>,
+with methods to access it from Lua and to retrieve pointers to any of its locations in form of
+<a href="http://www.lua.org/manual/5.3/manual.html#lua_pushlightuserdata">lightuserdata</a>.</p>
+</div>
+<div class="paragraph">
+<p>The memory encapsulated by an hostmem object may be either memory allocated via
+the <a href="#hostmem_malloc">glmath.malloc</a>(&nbsp;) or the <a href="#hostmem_aligned_alloc">glmath.aligned_alloc</a>(&nbsp;)
+functions, or memory obtained by other means (e.g. mapped memory or shared virtual memory)
+and passed to the <a href="#hostmem_hostmem">glmath.hostmem</a>(&nbsp;) constructor.</p>
+</div>
+<div class="paragraph">
+<p>Hostmem objects are automatically deleted at exit, but they may also be deleted manually
+via the <a href="#hostmem_free">glmath.free</a>(&nbsp;) function (or the corresponding method).</p>
+</div>
+<div id="hostmem_malloc" class="ulist">
+<ul>
+<li>
+<p><em>hostmem</em> = <strong>malloc</strong>(<em>size</em>)<br>
+<em>hostmem</em> = <strong>malloc</strong>(<em>data</em>)<br>
+<em>hostmem</em> = <strong>malloc</strong>(<a href="#type"><em>type</em></a>, {<em>value<sub>1</sub></em>, <em>&#8230;&#8203;</em>, <em>value<sub>N</sub></em>})<br>
+<em>hostmem</em> = <strong>malloc</strong>(<a href="#type"><em>type</em></a>, <em>value<sub>1</sub></em>, <em>&#8230;&#8203;</em>, <em>value<sub>N</sub></em>)<br>
+<span class="small">Allocates host memory and creates an <em>hostmem</em> object to encapsulate it.<br>
+<strong>malloc</strong>(<em>size</em>), where <em>size</em> is an integer, allocates <em>size</em> bytes of contiguous memory
+and initializes them to 0;<br>
+<strong>malloc</strong>(<em>data</em>), where <em>data</em> is a binary string, allocates <em>#data</em> bytes of contiguous
+memory and initializes them with the contents of <em>data</em>;<br>
+<strong>malloc</strong>(<em>type</em>, <em>&#8230;&#8203;</em>) is functionally equivalent to <em>malloc(glmath.pack(type, &#8230;&#8203;))</em>.</span></p>
+</li>
+</ul>
+</div>
+<div id="hostmem_aligned_alloc" class="ulist">
+<ul>
+<li>
+<p><em>hostmem</em> = <strong>aligned_alloc</strong>(<em>alignment</em>, <em>size</em>)<br>
+<em>hostmem</em> = <strong>aligned_alloc</strong>(<em>alignment</em>, <em>data</em>)<br>
+<em>hostmem</em> = <strong>aligned_alloc</strong>(<em>alignment</em>, <a href="#type"><em>type</em></a>, {<em>value<sub>1</sub></em>, <em>&#8230;&#8203;</em>, <em>value<sub>N</sub></em>})<br>
+<em>hostmem</em> = <strong>aligned_alloc</strong>(<em>alignment</em>, <a href="#type"><em>type</em></a>, <em>value<sub>1</sub></em>, <em>&#8230;&#8203;</em>, <em>value<sub>N</sub></em>)<br>
+<span class="small">Same as <a href="#hostmem_malloc">malloc</a>(&nbsp;), with the additional <em>alignment</em> parameter to control
+memory address alignment (rfr. <em>aligned_alloc(3)</em>).</span></p>
+</li>
+</ul>
+</div>
+<div id="hostmem_hostmem" class="ulist">
+<ul>
+<li>
+<p><em>hostmem</em> = <strong>hostmem</strong>(<em>size</em>, <em>ptr</em>)<br>
+<em>hostmem</em> = <strong>hostmem</strong>(<em>data</em>)<br>
+<span class="small">Creates a <em>hostmem</em> object encapsulating user provided memory.<br>
+Such memory may be provided in form of a lightuserdata (<em>ptr</em>) containing a valid pointer to <em>size</em> bytes of contiguous memory, or as a binary string (<em>data</em>).<br>
+In both cases, care must be taken that the memory area remains valid until the <em>hostmem</em> object is
+deleted, or at least until it is accessed via its methods.
+In the <em>data</em> case, this means ensuring that <em>data</em> is not garbage collected during the hostmem object lifetime.<br>
+(Note that <em>malloc(data)</em> and <em>hostmem(data)</em> differ in that the former allocates memory and copies
+<em>data</em> in it, while the latter just stores a pointer to <em>data</em>).</span></p>
+</li>
+</ul>
+</div>
+<div id="hostmem_free" class="ulist">
+<ul>
+<li>
+<p><strong>free</strong>(<em>hostmem</em>)<br>
+hostmem:<strong>free</strong>( )<br>
+<span class="small">Deletes the <em>hostmem</em> object. If <em>hostmem</em> was created with
+<a href="#hostmem_malloc">glmath.malloc</a>(&nbsp;) or <a href="#hostmem_aligned_alloc">glmath.aligned_alloc</a>(&nbsp;), this function also releases the encapsulated memory.</span></p>
+</li>
+</ul>
+</div>
+<div id="hostmem_ptr" class="ulist">
+<ul>
+<li>
+<p><em>ptr</em>  = hostmem:<strong>ptr</strong>([<em>offset</em>=0], [<em>nbytes</em>=0])<br>
+<span class="small">Returns a pointer (lightuserdata) to the location at <em>offset</em> bytes from the beginning of the encapsulated memory.<br>
+Raises an error if the requested location is beyond the boundaries of the memory area, or if there are not at least <em>nbytes</em> of memory after it.</span></p>
+</li>
+</ul>
+</div>
+<div id="hostmem_size" class="ulist">
+<ul>
+<li>
+<p><em>nbytes</em> = hostmem:<strong>size</strong>([<em>offset</em>=0])<br>
+<em>nbytes</em> = hostmem:<strong>size</strong>(<em>ptr</em>)<br>
+<span class="small">Returns the number of bytes of memory available after <em>offset</em> bytes from the beginning
+of the encapsulated memory area, or after <em>ptr</em> (a lightuserdata obtained with hostmem:<a href="#hostmem_ptr">ptr</a>(&nbsp;)).</span></p>
+</li>
+</ul>
+</div>
+<div id="hostmem_read" class="ulist">
+<ul>
+<li>
+<p><em>data</em> = hostmem:<strong>read</strong>([<em>offset</em>], [<em>nbytes</em>])<br>
+{<em>val<sub>1</sub></em>, <em>&#8230;&#8203;</em>, <em>val<sub>N</sub></em>} = hostmem:<strong>read</strong>([<em>offset</em>], [<em>nbytes</em>], <a href="#type"><em>type</em></a>)<br>
+<span class="small">Reads <em>nbytes</em> of data starting from <em>offset</em>, and returns it as a binary string or as
+a table of primitive values.<br>
+The <em>offset</em> parameter defaults to 0, and <em>nbytes</em> defaults to the memory size minus <em>offset</em>.<br>
+<em>hostmem:read(offset, nbytes, type)</em> is functionally equivalent to
+<em>glmath.unpack(type, hostmem:read(offset, nbytes))</em>.</span></p>
+</li>
+</ul>
+</div>
+<div id="hostmem_write" class="ulist">
+<ul>
+<li>
+<p>hostmem:<strong>write</strong>(<em>offset</em>, <em>nil</em>, <em>data</em>)<br>
+hostmem:<strong>write</strong>(<em>offset</em>, <a href="#type"><em>type</em></a>, <em>val<sub>1</sub></em>, <em>&#8230;&#8203;</em>, <em>val<sub>N</sub></em>)<br>
+hostmem:<strong>write</strong>(<em>offset</em>, <a href="#type"><em>type</em></a>, {<em>value<sub>1</sub></em>, <em>&#8230;&#8203;</em>, <em>value<sub>N</sub></em>})<br>
+<span class="small">Writes to the encapsulated memory area, starting from the byte at <em>offset</em>.<br>
+<strong>write</strong>(<em>offset</em>, <em>nil</em>, <em>data</em>) writes the contents of <em>data</em> (a binary string);<br>
+<strong>write</strong>(<em>offset</em>, <em>type</em>, <em>&#8230;&#8203;</em>) is equivalent to <em>write(offset, nil, glmath.pack(type, &#8230;&#8203;))</em>.</span></p>
+</li>
+</ul>
+</div>
+<div id="hostmem_copy" class="ulist">
+<ul>
+<li>
+<p>hostmem:<strong>copy</strong>(<em>offset</em>, <em>size</em>, <em>srcptr</em>)<br>
+hostmem:<strong>copy</strong>(<em>offset</em>, <em>size</em>, <em>srchostmem</em>, <em>srcoffset</em>)<br>
+<span class="small">Copies <em>size</em> bytes to the encapsulated memory area, starting from the byte at <em>offset</em>.<br>
+<strong>copy</strong>(<em>offset</em>, <em>size</em>, <em>srcptr</em>), copies the <em>size</em> bytes pointed to by <em>srcptr</em> (a lightuserdata).<br>
+<strong>copy</strong>(<em>offset</em>, <em>size</em>, <em>srchostmem</em>, <em>srcoffset</em>), copies <em>size</em> bytes from the memory encapsulated
+by <em>srchostmem</em> (a hostmem object), starting from the location at <em>srcoffset</em>.</span></p>
+</li>
+</ul>
+</div>
+<div id="hostmem_clear" class="ulist">
+<ul>
+<li>
+<p>hostmem:<strong>clear</strong>(<em>offset</em>, <em>nbytes</em>, [<em>val</em>=0])<br>
+<span class="small">Clears <em>nbytes</em> of memory starting from <em>offset</em>. If the <em>val</em> parameter is given,
+the bytes are set to its value instead of 0 (<em>val</em> may be an integer or a character, i.e.
+a string of length 1).</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tracing">Tracing utilities</h2>
+<div class="sectionbody">
+<div id="trace_objects" class="ulist">
+<ul>
+<li>
+<p><strong>trace_objects</strong>(<em>boolean</em>)<br>
+<span class="small">Enable/disable tracing of objects creation and destruction (which by default
+is disabled).<br>
+If enabled, a printf is generated whenever an object is created or deleted,
+indicating the object type and the value of its raw handle.</span></p>
+</li>
+</ul>
+</div>
+<div id="now" class="ulist">
+<ul>
+<li>
+<p><em>t</em> = <strong>now</strong>(&nbsp;)<br>
+<span class="small">Returns the current time in seconds (a Lua number).<br>
+This is implemented with monotonic <em>clock_gettime(3)</em>, if available, or
+with <em>gettimeofday(3)</em> otherwise.</span></p>
+</li>
+</ul>
+</div>
+<div id="since" class="ulist">
+<ul>
+<li>
+<p><em>dt</em> = <strong>since</strong>(<em>t</em>)<br>
+<span class="small">Returns the time in seconds (a Lua number) elapsed since the time <em>t</em>,
+previously obtained with the <a href="#now">now</a>(&nbsp;) function.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnote_1">
 <a href="#_footnoteref_1">1</a>. This manual is written in <a href="http://www.methods.co.nz/asciidoc/">AsciiDoc</a>, rendered with <a href="http://asciidoctor.org/">AsciiDoctor</a> and a CSS from the <a href="https://github.com/asciidoctor/asciidoctor-stylesheet-factory">AsciiDoctor Stylesheet Factory</a>. The PDF version is produced with <a href="https://github.com/asciidoctor/asciidoctor-pdf">AsciiDoctor-Pdf</a>.
 </div>
+<div class="footnote" id="_footnote_2">
+<a href="#_footnoteref_2">2</a>. The term 'host' is here used as for the Khronos OpenCL specs, to denote the machine where the application is running, as opposed to a device such as a GPU.
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.5<br>
-Last updated 2018-08-01 10:28:04 CEST
+Last updated 2018-11-19 23:22:53 CET
 </div>
 </div>
 </body>

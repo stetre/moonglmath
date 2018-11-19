@@ -28,3 +28,7 @@ include::transforms.adoc[]
 
 include::viewing.adoc[]
 
+include::datahandling.adoc[]
+include::hostmem.adoc[]
+include::tracing.adoc[]
+
