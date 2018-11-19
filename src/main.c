@@ -28,13 +28,13 @@
 static lua_State *moonglmath_L = NULL;
 
 static void AtExit(void)
-	{
-	if(moonglmath_L)
-		{
-		enums_free_all(moonglmath_L);
-		moonglmath_L = NULL;
-		}
-	}
+    {
+    if(moonglmath_L)
+        {
+        enums_free_all(moonglmath_L);
+        moonglmath_L = NULL;
+        }
+    }
 
 static int AddVersions(lua_State *L)
 /* Add version strings to the gl table */
@@ -60,9 +60,9 @@ static const struct luaL_Reg Functions[] =
 int luaopen_moonglmath(lua_State *L)
 /* Lua calls this function to load the module */
     {
-	moonglmath_L = L;
-	moonglmath_utils_init(L);
-	atexit(AtExit);
+    moonglmath_L = L;
+    moonglmath_utils_init(L);
+    atexit(AtExit);
 
     lua_newtable(L); /* the gl table */
     AddVersions(L);
@@ -70,7 +70,7 @@ int luaopen_moonglmath(lua_State *L)
 
     /* add glmath functions: */
     moonglmath_open_enums(L);
-	moonglmath_open_datahandling(L);
+    moonglmath_open_datahandling(L);
     moonglmath_open_vec(L);
     moonglmath_open_mat(L);
     moonglmath_open_quat(L);
@@ -78,6 +78,7 @@ int luaopen_moonglmath(lua_State *L)
     moonglmath_open_funcs(L);
     moonglmath_open_transform(L);
     moonglmath_open_viewing(L);
+    moonglmath_open_hostmem(L);
     return 1;
     }
 

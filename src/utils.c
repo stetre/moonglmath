@@ -241,6 +241,37 @@ int isoption(lua_State *L, int arg, const char *const lst[])
     return 0;
     }
 
+
+/*------------------------------------------------------------------------------*
+ | Light userdata                                                               |
+ *------------------------------------------------------------------------------*/
+
+void *checklightuserdata(lua_State *L, int arg)
+    {
+    if(lua_type(L, arg) != LUA_TLIGHTUSERDATA)
+        { luaL_argerror(L, arg, "expected lightuserdata"); return NULL; }
+    return lua_touserdata(L, arg);
+    }
+
+void *optlightuserdata(lua_State *L, int arg)
+    {
+    if(lua_isnoneornil(L, arg))
+        return NULL;
+    return checklightuserdata(L, arg);
+    }
+
+void *checklightuserdataorzero(lua_State *L, int arg)
+    {
+    int val, isnum;
+    val = lua_tointegerx(L, arg, &isnum);
+    if(!isnum)
+        return checklightuserdata(L, arg);
+    if(val != 0)
+        luaL_argerror(L, arg, "expected lightuserdata or 0");
+    return NULL;
+    }
+
+
 /*------------------------------------------------------------------------------*
  | Internal error codes                                                         |
  *------------------------------------------------------------------------------*/

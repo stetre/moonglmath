@@ -30,6 +30,9 @@
 #ifndef internalDEFINED
 #define internalDEFINED
 
+#ifdef LINUX
+#define _ISOC11_SOURCE /* see man aligned_alloc(3) */
+#endif
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
@@ -47,6 +50,7 @@
  */
 
 #include "tree.h"
+#include "objects.h"
 #include "enums.h"
 
 /* A VECTOR is implemented as a table, with the elements in the array part:
@@ -111,6 +115,12 @@ int setmetatable(lua_State *L, const char *metatable);
 #define metatable_setfuncs moonglmath_metatable_setfuncs
 int metatable_setfuncs(lua_State *L, const char *metatable, const luaL_Reg *metamethods, 
             const luaL_Reg *methods);
+#define checklightuserdata moonglmath_checklightuserdata
+void *checklightuserdata(lua_State *L, int arg);
+#define checklightuserdataorzero moonglmath_checklightuserdataorzero
+void *checklightuserdataorzero(lua_State *L, int arg);
+#define optlightuserdata moonglmath_optlightuserdata
+void *optlightuserdata(lua_State *L, int arg);
 
 
 #define checkvecsize(L, sz) do {                        \
@@ -195,6 +205,19 @@ int complex_Conj(lua_State *L);
 int num_Clamp(lua_State *L);
 #define num_Mix moonglmath_num_Mix
 int num_Mix(lua_State *L);
+
+/* datahandling.c */
+#define sizeoftype moonglmath_sizeoftype
+size_t sizeoftype(int type);
+#define toflattable moonglmath_toflattable
+int toflattable(lua_State *L, int arg);
+#define testdata moonglmath_testdata
+int testdata(lua_State *L, int type, size_t n, void *dst, size_t dstsize);
+#define checkdata moonglmath_checkdata
+int checkdata(lua_State *L, int arg, int type, void *dts, size_t dstsize);
+#define pushdata moonglmath_pushdata
+int pushdata(lua_State *L, int type, void *src, size_t srcsize);
+
 
 /* main.c */
 int luaopen_moonglmath(lua_State *L);

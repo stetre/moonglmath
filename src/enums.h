@@ -48,8 +48,8 @@ void enums_freelist(lua_State *L, uint32_t *list);
 #define DOMAIN_TYPE                       1
 
 /* DOMAIN_ISROW values (vector type) */
-#define MOONGLMATH_COLUMN 	0
-#define MOONGLMATH_ROW 		1
+#define MOONGLMATH_COLUMN   0
+#define MOONGLMATH_ROW      1
 
 /* Types for glmath.sizeof() & friends */
 #define MOONGLMATH_TYPE_CHAR         1
