@@ -25,19 +25,6 @@
 
 #include "internal.h"
 
-ENUM_STRINGS(IsRowStrings) = {
-    "column",
-    "row",
-    NULL
-};
-ENUM_CODES(IsRowCodes) = {
-    0, /* column vector */
-    1, /* row vector */
-};
-ENUM_T(IsRowEnum, IsRowStrings, IsRowCodes)
-#define CheckIsRow(L, arg) enumCheck((L), (arg), &IsRowEnum)
-#define PushIsRow(L, code) enumPush((L), (code), &IsRowEnum)
-
 /*------------------------------------------------------------------------------*
  | Check and push                                                               |
  *------------------------------------------------------------------------------*/
@@ -53,7 +40,7 @@ int testvec(lua_State *L, int arg, vec_t v, size_t *size, unsigned int *isrow)
     if(!testmetatable(L, arg, VEC_MT)) return 0;
 
     lua_getfield(L, arg, "type");   
-    isrow_ = CheckIsRow(L, -1);
+    isrow_ = checkisrow(L, -1);
     lua_pop(L, 1);
 
     lua_getfield(L, arg, "size");
@@ -103,7 +90,7 @@ int pushvec(lua_State *L, vec_t v, size_t vsize, size_t size, unsigned int isrow
         }
     lua_pushinteger(L, size);
     lua_setfield(L, -2, "size");
-    PushIsRow(L, isrow);
+    pushisrow(L, isrow);
     lua_setfield(L, -2, "type");
     return 1;
     }

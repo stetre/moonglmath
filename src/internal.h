@@ -46,7 +46,8 @@
  * MoonGLMATH's string references on the Lua registry also start with 'moonglmath_'.
  */
 
-#include "enum.h"
+#include "tree.h"
+#include "enums.h"
 
 /* A VECTOR is implemented as a table, with the elements in the array part:
  * v[i] = i-th element, i=1..N
@@ -85,6 +86,14 @@
 double tstosec(const struct timespec *ts);
 #define sectots moonglmath_sectots
 void sectots(struct timespec *ts, double seconds);
+#define Malloc moonglmath_Malloc
+void *Malloc(lua_State *L, size_t size);
+#define MallocNoErr moonglmath_MallocNoErr
+void *MallocNoErr(lua_State *L, size_t size);
+#define Strdup moonglmath_Strdup
+char *Strdup(lua_State *L, const char *s);
+#define Free moonglmath_Free
+void Free(lua_State *L, void *ptr);
 #define checkoption_hint moonglmath_checkoption_hint
 int checkoption_hint(lua_State *L, int arg, const char *def, const char *const lst[]);
 #define isoption moonglmath_isoption
@@ -189,6 +198,9 @@ int num_Mix(lua_State *L);
 
 /* main.c */
 int luaopen_moonglmath(lua_State *L);
+void moonglmath_utils_init(lua_State *L);
+void moonglmath_open_datahandling(lua_State *L);
+void moonglmath_open_enums(lua_State *L);
 void moonglmath_open_mat(lua_State *L);
 void moonglmath_open_vec(lua_State *L);
 void moonglmath_open_quat(lua_State *L);
@@ -200,6 +212,25 @@ void moonglmath_open_funcs(lua_State *L);
 /*------------------------------------------------------------------------------*
  | Debug and other utilities                                                    |
  *------------------------------------------------------------------------------*/
+
+/* Internal error codes */
+#define ERR_NOTPRESENT       1
+#define ERR_SUCCESS          0
+#define ERR_GENERIC         -1
+#define ERR_TYPE            -2
+#define ERR_VALUE           -3
+#define ERR_TABLE           -4
+#define ERR_EMPTY           -5
+#define ERR_MEMORY          -6
+#define ERR_MALLOC_ZERO     -7
+#define ERR_LENGTH          -8
+#define ERR_POOL            -9
+#define ERR_BOUNDARIES      -10
+#define ERR_UNKNOWN         -11
+#define errstring moonglmath_errstring
+const char* errstring(int err);
+
+#define badvalue(L,s)   lua_pushfstring((L), "invalid value '%s'", (s))
 
 //#define checkoption checkoption_hint
 #define checkoption luaL_checkoption
