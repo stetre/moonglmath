@@ -34,6 +34,7 @@
 #include <lua.h>
 #include "lualib.h"
 #include "lauxlib.h"
+#include "compat-5.3.h"
 
 #define MOONGLMATH_VERSION      "0.5"
 

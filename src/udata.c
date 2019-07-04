@@ -30,6 +30,7 @@
 #include "lua.h"
 #include "lauxlib.h"
 #include "lualib.h"
+#include "compat-5.3.h"
 
 struct moonglmath_udata_s {
     RB_ENTRY(moonglmath_udata_s) entry;

@@ -36,6 +36,7 @@ Objs := $(Src:.c=.o)
 COPT	+= -O2
 #COPT	+= -O0 -g
 COPT	+= -Wall -Wextra -Wpedantic
+COPT	+= -DCOMPAT53_PREFIX=moonglmath_compat_
 COPT    += -std=gnu99
 COPT 	+= -DLUAVER=$(LUAVER)
 ifdef LINUX

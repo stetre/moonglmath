@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.6.1">
+<meta name="generator" content="Asciidoctor 1.5.5">
 <meta name="author" content="Stefano Trettel">
 <title>MoonGLMATH Reference Manual</title>
 <style>
@@ -841,7 +841,7 @@ table is named <strong>glmath</strong>, i.e. that it is loaded with:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span></span> <span class="tok-n">glmath</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;moonglmath&quot;</span><span class="tok-p">)</span></code></pre>
+<pre class="pygments highlight"><code data-lang="lua"> <span class="tok-n">glmath</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;moonglmath&quot;</span><span class="tok-p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -934,7 +934,7 @@ The <strong>vecN</strong> function creates a column vector of size N (where N ma
 <div class="listingblock">
 <div class="title">examples</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-n">v</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">vec3</span><span class="tok-p">()</span>            <span class="tok-c1">--&gt; v = { 0, 0, 0 }&#39;</span>
+<pre class="pygments highlight"><code data-lang="lua"><span class="tok-n">v</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">vec3</span><span class="tok-p">()</span>            <span class="tok-c1">--&gt; v = { 0, 0, 0 }&#39;</span>
 <span class="tok-n">v</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">vec3</span><span class="tok-p">(</span><span class="tok-mi">11</span><span class="tok-p">,</span> <span class="tok-mi">22</span><span class="tok-p">)</span>      <span class="tok-c1">--&gt; v = { 11, 22, 0 }&#39;</span>
 <span class="tok-n">v</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">vec2</span><span class="tok-p">(</span><span class="tok-n">v</span><span class="tok-p">)</span>           <span class="tok-c1">--&gt; v = { 11, 22 }&#39;</span>
 <span class="tok-n">v</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">vec4</span><span class="tok-p">(</span><span class="tok-n">v</span><span class="tok-p">)</span>           <span class="tok-c1">--&gt; v = { 11, 22, 0, 0 }&#39;</span>
@@ -1062,7 +1062,7 @@ identity matrix.</span></p>
 <div class="listingblock">
 <div class="title">examples</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-n">m</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">mat3</span><span class="tok-p">()</span>              <span class="tok-c1">--&gt; m = {{ 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 }}</span>
+<pre class="pygments highlight"><code data-lang="lua"><span class="tok-n">m</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">mat3</span><span class="tok-p">()</span>              <span class="tok-c1">--&gt; m = {{ 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 }}</span>
 <span class="tok-n">m</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">mat2x3</span><span class="tok-p">()</span>            <span class="tok-c1">--&gt; m = {{ 0, 0, 0 }, { 0, 0, 0 }}</span>
 <span class="tok-n">m</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">mat2x3</span><span class="tok-p">(</span><span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-mi">4</span><span class="tok-p">)</span>  <span class="tok-c1">--&gt; m = {{ 1, 2, 3 }, { 4, 0, 0 }}</span>
 <span class="tok-n">m</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">mat3x2</span><span class="tok-p">(</span><span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-mi">4</span><span class="tok-p">)</span>  <span class="tok-c1">--&gt; m = {{ 1, 2 }, { 3, 4 }, { 0, 0 }}</span>
@@ -1208,7 +1208,7 @@ is regarded as the rotation matrix).</span></p>
 <div class="listingblock">
 <div class="title">examples</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-n">q</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">quat</span><span class="tok-p">()</span>            <span class="tok-c1">--&gt; q = &lt; 0, 0, 0 &gt;</span>
+<pre class="pygments highlight"><code data-lang="lua"><span class="tok-n">q</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">quat</span><span class="tok-p">()</span>            <span class="tok-c1">--&gt; q = &lt; 0, 0, 0 &gt;</span>
 <span class="tok-n">q</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">quat</span><span class="tok-p">(</span><span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">)</span>  <span class="tok-c1">--&gt; q = &lt; 0, 1, 2, 3 &gt;</span>
 
 <span class="tok-n">w</span> <span class="tok-o">=</span> <span class="tok-mi">0</span>
@@ -1311,7 +1311,7 @@ previously created complex number <em>z</em>.</span></p>
 <div class="listingblock">
 <div class="title">examples</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span></span><span class="tok-n">z</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">complex</span><span class="tok-p">()</span>             <span class="tok-c1">--&gt; z = 0 + 0i</span>
+<pre class="pygments highlight"><code data-lang="lua"><span class="tok-n">z</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">complex</span><span class="tok-p">()</span>             <span class="tok-c1">--&gt; z = 0 + 0i</span>
 <span class="tok-n">z</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">complex</span><span class="tok-p">(</span><span class="tok-mi">2</span><span class="tok-p">)</span>            <span class="tok-c1">--&gt; z = 2 + 0i</span>
 <span class="tok-n">z</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">complex</span><span class="tok-p">(</span><span class="tok-kc">nil</span><span class="tok-p">,</span> <span class="tok-mi">5</span><span class="tok-p">)</span>       <span class="tok-c1">--&gt; z = 0 + 5i</span>
 <span class="tok-n">z</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">complex</span><span class="tok-p">(</span><span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-mi">4</span><span class="tok-p">)</span>         <span class="tok-c1">--&gt; z = 3 + 4i</span>
