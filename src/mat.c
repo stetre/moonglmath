@@ -519,6 +519,15 @@ int mat_mix(mat_t dst, mat_t m1, mat_t m2, size_t nr, size_t nc, double k)
     return 1;
     }
 
+int mat_step(mat_t dst, mat_t m, mat_t edge, size_t nr, size_t nc)
+    {
+    size_t i, j;
+    for(i = 0; i < nr; i++)
+        for(j = 0; j < nc; j++)
+            dst[i][j] = step(m[i][j], edge[i][j]);
+    return 1;
+    }
+
 /*------------------------------------------------------------------------------*
  | Metamethods                                                                  |
  *------------------------------------------------------------------------------*/
@@ -781,7 +790,6 @@ int mat_Row(lua_State *L)
     return pushvec(L, v, nc, nc, 1);
     }
 
-
 int mat_Clamp(lua_State *L)
     {
     mat_t dst;
@@ -812,6 +820,28 @@ int mat_Mix(lua_State *L)
     return pushmat(L, dst, nr, nc, nr, nc);
     }
 
+int mat_Step(lua_State *L)
+    {
+    mat_t dst, m1, edge;
+    size_t nr, nc, nr1, nc1, i, j;
+    checkmat(L, 1, m1, &nr, &nc);
+    if(lua_isnumber(L, 2))
+        {
+        double k = lua_tonumber(L, 2);
+        for(i=0; i<nr; i++)
+            for(j=0; j<nc; j++)
+                edge[i][j] = k;
+        }
+    else
+        {
+        checkmat(L, 2, edge, &nr1, &nc1);
+        if(nr1 != nr || nc1 != nc)
+            return luaL_error(L, OPERANDS_ERROR);
+        }
+    mat_step(dst, m1, edge, nr, nc);
+    return pushmat(L, dst, nr, nc, nr, nc);
+    }
+
 
 static const struct luaL_Reg Metamethods[] = 
     {
@@ -839,6 +869,7 @@ static const struct luaL_Reg Methods[] =
         { "row", mat_Row },
         { "clamp", mat_Clamp },
         { "mix", mat_Mix },
+        { "step", mat_Step },
         { NULL, NULL } /* sentinel */
     };
 

@@ -346,6 +346,12 @@ void vec_mix(vec_t dst, vec_t v1, vec_t v2, size_t n, double k)
         dst[i] = mix(v1[i], v2[i], k);
     }
 
+void vec_step(vec_t dst, vec_t v, vec_t edge, size_t n)
+    {
+    size_t i;
+    for(i=0; i<n; i++)
+        dst[i] = step(v[i], edge[i]);
+    }
 
 /*------------------------------------------------------------------------------*
  | Metamethods                                                                  |
@@ -564,6 +570,30 @@ int vec_Mix(lua_State *L)
     return pushvec(L, dst, size, size, isrow);
     }
 
+
+int vec_Step(lua_State *L)
+    {
+    vec_t dst, v1, edge;
+    double k;
+    size_t size, size1;
+    unsigned int isrow, isrow1;
+    checkvec(L, 1, v1, &size, &isrow);
+    if(lua_isnumber(L, 2))
+        {
+        k = lua_tonumber(L, 2);
+        edge[0]=edge[1]=edge[2]=edge[3]=k;
+        }
+    else
+        {
+        checkvec(L, 2, edge, &size1, &isrow1);
+        if(size1 != size || isrow1 != isrow)
+            return luaL_error(L, OPERANDS_ERROR);
+        }
+    vec_step(dst, v1, edge, size);
+    return pushvec(L, dst, size, size, isrow);
+    }
+
+
 static const struct luaL_Reg Metamethods[] = 
     {
         { "__tostring", ToString },
@@ -585,6 +615,7 @@ static const struct luaL_Reg Methods[] =
         { "transpose", vec_Transpose },
         { "clamp", vec_Clamp },
         { "mix", vec_Mix },
+        { "step", vec_Step },
         { NULL, NULL } /* sentinel */
     };
 

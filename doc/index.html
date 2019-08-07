@@ -974,6 +974,12 @@ The <strong>vecN</strong> function creates a column vector of size N (where N ma
 <p><em>v<sub>mix</sub></em> = <strong>mix</strong>(<em>v</em>, <em>v<sub>1</sub></em>, <em>k</em>)<br>
 <span class="small">Component-wise blend <em>v<sub>mix</sub> = (1-k)*v +k*v<sub>1</sub></em>, where <em>k</em> is a number.</span></p>
 </li>
+<li>
+<p><em>r</em> = <strong>step</strong>(<em>v</em>, <em>edge</em>)<br>
+<em>r</em> = <strong>step</strong>(<em>v</em>, <em>k</em>)<br>
+<span class="small">Component-wise step: <em>r<sub>i</sub>=0.0</em> if <em>v<sub>i</sub>&le;edge<sub>i</sub></em>,  <em>r<sub>i</sub>=1.0</em> otherwise.<br>
+The second argument may be a number <em>k</em>, meaning <em>edge<sub>i</sub>=k</em> for every <em>i</em>.</span></p>
+</li>
 </ul>
 </div>
 <hr>
@@ -1127,6 +1133,12 @@ identity matrix.</span></p>
 <li>
 <p><em>m<sub>mix</sub></em> = <strong>mix</strong>(<em>m</em>, <em>m<sub>1</sub></em>, <em>k</em>)<br>
 <span class="small">Component-wise blend <em>m<sub>mix</sub> = (1-k)*m +k*m<sub>1</sub></em>, where <em>k</em> is a number.</span></p>
+</li>
+<li>
+<p><em>r</em> = <strong>step</strong>(<em>m</em>, <em>edge</em>)<br>
+<em>r</em> = <strong>step</strong>(<em>m</em>, <em>k</em>)<br>
+<span class="small">Component-wise step: <em>r<sub>i,j</sub>=0.0</em> if <em>m<sub>i,j</sub>&le;edge<sub>i,j</sub></em>,  <em>r<sub>i,j</sub>=1.0</em> otherwise.<br>
+The second argument may be a number <em>k</em>, meaning <em>edge<sub>i,j</sub>=k</em> for every <em>i,j</em>.</span></p>
 </li>
 </ul>
 </div>

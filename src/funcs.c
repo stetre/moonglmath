@@ -132,6 +132,14 @@ static int Mix(lua_State *L)
     return badarg(L, 1);
     }
 
+static int Step(lua_State *L)
+    {
+    if(lua_isnumber(L,1)) return num_Step(L);
+    if(isvec(L,1)) return vec_Step(L);
+    if(ismat(L,1)) return mat_Step(L);
+    return badarg(L, 1);
+    }
+
 
 /*------------------------------------------------------------------------------*
  | Registration                                                                 |
@@ -153,6 +161,7 @@ static const struct luaL_Reg Functions[] =
         { "column", Column },
         { "clamp", Clamp },
         { "mix", Mix },
+        { "step", Step },
         { NULL, NULL } /* sentinel */
     };
 

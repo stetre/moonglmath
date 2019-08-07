@@ -59,3 +59,16 @@ int num_Mix(lua_State *L)
     return 1;
     }
 
+double step(double x, double edge)
+    {
+    return x<=edge ? 0.0 : 1.0;
+    }
+
+int num_Step(lua_State *L)
+    {
+    double x = luaL_checknumber(L, 1);
+    double edge = luaL_checknumber(L, 2);
+    lua_pushnumber(L, step(x, edge));
+    return 1;
+    }
+

@@ -97,6 +97,7 @@ void moonglmath_vec_vxv(moonglmath_mat_t dst, moonglmath_vec_t v1, moonglmath_ve
 void moonglmath_vec_cross(moonglmath_vec_t dst, moonglmath_vec_t v1, moonglmath_vec_t v2);
 void moonglmath_vec_clamp(moonglmath_vec_t dst, moonglmath_vec_t v, moonglmath_vec_t minv, moonglmath_vec_t maxv, size_t n);
 void moonglmath_vec_mix(moonglmath_vec_t dst, moonglmath_vec_t v1, moonglmath_vec_t v2, size_t n, double k);
+void moonglmath_vec_step(moonglmath_vec_t dst, moonglmath_vec_t v, moonglmath_vec_t edge, size_t n);
 
 /*---------------------------------------------------------------------------*
  | Matrix                                                                    |
@@ -121,6 +122,7 @@ void moonglmath_mat_adj(moonglmath_mat_t dst, moonglmath_mat_t m, size_t n);
 int moonglmath_mat_inv(moonglmath_mat_t dst, moonglmath_mat_t m, size_t n);
 int moonglmath_mat_clamp(moonglmath_mat_t dst, moonglmath_mat_t m, moonglmath_mat_t minm, moonglmath_mat_t maxm, size_t nr, size_t nc);
 int moonglmath_mat_mix(moonglmath_mat_t dst, moonglmath_mat_t m1, moonglmath_mat_t m2, size_t nr, size_t nc, double k);
+int moonglmath_mat_step(moonglmath_mat_t dst, moonglmath_mat_t m, moonglmath_mat_t edge, size_t nr, size_t nc);
 
 /*---------------------------------------------------------------------------*
  | Quaternion                                                                |
@@ -146,6 +148,7 @@ void moonglmath_quat_qxs(moonglmath_quat_t dst, moonglmath_quat_t q, double s);
 
 double moonglmath_clamp(double x, double minval, double maxval);
 double moonglmath_mix(double x, double y, double k);
+double moonglmath_step(double x, double edge);
 
 /*---------------------------------------------------------------------------*
  | Other                                                                     |

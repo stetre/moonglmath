@@ -83,6 +83,7 @@
 #define vec_cross moonglmath_vec_cross
 #define vec_clamp moonglmath_vec_clamp
 #define vec_mix moonglmath_vec_mix
+#define vec_step moonglmath_vec_step
 
 #define mat_clear moonglmath_mat_clear
 #define mat_copy moonglmath_mat_copy
@@ -103,6 +104,7 @@
 #define mat_inv moonglmath_mat_inv
 #define mat_clamp moonglmath_mat_clamp
 #define mat_mix moonglmath_mat_mix
+#define mat_step moonglmath_mat_step
 
 #define quat_clear moonglmath_quat_clear
 #define quat_copy moonglmath_quat_copy
@@ -120,6 +122,7 @@
 
 #define clamp moonglmath_clamp
 #define mix moonglmath_mix
+#define step moonglmath_step
 
 #define now moonglmath_now
 
