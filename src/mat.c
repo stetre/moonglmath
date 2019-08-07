@@ -537,6 +537,15 @@ int mat_smoothstep(mat_t dst, mat_t m, mat_t edge0, mat_t edge1, size_t nr, size
     return 1;
     }
 
+int mat_fade(mat_t dst, mat_t m, mat_t edge0, mat_t edge1, size_t nr, size_t nc)
+    {
+    size_t i, j;
+    for(i = 0; i < nr; i++)
+        for(j = 0; j < nc; j++)
+            dst[i][j] = fade(m[i][j], edge0[i][j], edge1[i][j]);
+    return 1;
+    }
+
 
 /*------------------------------------------------------------------------------*
  | Metamethods                                                                  |
@@ -887,6 +896,41 @@ int mat_Smoothstep(lua_State *L)
     return pushmat(L, dst, nr, nc, nr, nc);
     }
 
+int mat_Fade(lua_State *L)
+    {
+    mat_t dst, m, edge0, edge1;
+    size_t nr, nc, nr1, nc1, i, j;
+    checkmat(L, 1, m, &nr, &nc);
+    if(lua_isnumber(L, 2))
+        {
+        double k = lua_tonumber(L, 2);
+        for(i=0; i<nr; i++)
+            for(j=0; j<nc; j++)
+                edge0[i][j] = k;
+        }
+    else
+        {
+        checkmat(L, 2, edge0, &nr1, &nc1);
+        if(nr1 != nr || nc1 != nc)
+            return luaL_error(L, OPERANDS_ERROR);
+        }
+    if(lua_isnumber(L, 3))
+        {
+        double k = lua_tonumber(L, 3);
+        for(i=0; i<nr; i++)
+            for(j=0; j<nc; j++)
+                edge1[i][j] = k;
+        }
+    else
+        {
+        checkmat(L, 3, edge1, &nr1, &nc1);
+        if(nr1 != nr || nc1 != nc)
+            return luaL_error(L, OPERANDS_ERROR);
+        }
+    mat_fade(dst, m, edge0, edge1, nr, nc);
+    return pushmat(L, dst, nr, nc, nr, nc);
+    }
+
 
 static const struct luaL_Reg Metamethods[] = 
     {
@@ -916,6 +960,7 @@ static const struct luaL_Reg Methods[] =
         { "mix", mat_Mix },
         { "step", mat_Step },
         { "smoothstep", mat_Smoothstep },
+        { "fade", mat_Fade },
         { NULL, NULL } /* sentinel */
     };
 

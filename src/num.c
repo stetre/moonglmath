@@ -87,3 +87,18 @@ int num_Smoothstep(lua_State *L)
     return 1;
     }
 
+double fade(double x, double edge0, double edge1)
+    {
+    double t = clamp((x-edge0)/(edge1-edge0), 0, 1);
+    return t*t*t*(t*(t*6-15)+10); // 6t^5 - 15t^4 + 10t^3 (Perlin's improved smoothstep)
+    }
+
+int num_Fade(lua_State *L)
+    {
+    double x = luaL_checknumber(L, 1);
+    double edge0 = luaL_checknumber(L, 2);
+    double edge1 = luaL_checknumber(L, 3);
+    lua_pushnumber(L, fade(x, edge0, edge1));
+    return 1;
+    }
+

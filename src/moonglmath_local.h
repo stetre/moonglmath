@@ -85,6 +85,7 @@
 #define vec_mix moonglmath_vec_mix
 #define vec_step moonglmath_vec_step
 #define vec_smoothstep moonglmath_vec_smoothstep
+#define vec_fade moonglmath_vec_fade
 
 #define mat_clear moonglmath_mat_clear
 #define mat_copy moonglmath_mat_copy
@@ -107,6 +108,7 @@
 #define mat_mix moonglmath_mat_mix
 #define mat_step moonglmath_mat_step
 #define mat_smoothstep moonglmath_mat_smoothstep
+#define mat_fade moonglmath_mat_fade
 
 #define quat_clear moonglmath_quat_clear
 #define quat_copy moonglmath_quat_copy
@@ -126,6 +128,7 @@
 #define mix moonglmath_mix
 #define step moonglmath_step
 #define smoothstep moonglmath_smoothstep
+#define fade moonglmath_fade
 
 #define now moonglmath_now
 

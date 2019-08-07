@@ -97,10 +97,14 @@ _m^-1^_ = *inv*(_m_) +
 [small]#Element-wise step: _m~step~=0.0_ if _m&le;m~edge~_,  _m~step~=1.0_ otherwise (element subscripts are omitted for clarity). +
 The _m~edge~_ argument may be a number, meaning a matrix with all elements equal to that number.#
 
+[[mat_smoothstep]]
 * _m~smoothstep~_ = *smoothstep*(_m_, _m~0~_, _m~1~_) +
 [small]#Element-wise smoothstep: omitting element subscripts, _m~smoothstep~_ is _0.0_ if _m&le;m~0~_,  _1.0_ if _m&ge;m~1~_, and is obtained by smooth Hermite interpolation if _m~0~&lt;m&lt;m~1~_
 (i.e. _m~smoothstep~=3t^2^-2t^3^_, where _t=(m-m~0~)/(m~1~-m~0~)_). The result is undefined if _m~0~&ge;m~1~_. +
 The _m~0~_ and _m~1~_ argument may be both be a number, meaning a matrix with all elements equal to that number.#
+
+* _m~fade~_ = *fade*(_m_, _m~0~_, _m~1~_) +
+[small]#Element-wise improved smoothstep. Same as <<mat_smoothstep, smoothstep>>(&nbsp;), but with the smoother interpolation function _m~fade~=6t^5^-15t^4^+10t^3^_ (Perlin improved).#
 
 
 '''

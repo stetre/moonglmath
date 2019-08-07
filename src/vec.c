@@ -360,6 +360,13 @@ void vec_smoothstep(vec_t dst, vec_t v, vec_t edge0, vec_t edge1, size_t n)
         dst[i] = smoothstep(v[i], edge0[i], edge1[i]);
     }
 
+void vec_fade(vec_t dst, vec_t v, vec_t edge0, vec_t edge1, size_t n)
+    {
+    size_t i;
+    for(i=0; i<n; i++)
+        dst[i] = fade(v[i], edge0[i], edge1[i]);
+    }
+
 
 /*------------------------------------------------------------------------------*
  | Metamethods                                                                  |
@@ -633,6 +640,40 @@ int vec_Smoothstep(lua_State *L)
     return pushvec(L, dst, size, size, isrow);
     }
 
+int vec_Fade(lua_State *L)
+    {
+    vec_t dst, v, edge0, edge1;
+    double k;
+    size_t size, size1;
+    unsigned int isrow, isrow1;
+    checkvec(L, 1, v, &size, &isrow);
+    if(lua_isnumber(L, 2))
+        {
+        k = lua_tonumber(L, 2);
+        edge0[0]=edge0[1]=edge0[2]=edge0[3]=k;
+        }
+    else
+        {
+        checkvec(L, 2, edge0, &size1, &isrow1);
+        if(size1 != size || isrow1 != isrow)
+            return luaL_error(L, OPERANDS_ERROR);
+        }
+    if(lua_isnumber(L, 3))
+        {
+        k = lua_tonumber(L, 3);
+        edge1[0]=edge1[1]=edge1[2]=edge1[3]=k;
+        }
+    else
+        {
+        checkvec(L, 3, edge1, &size1, &isrow1);
+        if(size1 != size || isrow1 != isrow)
+            return luaL_error(L, OPERANDS_ERROR);
+        }
+    vec_fade(dst, v, edge0, edge1, size);
+    return pushvec(L, dst, size, size, isrow);
+    }
+
+
 
 static const struct luaL_Reg Metamethods[] = 
     {
@@ -657,6 +698,7 @@ static const struct luaL_Reg Methods[] =
         { "mix", vec_Mix },
         { "step", vec_Step },
         { "smoothstep", vec_Smoothstep },
+        { "fade", vec_Fade },
         { NULL, NULL } /* sentinel */
     };
 
