@@ -88,15 +88,15 @@ _m^-1^_ = *inv*(_m_) +
 [small]#Returns the _i-th_ column as a column vector (<<glmath.vecN, vecN>>).#
 
 * _m~clamped~_ = *clamp*(_m_, _m~min~_, _m~max~_) +
-[small]#Component-wise clamp.#
+[small]#Element-wise clamp.#
 
 * _m~mix~_ = *mix*(_m_, _m~1~_, _k_) +
-[small]#Component-wise blend _m~mix~ = (1-k)*m +k*m~1~_, where _k_ is a number.#
+[small]#Element-wise blend _m~mix~ = (1-k)*m +k*m~1~_, where _k_ is a number.#
 
-* _r_ = *step*(_m_, _edge_) +
-_r_ = *step*(_m_, _k_) +
-[small]#Component-wise step: _r~i,j~=0.0_ if _m~i,j~&le;edge~i,j~_,  _r~i,j~=1.0_ otherwise. +
-The second argument may be a number _k_, meaning _edge~i,j~=k_ for every _i,j_.#
+* _m~step~_ = *step*(_m_, _m~edge~_) +
+[small]#Element-wise step: _m~step~=0.0_ if _m&le;m~edge~_,  _m~step~=1.0_ otherwise (element subscripts are omitted for clarity). +
+The _m~edge~_ argument may be a number, meaning a matrix with all elements equal to that number.#
+
 
 
 '''
