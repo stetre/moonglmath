@@ -979,6 +979,12 @@ The <strong>vecN</strong> function creates a column vector of size N (where N ma
 <span class="small">Element-wise step: <em>v<sub>step</sub>=0.0</em> if <em>v&le;v<sub>edge</sub></em>,  <em>v<sub>step</sub>=1.0</em> otherwise (element subscripts are omitted for clarity).<br>
 The <em>v<sub>edge</sub></em> argument may be a number, meaning a vector with all elements equal to that number.</span></p>
 </li>
+<li>
+<p><em>v<sub>smoothstep</sub></em> = <strong>smoothstep</strong>(<em>v</em>, <em>v<sub>0</sub></em>, <em>v<sub>1</sub></em>)<br>
+<span class="small">Element-wise smoothstep: omitting element subscripts, <em>v<sub>smoothstep</sub></em> is <em>0.0</em> if <em>v&le;v<sub>0</sub></em>,  <em>1.0</em> if <em>v&ge;v<sub>1</sub></em>, and is obtained by smooth Hermite interpolation if <em>v<sub>0</sub>&lt;v&lt;v<sub>1</sub></em>
+(i.e. <em>v<sub>smoothstep</sub>=3t<sup>2</sup>-2t<sup>3</sup></em>, where <em>t=(v-v<sub>0</sub>)/(v<sub>1</sub>-v<sub>0</sub>)</em>). The result is undefined if <em>v<sub>0</sub>&ge;v<sub>1</sub></em>.<br>
+The <em>v<sub>0</sub></em> and <em>v<sub>1</sub></em> argument may be both be a number, meaning a vector with all elements equal to that number.</span></p>
+</li>
 </ul>
 </div>
 <hr>
@@ -1137,6 +1143,12 @@ identity matrix.</span></p>
 <p><em>m<sub>step</sub></em> = <strong>step</strong>(<em>m</em>, <em>m<sub>edge</sub></em>)<br>
 <span class="small">Element-wise step: <em>m<sub>step</sub>=0.0</em> if <em>m&le;m<sub>edge</sub></em>,  <em>m<sub>step</sub>=1.0</em> otherwise (element subscripts are omitted for clarity).<br>
 The <em>m<sub>edge</sub></em> argument may be a number, meaning a matrix with all elements equal to that number.</span></p>
+</li>
+<li>
+<p><em>m<sub>smoothstep</sub></em> = <strong>smoothstep</strong>(<em>m</em>, <em>m<sub>0</sub></em>, <em>m<sub>1</sub></em>)<br>
+<span class="small">Element-wise smoothstep: omitting element subscripts, <em>m<sub>smoothstep</sub></em> is <em>0.0</em> if <em>m&le;m<sub>0</sub></em>,  <em>1.0</em> if <em>m&ge;m<sub>1</sub></em>, and is obtained by smooth Hermite interpolation if <em>m<sub>0</sub>&lt;m&lt;m<sub>1</sub></em>
+(i.e. <em>m<sub>smoothstep</sub>=3t<sup>2</sup>-2t<sup>3</sup></em>, where <em>t=(m-m<sub>0</sub>)/(m<sub>1</sub>-m<sub>0</sub>)</em>). The result is undefined if <em>m<sub>0</sub>&ge;m<sub>1</sub></em>.<br>
+The <em>m<sub>0</sub></em> and <em>m<sub>1</sub></em> argument may be both be a number, meaning a matrix with all elements equal to that number.</span></p>
 </li>
 </ul>
 </div>

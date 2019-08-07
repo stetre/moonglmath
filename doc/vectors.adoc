@@ -65,6 +65,12 @@ _v^T^_ = *transpose*(_v_) +
 [small]#Element-wise step: _v~step~=0.0_ if _v&le;v~edge~_,  _v~step~=1.0_ otherwise (element subscripts are omitted for clarity). +
 The _v~edge~_ argument may be a number, meaning a vector with all elements equal to that number.#
 
+* _v~smoothstep~_ = *smoothstep*(_v_, _v~0~_, _v~1~_) +
+[small]#Element-wise smoothstep: omitting element subscripts, _v~smoothstep~_ is _0.0_ if _v&le;v~0~_,  _1.0_ if _v&ge;v~1~_, and is obtained by smooth Hermite interpolation if _v~0~&lt;v&lt;v~1~_
+(i.e. _v~smoothstep~=3t^2^-2t^3^_, where _t=(v-v~0~)/(v~1~-v~0~)_). The result is undefined if _v~0~&ge;v~1~_. +
+The _v~0~_ and _v~1~_ argument may be both be a number, meaning a vector with all elements equal to that number.#
+
+
 '''
 The following *vector operators* are supported:
 

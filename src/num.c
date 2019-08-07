@@ -72,3 +72,18 @@ int num_Step(lua_State *L)
     return 1;
     }
 
+double smoothstep(double x, double edge0, double edge1)
+    {
+    double t = clamp((x-edge0)/(edge1-edge0), 0, 1);
+    return t*t*(3-2*t);
+    }
+
+int num_Smoothstep(lua_State *L)
+    {
+    double x = luaL_checknumber(L, 1);
+    double edge0 = luaL_checknumber(L, 2);
+    double edge1 = luaL_checknumber(L, 3);
+    lua_pushnumber(L, smoothstep(x, edge0, edge1));
+    return 1;
+    }
+

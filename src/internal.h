@@ -150,6 +150,8 @@ int vec_Clamp(lua_State *L);
 int vec_Mix(lua_State *L);
 #define vec_Step moonglmath_vec_Step
 int vec_Step(lua_State *L);
+#define vec_Smoothstep moonglmath_vec_Smoothstep
+int vec_Smoothstep(lua_State *L);
 
 /* mat.c ------------------------------------------------------------------------*/
 
@@ -173,6 +175,8 @@ int mat_Clamp(lua_State *L);
 int mat_Mix(lua_State *L);
 #define mat_Step moonglmath_mat_Step
 int mat_Step(lua_State *L);
+#define mat_Smoothstep moonglmath_mat_Smoothstep
+int mat_Smoothstep(lua_State *L);
 
 /* quat.c ------------------------------------------------------------------------*/
 #define quat_Norm moonglmath_quat_Norm
@@ -212,6 +216,8 @@ int num_Clamp(lua_State *L);
 int num_Mix(lua_State *L);
 #define num_Step moonglmath_num_Step
 int num_Step(lua_State *L);
+#define num_Smoothstep moonglmath_num_Smoothstep
+int num_Smoothstep(lua_State *L);
 
 /* datahandling.c */
 #define sizeoftype moonglmath_sizeoftype
