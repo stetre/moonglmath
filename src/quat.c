@@ -582,10 +582,5 @@ void moonglmath_open_quat(lua_State *L)
     newmetatable(L, QUAT_MT);
     metatable_setfuncs(L, QUAT_MT, Metamethods, Methods);
     luaL_setfuncs(L, Functions, 0);
-
-    /* add the syntactic sugar */
-    luaL_getmetatable(L, QUAT_MT); lua_setglobal(L, QUAT_MT);
-    if(luaL_dostring(L, "require('moonglmath.quatsugar')") != 0) lua_error(L);
-    lua_pushnil(L); lua_setglobal(L, QUAT_MT);
     }
 

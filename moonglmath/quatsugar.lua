@@ -23,7 +23,8 @@
 -- SOFTWARE.
 --
 
-local mt = moonglmath_quat
+do
+local mt = getmetatable(moonglmath.quat())
 local methods = mt.__index
 
 local rd = {} -- read functions
@@ -55,3 +56,6 @@ mt.__newindex = function(self, key, val)
 	end
 end
 
+moonglmath.toquat = function(t) setmetatable(t, mt) return t end
+
+end

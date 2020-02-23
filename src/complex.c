@@ -398,10 +398,5 @@ void moonglmath_open_complex(lua_State *L)
     newmetatable(L, COMPLEX_MT);
     metatable_setfuncs(L, COMPLEX_MT, Metamethods, Methods);
     luaL_setfuncs(L, Functions, 0);
-
-    /* add the syntactic sugar */
-    luaL_getmetatable(L, COMPLEX_MT); lua_setglobal(L, COMPLEX_MT);
-    if(luaL_dostring(L, "require('moonglmath.complexsugar')") != 0) lua_error(L);
-    lua_pushnil(L); lua_setglobal(L, COMPLEX_MT);
     }
 

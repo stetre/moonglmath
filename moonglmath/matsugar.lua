@@ -23,7 +23,8 @@
 -- SOFTWARE.
 --
 
-local mt = moonglmath_mat
+do
+local mt = getmetatable(moonglmath.mat2())
 local methods = mt.__index
 
 local rd = {} -- read functions
@@ -82,3 +83,14 @@ mt.__newindex = function(self, key, val)
 	end
 end
 
+moonglmath.tomat2 = function(t) setmetatable(t, mt) t.rows=2 t.columns=2 return t end
+moonglmath.tomat3 = function(t) setmetatable(t, mt) t.rows=3 t.columns=3 return t end
+moonglmath.tomat4 = function(t) setmetatable(t, mt) t.rows=4 t.columns=4 return t end
+moonglmath.tomat2x3 = function(t) setmetatable(t, mt) t.rows=2 t.columns=3 return t end
+moonglmath.tomat3x2 = function(t) setmetatable(t, mt) t.rows=3 t.columns=2 return t end
+moonglmath.tomat2x4 = function(t) setmetatable(t, mt) t.rows=2 t.columns=4 return t end
+moonglmath.tomat4x2 = function(t) setmetatable(t, mt) t.rows=4 t.columns=2 return t end
+moonglmath.tomat3x4 = function(t) setmetatable(t, mt) t.rows=3 t.columns=4 return t end
+moonglmath.tomat4x3 = function(t) setmetatable(t, mt) t.rows=4 t.columns=3 return t end
+
+end

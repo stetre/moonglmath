@@ -67,6 +67,15 @@ int luaopen_moonglmath(lua_State *L)
     moonglmath_open_transform(L);
     moonglmath_open_viewing(L);
     moonglmath_open_hostmem(L);
+
+    /* Add functions implemented in Lua */
+    lua_pushvalue(L, -1); lua_setglobal(L, "moonglmath");
+    if(luaL_dostring(L, "require('moonglmath.vecsugar')") != 0) lua_error(L);
+    if(luaL_dostring(L, "require('moonglmath.matsugar')") != 0) lua_error(L);
+    if(luaL_dostring(L, "require('moonglmath.quatsugar')") != 0) lua_error(L);
+    if(luaL_dostring(L, "require('moonglmath.complexsugar')") != 0) lua_error(L);
+    lua_pushnil(L);  lua_setglobal(L, "moonglmath");
+
     return 1;
     }
 

@@ -931,6 +931,19 @@ The <strong>vecN</strong> function creates a column vector of size N (where N ma
 </li>
 </ul>
 </div>
+<div id="glmath.tovecN" class="ulist">
+<ul>
+<li>
+<p><em>t</em> = <strong>tovec2</strong>(<em>t</em>)<br>
+<em>t</em> = <strong>tovec3</strong>(<em>t</em>)<br>
+<em>t</em> = <strong>tovec4</strong>(<em>t</em>)<br>
+<em>t</em> = <strong>tovec2r</strong>(<em>t</em>)<br>
+<em>t</em> = <strong>tovec3r</strong>(<em>t</em>)<br>
+<em>t</em> = <strong>tovec4r</strong>(<em>t</em>)<br>
+<span class="small">Turn an appropriately sized table into a vector, by adding the relevant meta information to it.</span></p>
+</li>
+</ul>
+</div>
 <div class="listingblock">
 <div class="title">examples</div>
 <div class="content">
@@ -1075,6 +1088,22 @@ as a list of column vectors (to fill the matrix columns), or as a matrix (to cop
 from). In all cases, exceeding values are discarded, while missing values are replaced with zeros.
 As an exception, the <strong>matN</strong> function, when invoked without arguments, returns the NxN
 identity matrix.</span></p>
+</li>
+</ul>
+</div>
+<div id="glmath.tomatN" class="ulist">
+<ul>
+<li>
+<p><em>t</em> = <strong>tomat2</strong>(<em>t</em>)<br>
+<em>t</em> = <strong>tomat3</strong>(<em>t</em>)<br>
+<em>t</em> = <strong>tomat4</strong>(<em>t</em>)<br>
+<em>t</em> = <strong>tomat2x3</strong>(<em>t</em>)<br>
+<em>t</em> = <strong>tomat3x2</strong>(<em>t</em>)<br>
+<em>t</em> = <strong>tomat2x4</strong>(<em>t</em>)<br>
+<em>t</em> = <strong>tomat4x2</strong>(<em>t</em>)<br>
+<em>t</em> = <strong>tomat3x4</strong>(<em>t</em>)<br>
+<em>t</em> = <strong>tomat4x3</strong>(<em>t</em>)<br>
+<span class="small">Turn an appropriately sized table into a matrix, by adding the relevant meta information to it.</span></p>
 </li>
 </ul>
 </div>
@@ -1243,6 +1272,14 @@ is regarded as the rotation matrix).</span></p>
 </li>
 </ul>
 </div>
+<div id="glmath.toquat" class="ulist">
+<ul>
+<li>
+<p><em>t</em> = <strong>toquat</strong>(<em>t</em>)<br>
+<span class="small">Turn an appropriately sized table into a quaternion, by adding the relevant meta information to it.</span></p>
+</li>
+</ul>
+</div>
 <div class="listingblock">
 <div class="title">examples</div>
 <div class="content">
@@ -1343,6 +1380,14 @@ the imaginary part <em>im</em>), or using the <strong>re-im</strong> syntactic s
 <em>{z<sub>1</sub>, z<sub>2</sub>, &#8230;&#8203;}</em> = <strong>complex</strong>(<em>{re<sub>1</sub>, im<sub>1</sub>, re<sub>2</sub>, im<sub>2</sub>, &#8230;&#8203;}</em>)<br>
 <span class="small">Create a complex number from its real and imaginary parts (which default to <em>0</em>) or from a
 previously created complex number <em>z</em>.</span></p>
+</li>
+</ul>
+</div>
+<div id="glmath.tocomplex" class="ulist">
+<ul>
+<li>
+<p><em>t</em> = <strong>tocomplex</strong>(<em>t</em>)<br>
+<span class="small">Turn an appropriately sized table into a complex number, by adding the relevant meta information to it.</span></p>
 </li>
 </ul>
 </div>

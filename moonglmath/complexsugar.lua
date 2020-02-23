@@ -23,7 +23,8 @@
 -- SOFTWARE.
 --
 
-local mt = moonglmath_complex
+do
+local mt = getmetatable(moonglmath.complex())
 local methods = mt.__index
 
 local rd = {} -- read functions
@@ -53,3 +54,6 @@ mt.__newindex = function(self, key, val)
 	end
 end
 
+moonglmath.tocomplex = function(t) setmetatable(t, mt) return t end
+
+end

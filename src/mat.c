@@ -997,12 +997,5 @@ void moonglmath_open_mat(lua_State *L)
     newmetatable(L, MAT_MT);
     metatable_setfuncs(L, MAT_MT, Metamethods, Methods);
     luaL_setfuncs(L, Functions, 0);
-
-#if 1
-    /* add the syntactic sugar */
-    luaL_getmetatable(L, MAT_MT); lua_setglobal(L, MAT_MT);
-    if(luaL_dostring(L, "require('moonglmath.matsugar')") != 0) lua_error(L);
-    lua_pushnil(L); lua_setglobal(L, MAT_MT);
-#endif
     }
 

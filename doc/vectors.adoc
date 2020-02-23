@@ -28,6 +28,15 @@ _v_ = *vec4r*(_..._) +
 [small]#Create a vector. 
 The *vecN* function creates a column vector of size N (where N may be 2, 3 or 4), whereas the *vecNr* function creates a row vector of the same size. Values to initialize the vector elements may be optionally passed as a list of numbers, or as a previously created vector (exceeding values are discarded, while missing values are replaced with zeros).#
 
+[[glmath.tovecN]]
+* _t_ = *tovec2*(_t_) +
+_t_ = *tovec3*(_t_) +
+_t_ = *tovec4*(_t_) +
+_t_ = *tovec2r*(_t_) +
+_t_ = *tovec3r*(_t_) +
+_t_ = *tovec4r*(_t_) +
+[small]#Turn an appropriately sized table into a vector, by adding the relevant meta information to it.#
+
 .examples
 [source,lua]
 ----

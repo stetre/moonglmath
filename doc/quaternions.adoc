@@ -27,6 +27,11 @@ rotation matrix and returns the equivalent quaternion
 (_m_ may be either a 3x3 or a 4x4 matrix, in which case its upper-left 3x3 submatrix
 is regarded as the rotation matrix).#
 
+[[glmath.toquat]]
+* _t_ = *toquat*(_t_) +
+[small]#Turn an appropriately sized table into a quaternion, by adding the relevant meta information to it.#
+
+
 .examples
 [source,lua]
 ----

@@ -729,10 +729,5 @@ void moonglmath_open_vec(lua_State *L)
     newmetatable(L, VEC_MT);
     metatable_setfuncs(L, VEC_MT, Metamethods, Methods);
     luaL_setfuncs(L, Functions, 0);
-
-    /* add the syntactic sugar */
-    luaL_getmetatable(L, VEC_MT); lua_setglobal(L, VEC_MT);
-    if(luaL_dostring(L, "require('moonglmath.vecsugar')") != 0) lua_error(L);
-    lua_pushnil(L); lua_setglobal(L, VEC_MT);
     }
 

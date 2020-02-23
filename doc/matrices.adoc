@@ -37,6 +37,18 @@ from). In all cases, exceeding values are discarded, while missing values are re
 As an exception, the *matN* function, when invoked without arguments, returns the NxN 
 identity matrix.#
 
+[[glmath.tomatN]]
+* _t_ = *tomat2*(_t_) +
+_t_ = *tomat3*(_t_) +
+_t_ = *tomat4*(_t_) +
+_t_ = *tomat2x3*(_t_) +
+_t_ = *tomat3x2*(_t_) +
+_t_ = *tomat2x4*(_t_) +
+_t_ = *tomat4x2*(_t_) +
+_t_ = *tomat3x4*(_t_) +
+_t_ = *tomat4x3*(_t_) +
+[small]#Turn an appropriately sized table into a matrix, by adding the relevant meta information to it.#
+
 .examples
 [source,lua]
 ----
