@@ -81,11 +81,11 @@ mt.__newindex = function(self, key, val)
 	end
 end
 
-moonglmath.tovec2 = function(t) setmetatable(t, mt) t.type="row" t.size=2 return t end
-moonglmath.tovec3 = function(t) setmetatable(t, mt) t.type="row" t.size=3 return t end
-moonglmath.tovec4 = function(t) setmetatable(t, mt) t.type="row" t.size=4 return t end
-moonglmath.tovec2r = function(t) setmetatable(t, mt) t.type="column" t.size=2 return t end
-moonglmath.tovec3r = function(t) setmetatable(t, mt) t.type="column" t.size=3 return t end
-moonglmath.tovec4r = function(t) setmetatable(t, mt) t.type="column" t.size=4 return t end
+moonglmath.tovec2 = function(t) setmetatable(t, mt) t.type="column" t.size=2 return t end
+moonglmath.tovec3 = function(t) setmetatable(t, mt) t.type="column" t.size=3 return t end
+moonglmath.tovec4 = function(t) setmetatable(t, mt) t.type="column" t.size=4 return t end
+moonglmath.tovec2r = function(t) setmetatable(t, mt) t.type="row" t.size=2 return t end
+moonglmath.tovec3r = function(t) setmetatable(t, mt) t.type="row" t.size=3 return t end
+moonglmath.tovec4r = function(t) setmetatable(t, mt) t.type="row" t.size=4 return t end
 
 end
