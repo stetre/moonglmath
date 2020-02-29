@@ -15,10 +15,11 @@
 glmath = require("moonglmath")
 
 -- globalize all glmath functions:
-for k, v in pairs(glmath) do _ENV[k] = v end
-
--- globalize all math functions (except for type()):
-for k, v in pairs(math) do 
-   if(k~="type") then _ENV[k] = v end 
+for k, v in pairs(glmath) do
+   if(k~="type") then _ENV[k] = v end
 end
 
+-- globalize all math functions (except for type()):
+for k, v in pairs(math) do
+   if(k~="type") then _ENV[k] = v end
+end
