@@ -1,6 +1,6 @@
 = MoonGLMATH Reference Manual
 Stefano Trettel
-v0.5, 2018-08-01
+v0.6, 2020-02-29
 :toc: left
 :toclevels: 4
 :stylesdir: ./
@@ -21,6 +21,8 @@ include::vectors.adoc[]
 include::matrices.adoc[]
 
 include::quaternions.adoc[]
+
+include::boxes.adoc[]
 
 include::complex.adoc[]
 

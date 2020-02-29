@@ -768,8 +768,8 @@ p.tableblock.header { color: #6d6e71; }
 <h1>MoonGLMATH Reference Manual</h1>
 <div class="details">
 <span id="author" class="author">Stefano Trettel</span><br>
-<span id="revnumber">version 0.5,</span>
-<span id="revdate">2018-08-01</span>
+<span id="revnumber">version 0.6,</span>
+<span id="revdate">2020-02-29</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -787,6 +787,7 @@ p.tableblock.header { color: #6d6e71; }
 <li><a href="#_vectors">Vectors</a></li>
 <li><a href="#_matrices">Matrices</a></li>
 <li><a href="#_quaternions">Quaternions</a></li>
+<li><a href="#_boxes">Boxes</a></li>
 <li><a href="#_complex_numbers">Complex numbers</a></li>
 <li><a href="#_basic_transforms">Basic Transforms</a></li>
 <li><a href="#_camera_and_projections">Camera and Projections</a></li>
@@ -883,7 +884,7 @@ Lua libraries for graphics and audio programming.</p>
 </div>
 <div class="paragraph">
 <p>By now it has only the minimal features needed for graphics programming: real vectors and real matrices
-up to 4 and 4x4 dimensions, quaternions, complex numbers, and a few functions to generate transformation matrices.</p>
+up to 4 and 4x4 dimensions, quaternions, 2D and 3D axis-aligned bounding boxes, complex numbers, and a few functions to generate transformation matrices.</p>
 </div>
 <div class="paragraph">
 <p>Like MoonGL and the other <a href="#see-also">companion libraries</a>, it is not designed for
@@ -1358,6 +1359,73 @@ is regarded as the rotation matrix).</span></p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_boxes">Boxes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MoonGLMATH supports 2D and 3D axis-aligned bounding boxes.</p>
+</div>
+<div class="paragraph">
+<p>A box <strong>b</strong> is implemented as a table having the field <strong>v.dimensions</strong> (= <em>2</em> or <em>3</em>),
+and the coordinates of the vertices in the array part, starting from index 1, as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>{ minx, maxx, miny, maxy }</em> if <em>v.dimensions</em>=<em>2</em> (2D box), or</p>
+</li>
+<li>
+<p><em>{ minx, maxx, miny, maxy, minz, maxz }</em> if <em>v.dimensions</em>=<em>3</em> (3D box).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The coordinates are Lua <a href="http://www.lua.org/manual/5.3/manual.html#2.1">number</a>s
+and can be accessed through standard indexing (that is, <strong>b[1]</strong> is <em>minx</em>, <strong>b[2]</strong>
+is <em>maxx</em>, and so on). They can also be accessed using the following syntactic sugar:
+<strong>b.minx</strong> is an alias for <strong>b[1]</strong>, <strong>b.maxx</strong> is an alias for <strong>b[2]</strong>, and so on.</p>
+</div>
+<div class="paragraph">
+<p>The following constructors can be used to create boxes.</p>
+</div>
+<div id="glmath.boxN" class="ulist">
+<ul>
+<li>
+<p><em>b</em> = <strong>box2</strong>(<em>&#8230;&#8203;</em>)<br>
+<em>b</em> = <strong>box3</strong>(<em>&#8230;&#8203;</em>)<br>
+<span class="small">Create an axis-aligned bounding box.
+The <strong>boxN</strong> function creates a N-dimensional box (where N may be 2 or 3). Values to initialize the box coordinates may be optionally passed as a list of numbers, or as a previously created box (exceeding values are discarded, while missing values are replaced with zeros). No consistency check is performed on the passed coordinates.</span></p>
+</li>
+</ul>
+</div>
+<div id="glmath.tovecN" class="ulist">
+<ul>
+<li>
+<p><em>t</em> = <strong>tobox2</strong>(<em>t</em>)<br>
+<em>t</em> = <strong>tobox3</strong>(<em>t</em>)<br>
+<span class="small">Turn an appropriately sized table into a box, by adding the relevant meta information to it.</span></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">examples</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="lua"><span class="tok-n">b</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">box2</span><span class="tok-p">()</span>               <span class="tok-c1">--&gt; b = [ 0, 0, 0, 0 ]</span>
+<span class="tok-n">b</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">box3</span><span class="tok-p">()</span>               <span class="tok-c1">--&gt; b = [ 0, 0, 0, 0, 0, 0 ]</span>
+<span class="tok-n">b</span> <span class="tok-o">=</span> <span class="tok-n">glmath</span><span class="tok-p">.</span><span class="tok-n">box3</span><span class="tok-p">(</span><span class="tok-o">-</span><span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-o">-</span><span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">)</span>   <span class="tok-c1">--&gt; b = [ -1, 1, -2, 2 ]</span></code></pre>
+</div>
+</div>
+<div id="glmath.isboxN" class="ulist">
+<ul>
+<li>
+<p><em>boolean</em> = <strong>isbox2</strong>(<em>v</em>)<br>
+<em>boolean</em> = <strong>isbox3</strong>(<em>v</em>)<br>
+<span class="small">Check if <em>b</em> is a box of the given dimensions (e.g. <strong>isbox2</strong> checks if <em>b</em> is a 2D box).</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_complex_numbers">Complex numbers</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -1817,8 +1885,8 @@ previously obtained with the <a href="#now">now</a>(&nbsp;) function.</span></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.5<br>
-Last updated 2018-11-19 23:22:53 CET
+Version 0.6<br>
+Last updated 2020-02-29 22:03:09 CET
 </div>
 </div>
 </body>

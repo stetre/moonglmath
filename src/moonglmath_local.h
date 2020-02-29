@@ -36,11 +36,13 @@
 #include "moonglmath.h"
 
 #define vec_t moonglmath_vec_t
+#define box_t moonglmath_box_t
 #define mat_t moonglmath_mat_t
 #define quat_t moonglmath_quat_t
 #define complex_t moonglmath_complex_t
 
 #define VEC_MT MOONGLMATH_VEC_MT
+#define BOX_MT MOONGLMATH_BOX_MT
 #define MAT_MT MOONGLMATH_MAT_MT
 #define QUAT_MT MOONGLMATH_QUAT_MT
 #define COMPLEX_MT MOONGLMATH_COMPLEX_MT
@@ -52,6 +54,11 @@
 #define testvec moonglmath_testvec
 #define checkvec moonglmath_checkvec
 #define pushvec moonglmath_pushvec
+
+#define isbox moonglmath_isbox
+#define testbox moonglmath_testbox
+#define checkbox moonglmath_checkbox
+#define pushbox moonglmath_pushbox
 
 #define ismat moonglmath_ismat
 #define testmat moonglmath_testmat
@@ -86,6 +93,9 @@
 #define vec_step moonglmath_vec_step
 #define vec_smoothstep moonglmath_vec_smoothstep
 #define vec_fade moonglmath_vec_fade
+
+#define box_clear moonglmath_box_clear
+#define box_copy moonglmath_box_copy
 
 #define mat_clear moonglmath_mat_clear
 #define mat_copy moonglmath_mat_copy

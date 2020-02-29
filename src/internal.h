@@ -71,6 +71,10 @@
  * A QUATERNION is implemented as a table, with the elements in the array part:
  * w, x, y, z = q[1], q[2], q[3], q[4]
  *
+ * A BOX is implemented as a table, with the elements in the array part
+ * box = { minx, maxx, miny, maxy } (2D)
+ * box = { minx, maxx, miny, maxy, minz, maxz } (3D)
+ * box.dimensions = 2 or 3 (2D or 3D)
  */
 
 #define FMT "%g"    // format used in __tostring()
@@ -129,6 +133,11 @@ void *optlightuserdata(lua_State *L, int arg);
         return luaL_error(L, "invalid vector size");    \
 } while(0)
 
+#define checkboxdim(L, dim) do {                        \
+    if(((dim)<2 || ((dim)>3)))                          \
+        return luaL_error(L, "invalid box dimensions"); \
+} while(0)
+
 #define checkmatsize(L, nr, nc) do {                    \
     if(((nr)<1) || ((nr)>4) || ((nc)<1) || ((nc)>4))    \
         return luaL_error(L, "invalid matrix size");    \
@@ -154,6 +163,10 @@ int vec_Step(lua_State *L);
 int vec_Smoothstep(lua_State *L);
 #define vec_Fade moonglmath_vec_Fade
 int vec_Fade(lua_State *L);
+
+/* box.c ------------------------------------------------------------------------*/
+
+//@@TBD
 
 /* mat.c ------------------------------------------------------------------------*/
 
@@ -246,6 +259,7 @@ void moonglmath_open_tracing(lua_State *L);
 void moonglmath_open_enums(lua_State *L);
 void moonglmath_open_mat(lua_State *L);
 void moonglmath_open_vec(lua_State *L);
+void moonglmath_open_box(lua_State *L);
 void moonglmath_open_quat(lua_State *L);
 void moonglmath_open_complex(lua_State *L);
 void moonglmath_open_transform(lua_State *L);

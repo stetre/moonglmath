@@ -1,0 +1,55 @@
+
+== Boxes
+
+MoonGLMATH supports 2D and 3D axis-aligned bounding boxes. 
+
+A box *b* is implemented as a table having the field *v.dimensions* (= _2_ or _3_),
+and the coordinates of the vertices in the array part, starting from index 1, as follows:
+
+* _{ minx, maxx, miny, maxy }_ if _v.dimensions_=_2_ (2D box), or
+* _{ minx, maxx, miny, maxy, minz, maxz }_ if _v.dimensions_=_3_ (3D box).
+
+The coordinates are Lua link:++http://www.lua.org/manual/5.3/manual.html#2.1++[number]s
+and can be accessed through standard indexing (that is, *b[1]* is _minx_, *b[2]*
+is _maxx_, and so on). They can also be accessed using the following syntactic sugar: 
+*b.minx* is an alias for *b[1]*, *b.maxx* is an alias for *b[2]*, and so on.
+
+The following constructors can be used to create boxes.
+
+[[glmath.boxN]]
+* _b_ = *box2*(_..._) +
+_b_ = *box3*(_..._) +
+[small]#Create an axis-aligned bounding box. 
+The *boxN* function creates a N-dimensional box (where N may be 2 or 3). Values to initialize the box coordinates may be optionally passed as a list of numbers, or as a previously created box (exceeding values are discarded, while missing values are replaced with zeros). No consistency check is performed on the passed coordinates.#
+
+[[glmath.tovecN]]
+* _t_ = *tobox2*(_t_) +
+_t_ = *tobox3*(_t_) +
+[small]#Turn an appropriately sized table into a box, by adding the relevant meta information to it.#
+
+.examples
+[source,lua]
+----
+b = glmath.box2()               --> b = [ 0, 0, 0, 0 ]
+b = glmath.box3()               --> b = [ 0, 0, 0, 0, 0, 0 ]
+b = glmath.box3(-1, 1, -2, 2)   --> b = [ -1, 1, -2, 2 ]
+----
+
+[[glmath.isboxN]]
+* _boolean_ = *isbox2*(_v_) +
+_boolean_ = *isbox3*(_v_) +
+[small]#Check if _b_ is a box of the given dimensions (e.g. *isbox2* checks if _b_ is a 2D box).#
+
+////
+
+'''
+Boxes have the following functions, also available as methods of their first argument:
+
+TBD
+
+'''
+The following *box operators* are supported:
+
+TBD
+
+////

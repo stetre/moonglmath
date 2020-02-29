@@ -52,6 +52,7 @@ LIBS = -lm -llua
 endif
 ifdef DEBUG
 COPT	+= -DDEBUG
+#COPT	+= -Wfatal-errors
 COPT 	+= -Wshadow -Wsign-compare -Wundef -Wwrite-strings
 COPT	+= -Wdisabled-optimization -Wdeclaration-after-statement
 COPT    += -Wmissing-prototypes -Wstrict-prototypes -Wnested-externs
