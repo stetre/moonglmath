@@ -149,7 +149,10 @@ static int ToString_(lua_State *L, complex_t z)
 #define space (SZ-p)
     char str[SZ];
     int p=0;
-    p = snprintf(str, space, ""FMT" + "FMT"i", creal(z), cimag(z));
+    if(cimag(z)>=0)
+        p = snprintf(str, space, ""FMT"+"FMT"i", creal(z), cimag(z));
+    else
+        p = snprintf(str, space, ""FMT""FMT"i", creal(z), cimag(z));
     lua_pushlstring(L, str, p);
     return 1;
 #undef space
