@@ -1,8 +1,9 @@
+#!/usr/bin/env lua
 -- MoonGLMATH example: vectors.lua
 
-glmath = require("moonglmath")
+local glmath = require("moonglmath")
 
-v = glmath.vec3()
+local v = glmath.vec3()
 print(v)
 
 v = glmath.vec3(11, 22)
@@ -17,9 +18,9 @@ print(v)
 v = glmath.vec2(1, 2, 3, 4)
 print(v)
 
-e1 = glmath.vec3(1,0,0)
-e2 = glmath.vec3(0,1,0)
-e3 = glmath.vec3(0,0,1)
+local e1 = glmath.vec3(1,0,0)
+local e2 = glmath.vec3(0,1,0)
+local e3 = glmath.vec3(0,0,1)
 print("canonical basis", e1, e2, e3)
 
 print("transpose", v, v:transpose())

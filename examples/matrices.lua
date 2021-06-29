@@ -1,8 +1,9 @@
+#!/usr/bin/env lua
 -- MoonGLMATH example: matrices.lua
 
-glmath = require("moonglmath")
+local glmath = require("moonglmath")
 
-m = glmath.mat3()
+local m = glmath.mat3()
 print(m)
 
 m = glmath.mat2x3()
@@ -17,8 +18,8 @@ print(m)
 m = glmath.mat3(m)
 print(m)
 
-v1 = glmath.vec2(1, 2)
-v2 = glmath.vec2(3, 4)
+local v1 = glmath.vec2(1, 2)
+local v2 = glmath.vec2(3, 4)
 m = glmath.mat2(v1, v2)
 print(m)
 
@@ -48,5 +49,5 @@ print("subtraction", m, m-m)
 print("multiplication by a scalar", m, 2*m, m*2)
 print("division by a scalar", m, m/2)
 print("matrix multiplication", m, m*m)
-v = glmath.vec2(1, 2)
+local v = glmath.vec2(1, 2)
 print("matrix-vector multiplication", m, m*v)
