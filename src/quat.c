@@ -85,10 +85,12 @@ static int Quat(lua_State *L)
  * quat([w [, x [, y [, z]]])
  * quat(s, v)
  * quat(mat)
+ * quat(axis, theta)
  */
     {
     quat_t q;
     vec_t v;
+    double halftheta, s;
     size_t vsize, i, arg;
 
     if(testquat(L, 1, q))
@@ -104,6 +106,18 @@ static int Quat(lua_State *L)
         q[1] = v[0];
         q[2] = v[1];
         q[3] = v[2];
+        return pushquat(L, q);
+        }
+
+    if(testvec(L, 1, v, &vsize, NULL)) // rotation quaternion
+        {
+        halftheta = luaL_checknumber(L, 2)/2;
+        s = sin(halftheta);
+        q[0] = cos(halftheta);
+        q[1] = v[0] * s;
+        q[2] = v[1] * s;
+        q[3] = v[2] * s;
+        quat_normalize(q);
         return pushquat(L, q);
         }
 

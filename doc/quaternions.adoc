@@ -16,6 +16,7 @@ The following constructor can be used to create quaternions.
 [[glmath.quat]]
 * _q_ = *quat*([_w_], [_x_], [_y_], [_z_]) +
 _q_ = *quat*(_w_, _v_) +
+_q_ = *quat*(_v~axis~_, _angle_) +
 _q_ = *quat*(_q_) +
 _q_ = *quat*(_m_) +
 [small]#Create a quaternion. 
