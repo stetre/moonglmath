@@ -1326,6 +1326,14 @@ is regarded as the rotation matrix).</span></p>
 <em>m</em> = <strong>q:mat4</strong>( )<br>
 <span class="small">Convert the quaternion <em>q</em> to a 3x3 or a 4x4 rotation matrix.</span></p>
 </li>
+<li>
+<p><em>q<sub>mix</sub></em> = <strong>mix</strong>(<em>q</em>, <em>q<sub>1</sub></em>, <em>k</em>)<br>
+<span class="small">Element-wise blend <em>q<sub>mix</sub> = (1-k)*q +k*q<sub>1</sub></em>, where <em>k</em> is a number.</span></p>
+</li>
+<li>
+<p><em>q<sub>slerp</sub></em> = <strong>slerp</strong>(<em>q</em>, <em>q<sub>1</sub></em>, <em>k</em>)<br>
+<span class="small">Spherical linear interpolation.</span></p>
+</li>
 </ul>
 </div>
 <hr>

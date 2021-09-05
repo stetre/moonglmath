@@ -68,6 +68,12 @@ _q^-1^_ = *inv*(_q_) +
 _m_ = *q:mat4*( ) +
 [small]#Convert the quaternion _q_ to a 3x3 or a 4x4 rotation matrix.#
 
+* _q~mix~_ = *mix*(_q_, _q~1~_, _k_) +
+[small]#Element-wise blend _q~mix~ = (1-k)*q +k*q~1~_, where _k_ is a number.#
+
+* _q~slerp~_ = *slerp*(_q_, _q~1~_, _k_) +
+[small]#Spherical linear interpolation.#
+
 '''
 The following *quaternion operators* are supported:
 

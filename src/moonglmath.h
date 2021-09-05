@@ -159,6 +159,8 @@ void moonglmath_quat_inv(moonglmath_quat_t dst, moonglmath_quat_t q);
 void moonglmath_quat_div(moonglmath_quat_t dst, moonglmath_quat_t q, double s);
 void moonglmath_quat_mul(moonglmath_quat_t dst, moonglmath_quat_t q, moonglmath_quat_t p);
 void moonglmath_quat_qxs(moonglmath_quat_t dst, moonglmath_quat_t q, double s);
+void moonglmath_quat_mix(moonglmath_quat_t dst, moonglmath_quat_t q, moonglmath_quat_t p, double t);
+void moonglmath_quat_slerp(moonglmath_quat_t dst, moonglmath_quat_t q, moonglmath_quat_t p, double t);
 
 /*---------------------------------------------------------------------------*
  | Numbers                                                                   |

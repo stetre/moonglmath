@@ -129,6 +129,13 @@ static int Mix(lua_State *L)
     if(lua_isnumber(L,1)) return num_Mix(L);
     if(isvec(L,1)) return vec_Mix(L);
     if(ismat(L,1)) return mat_Mix(L);
+    if(isquat(L,1)) return quat_Mix(L);
+    return badarg(L, 1);
+    }
+
+static int Slerp(lua_State *L)
+    {
+    if(isquat(L,1)) return quat_Slerp(L);
     return badarg(L, 1);
     }
 
@@ -176,6 +183,7 @@ static const struct luaL_Reg Functions[] =
         { "column", Column },
         { "clamp", Clamp },
         { "mix", Mix },
+        { "slerp", Slerp },
         { "step", Step },
         { "smoothstep", Smoothstep },
         { "fade", Fade },

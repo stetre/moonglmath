@@ -291,6 +291,45 @@ void quat_qxs(quat_t dst, quat_t q, double s)
         dst[i] = q[i] * s;
     }
 
+void quat_mix(quat_t dst, quat_t q, quat_t p, double t)
+    {
+    double t1 = 1.0f - t;
+    dst[0] = t1*q[0] + t*p[0];
+    dst[1] = t1*q[1] + t*p[1];
+    dst[2] = t1*q[2] + t*p[2];
+    dst[3] = t1*q[3] + t*p[3];
+    }
+
+void quat_slerp(quat_t dst, quat_t q, quat_t p, double t)
+/* Rfr: "3D Math Primer for Graphics and Game Development", by F. Dunn, I. Parberry,
+ *      AK Peters/CRC Press, section 8.5.11.
+ */
+    {
+    double c, s, theta, t0, t1;
+    c = q[0]*p[0] + q[1]*p[1] + q[2]*p[2] + q[3]*p[3];
+    if(c < 0.0f)
+        {
+        c = -c;
+        p[0] = - p[0];
+        p[1] = - p[1];
+        p[2] = - p[2];
+        p[3] = - p[3];
+        }
+    if(c > .9999f) // q and p are very close: use linear interpolation
+        quat_mix(dst, q, p, t);
+    else
+        {
+        s = sqrt(1.0f - c*c);
+        theta = atan2(s, c);
+        t0 = sin((1.0f - t)*theta)/s;
+        t1 = sin(t*theta)/s;
+        dst[0] = t0*q[0] + t1*p[0];
+        dst[1] = t0*q[1] + t1*p[1];
+        dst[2] = t0*q[2] + t1*p[2];
+        dst[3] = t0*q[3] + t1*p[3];
+        }
+    }
+
 /*------------------------------------------------------------------------------*
  | Metamethods                                                                  |
  *------------------------------------------------------------------------------*/
@@ -457,7 +496,6 @@ int quat_Parts(lua_State *L)
     return 2;
     }
 
-
 /*--------------------------------------------------------------------------*
  | quaternion <-> rotation matrix conversion                                |
  *--------------------------------------------------------------------------*/
@@ -548,10 +586,31 @@ int quat_FromMat(lua_State *L)
     }
 
 
-//@@ TODO slerp(), lerp(), (angle, v) -> quaternion, rotate()
-//@@ TODO quaternion <-> Euler
- 
+int quat_Mix(lua_State *L)
+    {
+    quat_t dst, q, p;
+    double t;
+    checkquat(L, 1, q);
+    checkquat(L, 2, p);
+    t = luaL_checknumber(L, 3);
+    quat_mix(dst, q, p, t);
+    return pushquat(L, dst);
+    }
 
+int quat_Slerp(lua_State *L)
+    {
+    quat_t dst, q, p;
+    double t;
+    checkquat(L, 1, q);
+    checkquat(L, 2, p);
+    t = luaL_checknumber(L, 3);
+    quat_slerp(dst, q, p, t);
+    return pushquat(L, dst);
+    }
+
+
+//@@ TODO rotate()
+//@@ TODO quaternion <-> Euler
 
 static const struct luaL_Reg Metamethods[] = 
     {
@@ -576,6 +635,8 @@ static const struct luaL_Reg Methods[] =
         { "inv", quat_Inv },
         { "mat3", quat_Mat3 },
         { "mat4", quat_Mat4 },
+        { "mix", quat_Mix },
+        { "slerp", quat_Slerp },
         { NULL, NULL } /* sentinel */
     };
 

@@ -133,6 +133,8 @@
 #define quat_div moonglmath_quat_div
 #define quat_mul moonglmath_quat_mul
 #define quat_qxs moonglmath_quat_qxs
+#define quat_mix moonglmath_quat_mix
+#define quat_slerp moonglmath_quat_slerp
 
 #define clamp moonglmath_clamp
 #define mix moonglmath_mix

@@ -210,6 +210,10 @@ int quat_Parts(lua_State *L);
 int quat_Conj(lua_State *L);
 #define quat_FromMat moonglmath_quat_FromMat
 int quat_FromMat(lua_State *L);
+#define quat_Mix moonglmath_quat_Mix
+int quat_Mix(lua_State *L);
+#define quat_Slerp moonglmath_quat_Slerp
+int quat_Slerp(lua_State *L);
 
 /* complex.c ------------------------------------------------------------------------*/
 #define complex_Norm moonglmath_complex_Norm
