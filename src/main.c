@@ -76,6 +76,7 @@ int luaopen_moonglmath(lua_State *L)
     if(luaL_dostring(L, "require('moonglmath.matsugar')") != 0) lua_error(L);
     if(luaL_dostring(L, "require('moonglmath.quatsugar')") != 0) lua_error(L);
     if(luaL_dostring(L, "require('moonglmath.complexsugar')") != 0) lua_error(L);
+    if(luaL_dostring(L, "require('moonglmath.utils')") != 0) lua_error(L);
     lua_pushnil(L);  lua_setglobal(L, "moonglmath");
 
     return 1;

@@ -20,3 +20,14 @@ with _gettimeofday(3)_ otherwise.#
 [small]#Returns the time in seconds (a Lua number) elapsed since the time _t_, 
 previously obtained with the <<now, now>>(&nbsp;) function.#
 
+[[stats]]
+* _mean_, _var_, _min_, _max_ = *stats*(_{number}_) +
+[small]#Computes the mean, variance, and the minimum and maximum values for the given array
+of numbers.#
+
+[[dumpdata]]
+* *dumpdata*(_{number}_, _filename_, [_mode='w'_]) +
+[small]#Writes the given array of numbers to the given file file (plain ascii format, two columns index-value). +
+The data can then be displayed, for example, using gnuplot (_gnuplot> plot "filename" using 1:2 with lines_). +
+_mode_ is the same as in http://www.lua.org/manual/5.3/manual.html#pdf-io.open[io.open](&nbsp;).#
+
