@@ -61,6 +61,7 @@ int luaopen_moonglmath(lua_State *L)
     moonglmath_open_tracing(L);
     moonglmath_open_vec(L);
     moonglmath_open_box(L);
+    moonglmath_open_rect(L);
     moonglmath_open_mat(L);
     moonglmath_open_quat(L);
     moonglmath_open_complex(L);
@@ -73,6 +74,7 @@ int luaopen_moonglmath(lua_State *L)
     lua_pushvalue(L, -1); lua_setglobal(L, "moonglmath");
     if(luaL_dostring(L, "require('moonglmath.vecsugar')") != 0) lua_error(L);
     if(luaL_dostring(L, "require('moonglmath.boxsugar')") != 0) lua_error(L);
+    if(luaL_dostring(L, "require('moonglmath.rectsugar')") != 0) lua_error(L);
     if(luaL_dostring(L, "require('moonglmath.matsugar')") != 0) lua_error(L);
     if(luaL_dostring(L, "require('moonglmath.quatsugar')") != 0) lua_error(L);
     if(luaL_dostring(L, "require('moonglmath.complexsugar')") != 0) lua_error(L);

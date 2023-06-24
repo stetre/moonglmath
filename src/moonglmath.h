@@ -45,6 +45,7 @@
 
 typedef double moonglmath_vec_t[4];
 typedef double moonglmath_box_t[8];
+typedef double moonglmath_rect_t[4];
 typedef double moonglmath_mat_t[4][4];
 typedef double moonglmath_quat_t[4];
 typedef double complex moonglmath_complex_t;
@@ -52,6 +53,7 @@ typedef double complex moonglmath_complex_t;
 /* Metatables names (keys in the Lua registry) */
 #define MOONGLMATH_VEC_MT "moonglmath_vec"
 #define MOONGLMATH_BOX_MT "moonglmath_box"
+#define MOONGLMATH_RECT_MT "moonglmath_rect"
 #define MOONGLMATH_MAT_MT "moonglmath_mat"
 #define MOONGLMATH_QUAT_MT "moonglmath_quat"
 #define MOONGLMATH_COMPLEX_MT "moonglmath_complex"
@@ -61,6 +63,7 @@ int moonglmath_checkmetatable(lua_State *L, int arg, const char *metatable);
 
 #define moonglmath_isvec(L, arg) moonglmath_testmetatable((L), arg, MOONGLMATH_VEC_MT)
 #define moonglmath_isbox(L, arg) moonglmath_testmetatable((L), arg, MOONGLMATH_BOX_MT)
+#define moonglmath_isrect(L, arg) moonglmath_testmetatable((L), arg, MOONGLMATH_RECT_MT)
 #define moonglmath_ismat(L, arg) moonglmath_testmetatable((L), arg, MOONGLMATH_MAT_MT)
 #define moonglmath_isquat(L, arg) moonglmath_testmetatable((L), arg, MOONGLMATH_QUAT_MT)
 #define moonglmath_iscomplex(L, arg) moonglmath_testmetatable((L), arg, MOONGLMATH_COMPLEX_MT)
@@ -72,6 +75,10 @@ int moonglmath_pushvec(lua_State *L, moonglmath_vec_t v, size_t vsize, size_t si
 int moonglmath_testbox(lua_State *L, int arg, moonglmath_box_t b, size_t *dim);
 int moonglmath_checkbox(lua_State *L, int arg, moonglmath_box_t b, size_t *dim);
 int moonglmath_pushbox(lua_State *L, moonglmath_box_t b, size_t dim);
+
+int moonglmath_testrect(lua_State *L, int arg, moonglmath_rect_t b);
+int moonglmath_checkrect(lua_State *L, int arg, moonglmath_rect_t b);
+int moonglmath_pushrect(lua_State *L, moonglmath_rect_t b);
 
 int moonglmath_testmat(lua_State *L, int arg, moonglmath_mat_t m, size_t *nr, size_t *nc);
 int moonglmath_checkmat(lua_State *L, int arg, moonglmath_mat_t m, size_t *nr, size_t *nc);
@@ -114,6 +121,13 @@ void moonglmath_vec_fade(moonglmath_vec_t dst, moonglmath_vec_t v, moonglmath_ve
 
 #define moonglmath_box_clear(b)    memset((b), 0, sizeof(moonglmath_box_t))
 #define moonglmath_box_copy(dst,b) memcpy((dst), (b), sizeof(moonglmath_box_t))
+
+/*---------------------------------------------------------------------------*
+ | Rect                                                                      |
+ *---------------------------------------------------------------------------*/
+
+#define moonglmath_rect_clear(b)    memset((b), 0, sizeof(moonglmath_rect_t))
+#define moonglmath_rect_copy(dst,b) memcpy((dst), (b), sizeof(moonglmath_rect_t))
 
 /*---------------------------------------------------------------------------*
  | Matrix                                                                    |

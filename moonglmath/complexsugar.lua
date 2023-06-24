@@ -36,22 +36,22 @@ rd.im = function(self) return self[2] end
 wr.re, wr.im = 1,2
 
 mt.__index = function(self, key) 
-	local f = rd[key]
-	if f then return f(self) end
-	return methods[key]
+   local f = rd[key]
+   if f then return f(self) end
+   return methods[key]
 end
 
 mt.__newindex = function(self, key, val)
-	if type(key) == "number" then
-		rawset(self, key, val)
-		return
-	end
-	local i = wr[key]
-	if i then 
-		rawset(self, i, val)
-	else
-		error("cannot write field '" .. key .."'", 2)
-	end
+   if type(key) == "number" then
+      rawset(self, key, val)
+      return
+   end
+   local i = wr[key]
+   if i then 
+      rawset(self, i, val)
+   else
+      error("cannot write field '" .. key .."'", 2)
+   end
 end
 
 moonglmath.tocomplex = function(t) setmetatable(t, mt) return t end

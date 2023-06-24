@@ -1,0 +1,46 @@
+
+== Rectangles
+
+MoonGLMATH supports 2D axis-aligned rectangles, which are essentially the same as 2D boxes but specified differently.
+
+A rect *r* is implemented as a table having, in the array part, the coordinates _(x, y)_ of its lower-left corner and its width _w_ and height _h_, as follows: _{ x, y, w, h }_.
+
+The coordinates are Lua link:++http://www.lua.org/manual/5.3/manual.html#2.1++[number]s
+and can be accessed through standard indexing (that is, *r[1]* is _x_, *r[2]*
+is _y_, and so on). They can also be accessed using the following syntactic sugar: 
+*r.x* is an alias for *r[1]*, *r.y* is an alias for *r[2]*, and so on.
+
+The following constructor can be used to create rects.
+
+[[glmath.rect]]
+* _r_ = *rect*(_..._) +
+[small]#Creates a 2D axis-aligned rect. Values to initialize the rect may be optionally passed as a list of numbers, or as a previously created rect (exceeding values are discarded, while missing values are replaced with zeros). No consistency check is performed on the passed coordinates.#
+
+[[glmath.torect]]
+* _t_ = *torect*(_t_) +
+[small]#Turn an appropriately sized table into a rect, by adding the relevant meta information to it.#
+
+.examples
+[source,lua]
+----
+r = glmath.rect()              --> r = [ 0, 0, 0, 0 ]
+r = glmath.rect(-1, 1, 2, 3)   --> r = [ -1, 1, 2, 3 ]
+----
+
+[[glmath.isrect]]
+* _boolean_ = *isrect*(_r_) +
+[small]#Check if _r_ is a rect.#
+
+////
+
+'''
+Boxes have the following functions, also available as methods of their first argument:
+
+TBD
+
+'''
+The following *rect operators* are supported:
+
+TBD
+
+////

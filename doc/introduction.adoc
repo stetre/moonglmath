@@ -6,7 +6,7 @@ https://github.com/stetre/moongl[MoonGL] and the other libraries of the
 https://github.com/stetre/moonlibs[MoonLibs collection] (but it does not depend on them, and viceversa).
 
 By now it has only the minimal features needed for graphics programming: real vectors and real matrices
-up to 4 and 4x4 dimensions, quaternions, 2D and 3D axis-aligned bounding boxes, complex numbers, and a few functions to generate transformation matrices.
+up to 4 and 4x4 dimensions, quaternions, 2D and 3D axis-aligned boxes, 2D axis-aligned rectangles, complex numbers, and a few functions to generate transformation matrices.
 
 Like MoonGL and the other <<see-also, companion libraries>>, it is not designed for
 performance but for ease of use (the main purpose of these libraries is to lighten the burden

@@ -24,6 +24,8 @@ include::quaternions.adoc[]
 
 include::boxes.adoc[]
 
+include::rects.adoc[]
+
 include::complex.adoc[]
 
 include::transforms.adoc[]

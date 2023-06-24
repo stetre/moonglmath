@@ -37,12 +37,14 @@
 
 #define vec_t moonglmath_vec_t
 #define box_t moonglmath_box_t
+#define rect_t moonglmath_rect_t
 #define mat_t moonglmath_mat_t
 #define quat_t moonglmath_quat_t
 #define complex_t moonglmath_complex_t
 
 #define VEC_MT MOONGLMATH_VEC_MT
 #define BOX_MT MOONGLMATH_BOX_MT
+#define RECT_MT MOONGLMATH_RECT_MT
 #define MAT_MT MOONGLMATH_MAT_MT
 #define QUAT_MT MOONGLMATH_QUAT_MT
 #define COMPLEX_MT MOONGLMATH_COMPLEX_MT
@@ -59,6 +61,11 @@
 #define testbox moonglmath_testbox
 #define checkbox moonglmath_checkbox
 #define pushbox moonglmath_pushbox
+
+#define isrect moonglmath_isrect
+#define testrect moonglmath_testrect
+#define checkrect moonglmath_checkrect
+#define pushrect moonglmath_pushrect
 
 #define ismat moonglmath_ismat
 #define testmat moonglmath_testmat
@@ -96,6 +103,9 @@
 
 #define box_clear moonglmath_box_clear
 #define box_copy moonglmath_box_copy
+
+#define rect_clear moonglmath_rect_clear
+#define rect_copy moonglmath_rect_copy
 
 #define mat_clear moonglmath_mat_clear
 #define mat_copy moonglmath_mat_copy

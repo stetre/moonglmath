@@ -67,20 +67,20 @@ wr._44 = function() return 4, 4 end
 
 
 mt.__index = function(self, key) 
-	local f = rd[key]
-	if f then return f(self) end
-	return methods[key]
+   local f = rd[key]
+   if f then return f(self) end
+   return methods[key]
 end
 
 mt.__newindex = function(self, key, val)
-	local f = wr[key]
-	if f then 
-		local i,j = f()
-		local row = self[i]
-		rawset(row, j, val)
-	else
-		rawset(self, key, val)
-	end
+   local f = wr[key]
+   if f then 
+      local i,j = f()
+      local row = self[i]
+      rawset(row, j, val)
+   else
+      rawset(self, key, val)
+   end
 end
 
 moonglmath.tomat2 = function(t) setmetatable(t, mt) t.rows=2 t.columns=2 return t end

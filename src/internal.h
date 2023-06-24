@@ -75,6 +75,9 @@
  * box = { minx, maxx, miny, maxy } (2D)
  * box = { minx, maxx, miny, maxy, minz, maxz } (3D)
  * box.dimensions = 2 or 3 (2D or 3D)
+ *
+ * A RECT is implemented as a table, with the elements in the array part
+ * rect = { x, y, w, h }
  */
 
 #define FMT "%g"    // format used in __tostring()
@@ -167,6 +170,11 @@ int vec_Fade(lua_State *L);
 /* box.c ------------------------------------------------------------------------*/
 
 //@@TBD
+
+/* rect.c -----------------------------------------------------------------------*/
+
+//@@TBD
+
 
 /* mat.c ------------------------------------------------------------------------*/
 
@@ -264,6 +272,7 @@ void moonglmath_open_enums(lua_State *L);
 void moonglmath_open_mat(lua_State *L);
 void moonglmath_open_vec(lua_State *L);
 void moonglmath_open_box(lua_State *L);
+void moonglmath_open_rect(lua_State *L);
 void moonglmath_open_quat(lua_State *L);
 void moonglmath_open_complex(lua_State *L);
 void moonglmath_open_transform(lua_State *L);
