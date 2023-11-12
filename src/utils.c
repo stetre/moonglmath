@@ -109,7 +109,7 @@ void Free(lua_State *L, void *ptr)
  | Time utilities                                                               |
  *------------------------------------------------------------------------------*/
 
-#if defined(LINUX)
+#if defined(LINUX) || defined(MACOS)
 #include <unistd.h> /* for usleep */
 
 #if 0

@@ -32,6 +32,9 @@
 #elif defined(MINGW)
 #define AlignedAlloc _aligned_malloc
 #define AlignedFree  _aligned_free
+#elif defined(MACOS)
+#define AlignedAlloc(alignment, size) NULL /*@@TODO*/
+#define AlignedFree free
 #else
 #error "Cannot determine platform"
 #endif
@@ -79,11 +82,15 @@ static int CreatePack(lua_State *L, int arg, size_t alignment)
     int type = checktype(L, arg);
     size_t n = toflattable(L, arg+1);
     size_t size = n * sizeoftype(type);
+    (void)alignment;
 
     if(size == 0) 
         return luaL_argerror(L, arg+1, errstring(ERR_LENGTH));
-
+#if defined(MACOS) /* @@TODO */
+    ptr = (char*)Malloc(L, size);
+#else
     ptr = (char*)AlignedAlloc(alignment, size);
+#endif
     if(!ptr)
         return luaL_error(L, "failed to allocate page aligned memory");
 
@@ -104,6 +111,7 @@ static int Create(lua_State *L, int arg, size_t alignment)
     const char *data = NULL;
     char *ptr;
     size_t size;
+    (void)alignment;
 
     if(lua_type(L, arg) == LUA_TSTRING)
         {
@@ -120,8 +128,11 @@ static int Create(lua_State *L, int arg, size_t alignment)
         if(size == 0) 
             return luaL_argerror(L, arg, errstring(ERR_VALUE));
         }
-
-    ptr = (char*)AlignedAlloc(alignment, size); // (char*)Malloc(L, size);
+#if defined(MACOS) /* @@TODO */
+    ptr = (char*)Malloc(L, size);
+#else
+    ptr = (char*)AlignedAlloc(alignment, size);
+#endif
     if(!ptr)
         return luaL_error(L, "failed to allocate page aligned memory");
             
