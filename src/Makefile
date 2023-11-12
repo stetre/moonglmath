@@ -2,8 +2,14 @@
 ifdef MINGW_PREFIX
 MINGW=1
 else
-LINUX=1
+ OS=$(shell uname)
+ ifeq ($(OS),Darwin)
+ MACOS=1
+ else
+ LINUX=1
+ endif
 endif
+
 
 # Lua version
 LUAVER?=$(shell lua -e 'print(string.match(_VERSION, "%d+%.%d+") or "5.3")')
@@ -12,13 +18,31 @@ ifeq ($(LUAVER),)
 LUAVER=5.3
 endif
 
+ifdef MACOS
+DLL_EXT=dylib
+endif
+
+ifdef LINUX
+DLL_EXT=so
+endif
+
+ifdef MINGW
+DLL_EXT=dll
+endif
+
 # Base install directory
+ifdef MACOS
+PREFIX?=/usr/local
+endif
+
 ifdef LINUX
 PREFIX?=/usr/local
 endif
+
 ifdef MINGW
 PREFIX?=$(MINGW_PREFIX)
 endif
+
 
 # Directory where to install Lua modules
 L_DIR=$(PREFIX)/share/lua/$(LUAVER)
@@ -43,6 +67,14 @@ COPT	+= -Wall -Wextra -Wpedantic
 COPT	+= -DCOMPAT53_PREFIX=moonglmath_compat_
 COPT    += -std=gnu99
 COPT 	+= -DLUAVER=$(LUAVER)
+
+ifdef MACOS
+COPT    += -fpic
+COPT	+= -DMACOS
+INCDIR = -I/usr/include -I/usr/include/lua$(LUAVER) -I$(PREFIX)/include/lua$(LUAVER)
+LIBDIR = -L/usr/lib -L$(PREFIX)/lib
+LIBS = -lm -llua$(LUAVER)
+endif
 ifdef LINUX
 COPT    += -fpic
 COPT	+= -DLINUX
@@ -87,6 +119,11 @@ install:
 	@-cp -fpv $(Tgt).h $(H_DIR)
 	@-cp -fpv $(Tgt)_local.h $(H_DIR)
 	@-cp -fpvr ../$(Tgt) $(L_DIR)
+ifdef MACOS
+	@-cp -fpv $(Tgt).$(DLL_EXT) $(C_DIR)
+	@-ln -fsv $(C_DIR)/$(Tgt).$(DLL_EXT) $(S_DIR)/lib$(Tgt).$(DLL_EXT)
+	@-ln -fsv $(C_DIR)/$(Tgt).$(DLL_EXT) $(C_DIR)/$(Tgt).so
+endif
 ifdef LINUX
 	@-cp -fpv $(Tgt).so $(C_DIR)
 	@-ln -fsv $(C_DIR)/$(Tgt).so $(S_DIR)/lib$(Tgt).so
@@ -109,6 +146,9 @@ symbols: build
 	@objdump -T $(Tgt).so > $(Tgt).symbols
 
 $(Tgt):		$(Objs)
+ifdef MACOS
+	@-$(CC) -shared -o $(Tgt).$(DLL_EXT) $(Objs) $(LIBDIR) $(LIBS)
+endif
 ifdef LINUX
 	@-$(CC) -shared -o $(Tgt).so $(Objs) $(LIBDIR) $(LIBS)
 endif
